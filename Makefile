@@ -1,8 +1,9 @@
 CC=arm-none-eabi-gcc
 MACH=cortex-m4
-CFLAGS= -c -mcpu=$(MACH) -mthumb -std=gnu11 -O0
+CFLAGS= -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0
+LDFLAGS= -nostdlib -T stm32_ls.ld -Wl,-Map=final.map
 
-all: main.o stm32_startup.o
+all: main.o stm32_startup.o final.elf
 
 # target and recipe
 # to analyze the .o: 
@@ -14,5 +15,8 @@ main.o: Src/main.c
 stm32_startup.o: stm32_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
 
+final.elf: main.o stm32_startup.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
 clean:
-	rm -rf *.o *.elf
+	rm -rf *.o *.elf *.bin *.map

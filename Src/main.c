@@ -18,10 +18,16 @@
 
 // Function prototype
 void delay(volatile uint32_t count);
+uint32_t teste;
 
 int main(void) {
+    uint32_t teste_data;
+    teste_data = 12;
+    (void)teste_data;
     // Enable GPIOA clock
+    teste = 12;
     RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    (void)teste;
 
     // Set GPIOA pin 3 as output
     GPIOA_MODER &= ~(3U << (3 * 2)); // Clear MODER3
