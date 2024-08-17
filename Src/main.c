@@ -42,3 +42,10 @@ void delay(volatile uint32_t count) {
         __asm("NOP"); // No operation for delay
     }
 }
+
+void reset_handler(void) {
+    // Initialization code
+    while (1) {
+        // Main loop
+    }
+}
