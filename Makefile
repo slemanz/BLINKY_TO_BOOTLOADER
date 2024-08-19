@@ -16,10 +16,13 @@ all: main.o stm32_startup.o final.elf
 main.o: Src/main.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ 
 
+gpio.o: Drivers/Src/gpio.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ 
+
 stm32_startup.o: stm32_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
 
-final.elf: main.o stm32_startup.o
+final.elf: main.o stm32_startup.o gpio.o
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary final.elf Build/flash.bin
 	$(OBJCOPY) -O binary final.elf ~/opt/SEGGER/flash.bin

@@ -97,9 +97,18 @@ typedef struct
 #define GPIO_PIN_PD			2
 
 /*
- * @GPIO_ALTFN
+ * @GPIO_PIN_ALTFN
  * GPIO alternate functions
  */
+
+#define GPIO_PIN_ALTFN_0            0
+#define GPIO_PIN_ALTFN_1            1
+#define GPIO_PIN_ALTFN_2            2
+#define GPIO_PIN_ALTFN_3            3
+#define GPIO_PIN_ALTFN_4            4
+#define GPIO_PIN_ALTFN_5            5
+#define GPIO_PIN_ALTFN_6            6
+#define GPIO_PIN_ALTFN_7            7
 
 
 
@@ -127,7 +136,6 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
 uint8_t  GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx);
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
-void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value);
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 
