@@ -4,6 +4,8 @@ CFLAGS= -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0
 LDFLAGS= -nostdlib -T stm32_ls.ld -Wl,-Map=final.map
 OBJCOPY=arm-none-eabi-objcopy
 
+INCLUDES= -I Drivers/Inc/
+
 
 all: main.o stm32_startup.o final.elf
 
@@ -12,7 +14,7 @@ all: main.o stm32_startup.o final.elf
 #	arm-none-eabi-objdump -h main.o
 #	arm-none-eabi-objdump -d main.o > main_log
 main.o: Src/main.c
-	$(CC) $(CFLAGS) -o $@ $^ 
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ 
 
 stm32_startup.o: stm32_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
