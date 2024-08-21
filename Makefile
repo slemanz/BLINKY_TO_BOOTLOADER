@@ -7,22 +7,25 @@ OBJCOPY=arm-none-eabi-objcopy
 INCLUDES= -I Drivers/Inc/
 
 
-all: main.o stm32_startup.o final.elf
+all: Build/main.o Build/stm32_startup.o final.elf
 
 # target and recipe
 # to analyze the .o: 
 #	arm-none-eabi-objdump -h main.o
 #	arm-none-eabi-objdump -d main.o > main_log
-main.o: Src/main.c
+Build/main.o: Src/main.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ 
 
-gpio.o: Drivers/Src/gpio.c
+Build/gpio.o: Drivers/Src/gpio.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ 
 
-stm32_startup.o: stm32_startup.c
+Build/stm32_startup.o: stm32_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
 
-final.elf: main.o stm32_startup.o gpio.o
+Build/systick.o: Drivers/Src/systick.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ 
+
+final.elf: Build/main.o Build/stm32_startup.o Build/gpio.o Build/systick.o
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary final.elf Build/flash.bin
 	$(OBJCOPY) -O binary final.elf ~/opt/SEGGER/flash.bin
@@ -31,4 +34,4 @@ final.elf: main.o stm32_startup.o gpio.o
 
 
 clean:
-	rm -rf *.o *.elf *.map
+	rm -rf *.o *.elf *.map Build/*.o

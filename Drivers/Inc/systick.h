@@ -8,6 +8,6 @@
 #define CTRL_CLKSRC                 (1U << 2)
 #define CTRL_COUNTFLAG              (1U << 16)
 
-void systickDelayMs(int n);
+void systickDelayMs(int delay);
 
 #endif
