@@ -96,6 +96,13 @@
 #define USART1_BASEADDR						(APB2PERIPH_BASE + 0x1000U)
 #define USART6_BASEADDR						(APB2PERIPH_BASE + 0x1400U)
 
+/*
+ *  Base adress of systick	
+ */
+
+#define SCS_BASE            				(0xE000E000UL)
+#define SYSTICK_BASEADDR					(SCS_BASE + 0x0010UL)
+
 
 
 /*******************peripheral register definition structures*******************/
@@ -162,6 +169,14 @@ typedef struct{
 	__vo uint32_t PR;
 }EXTI_RegDef_t;
 
+typedef struct
+{
+  __vo uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
+  __vo uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
+  __vo uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
+  __vo uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
+} SysTick_RegDef_t;
+
 
 /*
  * 	peripheral definitions (Peripheral base address typecasted to xxx_RegDef_t)
@@ -179,6 +194,8 @@ typedef struct{
 #define SYSCFG			((SYSCFG_RegDef_t*)SYSCFG_BASEADDR	)
 
 #define EXTI			((EXTI_RegDef_t*)EXTI_BASEADDR)
+
+#define SysTick         ((SysTick_RegDef_t*)SYSTICK_BASEADDR) 
 
 
 /*
@@ -336,5 +353,6 @@ typedef struct{
  */
 
 #include "gpio.h"
+#include "systick.h"
 
 #endif
