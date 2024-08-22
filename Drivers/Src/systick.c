@@ -19,3 +19,22 @@ void systickDelayMs(int delay)
 
     SysTick->CTRL = 0;
 }
+
+
+void systick_1hz_interrupt(void)
+{
+    // reload with number of clocks persecond
+    SysTick->LOAD   = ONE_SEC_LOAD - 1;
+
+    // clear systick current value register
+    SysTick->VAL = 0;
+
+
+    // Enable systick and select internal clk src
+    SysTick->CTRL = CTRL_ENABLE | CTRL_CLKSRC;
+
+    // enable systick interrupt
+    SysTick->CTRL |= CTRL_TICKINT;
+
+
+}

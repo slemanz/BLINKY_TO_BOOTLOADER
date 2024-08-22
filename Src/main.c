@@ -1,8 +1,13 @@
 #include "stm32f401xx.h"
 
 
-// Function prototype
-void delay_cycles(uint32_t cycles);
+// Function delay
+void delay_cycles(uint32_t cycles)
+{
+    while (cycles-- > 0) {
+        __asm("NOP"); // No operation for delay
+    }
+}
 
 // Define led
 #define LED_PORT        GPIOA
@@ -28,17 +33,22 @@ void gpio_setup(void)
 int main(void)
  {
     gpio_setup();
+    systick_1hz_interrupt();
 
     while (1)
     {
-        GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
-        systickDelayMs(1000);
+
     }
 }
 
-void delay_cycles(uint32_t cycles)
+static void systick_callback(void)
 {
-    while (cycles-- > 0) {
-        __asm("NOP"); // No operation for delay
-    }
+    GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
+}
+
+
+void SysTick_Handler(void)
+{
+    // do something
+    systick_callback();
 }
