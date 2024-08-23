@@ -1,7 +1,18 @@
 #include "stm32f401xx.h"
 
 #define CPU_FREQ        (16000000)
-#define SYSTICK_FREQ    (1000) // a
+#define SYSTICK_FREQ    (1000) // in hz (1000hz == every 1 ms)
+
+volatile uint64_t ticks = 0;
+void SysTick_Handler(void)
+{
+    ticks++;
+}
+
+static uint64_t get_ticks(void)
+{
+    return ticks;
+}
 
 // Function delay
 void delay_cycles(uint32_t cycles)
@@ -28,29 +39,32 @@ void gpio_setup(void)
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
     GPIO_Init(&GpioLed);
-    GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_SET);
+    GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
+}
+
+void systick_setup(void)
+{
+    systick_set_frequency(SYSTICK_FREQ, CPU_FREQ);
+    systick_counter_enable();
+    systick_interrupt_enable();
 }
 
 
 int main(void)
  {
     gpio_setup();
-    systick_1hz_interrupt();
+    systick_setup();
+
+    uint64_t start_time = get_ticks();
 
     while (1)
     {
+        if((get_ticks() - start_time) >= 1000)
+        {
+            GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
+            start_time = get_ticks();
+        }
 
+        // Do useful work
     }
-}
-
-static void systick_callback(void)
-{
-    GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
-}
-
-
-void SysTick_Handler(void)
-{
-    // do something
-    systick_callback();
 }
