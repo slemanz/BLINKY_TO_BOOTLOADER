@@ -38,3 +38,15 @@ void systick_1hz_interrupt(void)
 
 
 }
+
+void systick_counter_enable(void)
+{
+    // Enable systick and select internal clk src
+    SysTick->CTRL = CTRL_ENABLE | CTRL_CLKSRC;
+}
+
+void systick_interrupt_enable(void)
+{
+    // enable systick interrupt
+    SysTick->CTRL |= CTRL_TICKINT;
+}

@@ -14,4 +14,7 @@
 void systickDelayMs(int delay);
 void systick_1hz_interrupt(void);
 
+void systick_counter_enable(void);
+void systick_interrupt_enable(void);
+
 #endif

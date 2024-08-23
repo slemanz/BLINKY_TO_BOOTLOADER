@@ -1,5 +1,7 @@
 #include "stm32f401xx.h"
 
+#define CPU_FREQ        (16000000)
+#define SYSTICK_FREQ    (1000) // a
 
 // Function delay
 void delay_cycles(uint32_t cycles)
