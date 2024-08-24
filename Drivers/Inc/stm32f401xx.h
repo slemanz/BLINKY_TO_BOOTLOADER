@@ -97,12 +97,16 @@
 #define USART6_BASEADDR						(APB2PERIPH_BASE + 0x1400U)
 
 /*
- *  Base adress of systick	
+ *  Base adress of systick	and timers
  */
 
 #define SCS_BASE            				(0xE000E000UL)
 #define SYSTICK_BASEADDR					(SCS_BASE + 0x0010UL)
 
+#define TIM2_BASEADDR						(APB1PERIPH_BASE + 0x0000UL)
+#define TIM3_BASEADDR						(APB1PERIPH_BASE + 0x0400UL)
+#define TIM4_BASEADDR						(APB1PERIPH_BASE + 0x0800UL)
+#define TIM5_BASEADDR						(APB1PERIPH_BASE + 0x0C00UL)
 
 
 /*******************peripheral register definition structures*******************/
@@ -175,7 +179,32 @@ typedef struct
   __vo uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
   __vo uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
   __vo uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
-} SysTick_RegDef_t;
+}SysTick_RegDef_t;
+
+typedef struct
+{
+	__vo uint32_t CR1;         /*!< TIM control register 1,              Address offset: 0x00 */
+  	__vo uint32_t CR2;         /*!< TIM control register 2,              Address offset: 0x04 */
+	__vo uint32_t SMCR;        /*!< TIM slave mode control register,     Address offset: 0x08 */
+	__vo uint32_t DIER;        /*!< TIM DMA/interrupt enable register,   Address offset: 0x0C */
+	__vo uint32_t SR;          /*!< TIM status register,                 Address offset: 0x10 */
+	__vo uint32_t EGR;         /*!< TIM event generation register,       Address offset: 0x14 */
+	__vo uint32_t CCMR1;       /*!< TIM capture/compare mode register 1, Address offset: 0x18 */
+	__vo uint32_t CCMR2;       /*!< TIM capture/compare mode register 2, Address offset: 0x1C */
+	__vo uint32_t CCER;        /*!< TIM capture/compare enable register, Address offset: 0x20 */
+	__vo uint32_t CNT;         /*!< TIM counter register,                Address offset: 0x24 */
+	__vo uint32_t PSC;         /*!< TIM prescaler,                       Address offset: 0x28 */
+	__vo uint32_t ARR;         /*!< TIM auto-reload register,            Address offset: 0x2C */
+	__vo uint32_t RCR;         /*!< TIM repetition counter register,     Address offset: 0x30 */
+	__vo uint32_t CCR1;        /*!< TIM capture/compare register 1,      Address offset: 0x34 */
+	__vo uint32_t CCR2;        /*!< TIM capture/compare register 2,      Address offset: 0x38 */
+	__vo uint32_t CCR3;        /*!< TIM capture/compare register 3,      Address offset: 0x3C */
+	__vo uint32_t CCR4;        /*!< TIM capture/compare register 4,      Address offset: 0x40 */
+	__vo uint32_t BDTR;        /*!< TIM break and dead-time register,    Address offset: 0x44 */
+	__vo uint32_t DCR;         /*!< TIM DMA control register,            Address offset: 0x48 */
+	__vo uint32_t DMAR;        /*!< TIM DMA address for full transfer,   Address offset: 0x4C */
+	__vo uint32_t OR;          /*!< TIM option register,                 Address offset: 0x50 */
+}TIM_RegDef_t;
 
 
 /*
@@ -196,6 +225,11 @@ typedef struct
 #define EXTI			((EXTI_RegDef_t*)EXTI_BASEADDR)
 
 #define SysTick         ((SysTick_RegDef_t*)SYSTICK_BASEADDR) 
+
+#define TIM2			((TIM_RegDef_t*)TIM2_BASEADDR)
+#define TIM3			((TIM_RegDef_t*)TIM3_BASEADDR)
+#define TIM4			((TIM_RegDef_t*)TIM4_BASEADDR)
+#define TIM5			((TIM_RegDef_t*)TIM5_BASEADDR)
 
 
 /*
@@ -243,6 +277,15 @@ typedef struct
 
 #define SYSCFG_PCLK_EN()		(RCC->APB2ENR |= (1 << 14))
 
+/*
+ * Clock enable macros for TIMx peripherals
+ */
+
+#define TIM2_PCLK_EN()		(RCC->APB1ENR |= (1 << 0))
+#define TIM3_PCLK_EN()		(RCC->APB1ENR |= (1 << 1))
+#define TIM4_PCLK_EN()		(RCC->APB1ENR |= (1 << 2))
+#define TIM5_PCLK_EN()		(RCC->APB1ENR |= (1 << 3))
+
 
 /*
  * Clock disable macros for GPIOx peripherals
@@ -289,6 +332,14 @@ typedef struct
 
 #define SYSCFG_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 14))
 
+/*
+ * Clock enable macros for TIMx peripherals
+ */
+
+#define TIM2_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 0))
+#define TIM3_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 1))
+#define TIM4_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 2))
+#define TIM5_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 3))
 
 /*
  * 	Macros to reset GPIOx peripherals
@@ -354,5 +405,6 @@ typedef struct
 
 #include "gpio.h"
 #include "systick.h"
+#include "timer.h"
 
 #endif

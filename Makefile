@@ -20,6 +20,7 @@ OBJS		+= Build/stm32_startup.o
 OBJS		+= Build/gpio.o
 OBJS		+= Build/systick.o
 OBJS		+= Build/system.o
+OBJS		+= Build/timer.o
 
 all: Build/final.elf
 
