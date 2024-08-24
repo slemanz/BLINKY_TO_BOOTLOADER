@@ -12,10 +12,11 @@ INCLUDES= -I Drivers/Inc/ \
 
 
 
-###############################################################################
+############################################
 # Source files
 
-OBJS		+= Build/main.o
+#OBJS		+= Build/main.o
+OBJS		+= Build/timer_test.o
 OBJS		+= Build/stm32_startup.o
 OBJS		+= Build/gpio.o
 OBJS		+= Build/systick.o
