@@ -1,18 +1,9 @@
 #include "stm32f401xx.h"
+#include "core/system.h"
 
-#define CPU_FREQ        (16000000)
-#define SYSTICK_FREQ    (1000) // in hz (1000hz == every 1 ms)
-
-volatile uint64_t ticks = 0;
-void SysTick_Handler(void)
-{
-    ticks++;
-}
-
-static uint64_t get_ticks(void)
-{
-    return ticks;
-}
+// Define led
+#define LED_PORT        GPIOA
+#define LED_PIN         GPIO_PIN_NO_3
 
 // Function delay
 void delay_cycles(uint32_t cycles)
@@ -21,11 +12,6 @@ void delay_cycles(uint32_t cycles)
         __asm("NOP"); // No operation for delay
     }
 }
-
-// Define led
-#define LED_PORT        GPIOA
-#define LED_PIN         GPIO_PIN_NO_3
-
 
 void gpio_setup(void)
 {
@@ -42,27 +28,21 @@ void gpio_setup(void)
     GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
 }
 
-void systick_setup(void)
-{
-    systick_set_frequency(SYSTICK_FREQ, CPU_FREQ);
-    systick_counter_enable();
-    systick_interrupt_enable();
-}
 
 
 int main(void)
  {
     gpio_setup();
-    systick_setup();
+    system_setup();
 
-    uint64_t start_time = get_ticks();
+    uint64_t start_time = system_get_ticks();
 
     while (1)
     {
-        if((get_ticks() - start_time) >= 1000)
+        if((system_get_ticks() - start_time) >= 500)
         {
             GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
-            start_time = get_ticks();
+            start_time = system_get_ticks();
         }
 
         // Do useful work
