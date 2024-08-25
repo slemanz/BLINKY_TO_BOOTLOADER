@@ -51,4 +51,31 @@ void tim2_pa3_out_compare(void)
     TIM2->CR1 = CR1_CEN;
 }
 
+void tim2_pa3_pwm(void)
+{
+    // config PA3
+    GPIOA_PCLK_EN();
+    GPIOA->MODER &= ~(1 << 6); 
+    GPIOA->MODER |=  (1 << 7); // pa3 in altfn
+    GPIOA->AFR[0] &= (0xF << 12);
+    GPIOA->AFR[0] |= (0x1 << 12); // altfn tim2 ch4
 
+
+    // timer setup
+    TIM2_PCLK_EN();
+
+    //TIM2->PSC = 1600 - 1;
+    //TIM2->ARR = 10000 - 1;
+    TIM2->PSC = 10 - 1; // divided by 10
+    TIM2->ARR = 26667 - 1; // divided by 26667 -> close to 60Hz
+
+    TIM2->CNT = 0;  // clear counter
+    TIM2->CCMR2 = OC4_PWM;
+    TIM2->CCER |= CCER_CC4E; // enable compare
+
+    //TIM2->CCR4 = (10000/4) - 1; 
+    TIM2->CCR4 = (26667/3) - 1; // 1/3 of period -> 33% duty cycle
+
+    // enable timer
+    TIM2->CR1 = CR1_CEN;
+}

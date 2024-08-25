@@ -27,7 +27,7 @@ int main(void)
  {
     //gpio_setup();
     //tim2_1hz_init();
-    tim2_pa3_out_compare();
+    tim2_pa3_pwm();
 
     while (1)
     {
