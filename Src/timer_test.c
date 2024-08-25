@@ -25,17 +25,18 @@ void gpio_setup(void)
 
 int main(void)
  {
-    gpio_setup();
-    tim2_1hz_init();
+    //gpio_setup();
+    //tim2_1hz_init();
+    tim2_pa3_out_compare();
 
     while (1)
     {
         // wait for UIF
-        while (!(TIM2->SR & SR_UIF));
+        //while (!(TIM2->SR & SR_UIF));
+        //// clear UIF
+        //TIM2->SR &= ~(SR_UIF);
+        //GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
 
-        // clear UIF
-        TIM2->SR &= ~(SR_UIF);
-        
-        GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
+
     }
 }
