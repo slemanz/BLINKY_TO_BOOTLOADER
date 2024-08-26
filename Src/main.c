@@ -39,7 +39,7 @@ int main(void)
 
     while (1)
     {
-        if((system_get_ticks() - start_time) >= 500)
+        if((system_get_ticks() - start_time) >= 1000)
         {
             GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
             start_time = system_get_ticks();
