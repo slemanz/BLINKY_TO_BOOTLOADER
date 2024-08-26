@@ -10,6 +10,9 @@
 #define OC4_PWM          (0x6 << 12)
 #define CCER_CC4E        (1U << 12)
 
+void timer_setup(void);
+void timer_pwm_set_duty_cycle(float duty_cycle);
+
 void tim2_1hz_init(void);
 void tim2_pa3_out_compare(void);
 void tim2_pa3_pwm(void);

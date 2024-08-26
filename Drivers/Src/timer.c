@@ -1,5 +1,37 @@
 #include "stm32f401xx.h"
 
+void timer_setup(void)
+{
+    TIM2_PCLK_EN();
+
+    // set mode (later todo an init function to timer)
+    //TIM2->CR1 
+}
+
+void timer_pwm_set_duty_cycle(float duty_cycle)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void tim2_1hz_init(void)
 {
     // enable clock acess
