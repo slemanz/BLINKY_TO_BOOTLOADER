@@ -10,7 +10,12 @@
 #define OC4_PWM          (0x6 << 12)
 #define CCER_CC4E        (1U << 12)
 
+
+
+void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi);
+
 void timer_setup(void);
+void timer_pwm_init(TIM_RegDef_t *pTIMx);
 void timer_pwm_set_duty_cycle(float duty_cycle);
 
 void tim2_1hz_init(void);

@@ -3,7 +3,7 @@
 
 // Define led
 #define LED_PORT        GPIOA
-#define LED_PIN         GPIO_PIN_NO_3
+#define LED_PIN         GPIO_PIN_NO_5
 
 // Function delay
 void delay_cycles(uint32_t cycles)
@@ -25,7 +25,7 @@ void gpio_setup(void)
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
     GPIO_Init(&GpioLed);
-    GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
+    GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_SET);
 }
 
 

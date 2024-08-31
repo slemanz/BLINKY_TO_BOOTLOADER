@@ -111,6 +111,11 @@ typedef struct
 #define GPIO_PIN_ALTFN_7            7
 
 
+// GPIO_PIN_ALTFN_SPECIF_FUNCTION
+
+#define PA5_ALTFN_TIM2_CH1			GPIO_PIN_ALTFN_1
+
+
 
 /********************************************************************************************
  * 								APIs supported by this driver

@@ -1,8 +1,20 @@
 #include "stm32f401xx.h"
 
+void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
+{
+
+	if(EnorDi == ENABLE)
+	{
+		if		(pTIMx == TIM2) TIM2_PCLK_EN();
+	}else
+	{
+		if		(pTIMx == TIM2) TIM2_PCLK_DI();
+	}
+}
+
 void timer_setup(void)
 {
-    TIM2_PCLK_EN();
+    timer_pwm_init(TIM2);
 
     // set mode (later todo an init function to timer)
     //TIM2->CR1 
@@ -12,6 +24,12 @@ void timer_pwm_set_duty_cycle(float duty_cycle)
 {
 
 }
+
+void timer_pwm_init(TIM_RegDef_t *pTIMx)
+{
+
+}
+
 
 
 
