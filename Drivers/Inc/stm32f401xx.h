@@ -189,8 +189,7 @@ typedef struct
 	__vo uint32_t DIER;        /*!< TIM DMA/interrupt enable register,   Address offset: 0x0C */
 	__vo uint32_t SR;          /*!< TIM status register,                 Address offset: 0x10 */
 	__vo uint32_t EGR;         /*!< TIM event generation register,       Address offset: 0x14 */
-	__vo uint32_t CCMR1;       /*!< TIM capture/compare mode register 1, Address offset: 0x18 */
-	__vo uint32_t CCMR2;       /*!< TIM capture/compare mode register 2, Address offset: 0x1C */
+	__vo uint32_t CCMR[2];     /*!< TIM capture/compare mode register,   Address offset: 0x18 */
 	__vo uint32_t CCER;        /*!< TIM capture/compare enable register, Address offset: 0x20 */
 	__vo uint32_t CNT;         /*!< TIM counter register,                Address offset: 0x24 */
 	__vo uint32_t PSC;         /*!< TIM prescaler,                       Address offset: 0x28 */

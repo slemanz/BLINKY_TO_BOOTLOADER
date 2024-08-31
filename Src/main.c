@@ -3,7 +3,7 @@
 
 // Define led
 #define LED_PORT        GPIOA
-#define LED_PIN         GPIO_PIN_NO_5
+#define LED_PIN         GPIO_PIN_NO_3
 
 // Function delay
 void delay_cycles(uint32_t cycles)
@@ -19,7 +19,8 @@ void gpio_setup(void)
     GPIO_Handle_t GpioLed;
 	GpioLed.pGPIOx = LED_PORT;
 	GpioLed.GPIO_PinConfig.GPIO_PinNumber = LED_PIN;
-	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
+    GpioLed.GPIO_PinConfig.GPIO_PinAltFunMode = PA5_ALTFN_TIM2_CH1;
 	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
 	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
@@ -32,8 +33,11 @@ void gpio_setup(void)
 
 int main(void)
  {
-    gpio_setup();
+    //gpio_setup();
     system_setup();
+    //timer_setup();
+
+    tim2_pa3_pwm();
 
     uint64_t start_time = system_get_ticks();
 
@@ -41,7 +45,7 @@ int main(void)
     {
         if((system_get_ticks() - start_time) >= 1000)
         {
-            GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
+            //GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
             start_time = system_get_ticks();
         }
 
