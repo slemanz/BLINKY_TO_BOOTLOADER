@@ -29,17 +29,18 @@ void timer_pwm_init(TIM_RegDef_t *pTIMx)
 {
     timer_PeriClockControl(pTIMx, ENABLE);
 
+
     pTIMx->PSC = 10 - 1; // divided by 10
     pTIMx->ARR = 26667 - 1; // divided by 26667 -> close to 60Hz
 
     // set output compare as pwm -> OCxM[2:0]
 
     pTIMx->CNT = 0; // clear counter
-    pTIMx->CCMR[0] = OC4_PWM;
+    pTIMx->CCMR[1] = OC4_PWM;
     pTIMx->CCER |= CCER_CC4E;   // enable compare
 
     // set duty
-    pTIMx->CCR1 = (26667/10) - 1; // 1/3 of period -> 33% duty cycle
+    pTIMx->CCR1 = (26667/4) - 1; // 1/3 of period -> 33% duty cycle
 
     pTIMx->CR1 = CR1_CEN; // enable timer
 
@@ -139,7 +140,7 @@ void tim2_pa3_pwm(void)
     TIM2->CCER |= CCER_CC4E; // enable compare
 
     //TIM2->CCR4 = (10000/4) - 1; 
-    TIM2->CCR4 = (26667/3) - 1; // 1/3 of period -> 33% duty cycle
+    TIM2->CCR4 = (26667/20) - 1; // 1/3 of period -> 33% duty cycle
 
     // enable timer
     TIM2->CR1 = CR1_CEN;

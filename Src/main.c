@@ -37,6 +37,7 @@ int main(void)
     system_setup();
     //timer_setup();
 
+    //timer_pwm_init(TIM2);
     tim2_pa3_pwm();
 
     uint64_t start_time = system_get_ticks();
