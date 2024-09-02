@@ -26,19 +26,16 @@ void gpio_setup(void)
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
     GPIO_Init(&GpioLed);
-    GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_SET);
 }
 
 
 
 int main(void)
  {
-    //gpio_setup();
+    gpio_setup();
     system_setup();
-    //timer_setup();
+    timer_setup();
 
-    //timer_pwm_init(TIM2);
-    tim2_pa3_pwm();
 
     uint64_t start_time = system_get_ticks();
 

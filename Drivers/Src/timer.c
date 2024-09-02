@@ -15,38 +15,28 @@ void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
 void timer_setup(void)
 {
     timer_pwm_init(TIM2);
-
-    // set mode (later todo an init function to timer)
-    //TIM2->CR1 
-}
-
-void timer_pwm_set_duty_cycle(float duty_cycle)
-{
-
 }
 
 void timer_pwm_init(TIM_RegDef_t *pTIMx)
 {
     timer_PeriClockControl(pTIMx, ENABLE);
 
-
     pTIMx->PSC = 10 - 1; // divided by 10
     pTIMx->ARR = 26667 - 1; // divided by 26667 -> close to 60Hz
 
-    // set output compare as pwm -> OCxM[2:0]
-
-    pTIMx->CNT = 0; // clear counter
+    pTIMx->CNT = 0;  // clear counter
     pTIMx->CCMR[1] = OC4_PWM;
-    pTIMx->CCER |= CCER_CC4E;   // enable compare
+    pTIMx->CCER |= CCER_CC4E; // enable compare
 
-    // set duty
-    pTIMx->CCR1 = (26667/4) - 1; // 1/3 of period -> 33% duty cycle
+    pTIMx->CCR[3] = (26667/5) - 1; // 1/3 of period -> 33% duty cycle
 
     pTIMx->CR1 = CR1_CEN; // enable timer
-
 }
 
+void timer_pwm_set_duty_cycle(float duty_cycle)
+{
 
+}
 
 
 
@@ -119,14 +109,6 @@ void tim2_pa3_out_compare(void)
 
 void tim2_pa3_pwm(void)
 {
-    // config PA3
-    GPIOA_PCLK_EN();
-    GPIOA->MODER &= ~(1 << 6); 
-    GPIOA->MODER |=  (1 << 7); // pa3 in altfn
-    GPIOA->AFR[0] &= (0xF << 12);
-    GPIOA->AFR[0] |= (0x1 << 12); // altfn tim2 ch4
-
-
     // timer setup
     TIM2_PCLK_EN();
 
@@ -140,7 +122,7 @@ void tim2_pa3_pwm(void)
     TIM2->CCER |= CCER_CC4E; // enable compare
 
     //TIM2->CCR4 = (10000/4) - 1; 
-    TIM2->CCR4 = (26667/20) - 1; // 1/3 of period -> 33% duty cycle
+    TIM2->CCR[3] = (26667/100) - 1; // 1/3 of period -> 33% duty cycle
 
     // enable timer
     TIM2->CR1 = CR1_CEN;

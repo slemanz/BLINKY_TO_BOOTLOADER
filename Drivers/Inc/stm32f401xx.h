@@ -195,10 +195,7 @@ typedef struct
 	__vo uint32_t PSC;         /*!< TIM prescaler,                       Address offset: 0x28 */
 	__vo uint32_t ARR;         /*!< TIM auto-reload register,            Address offset: 0x2C */
 	__vo uint32_t RCR;         /*!< TIM repetition counter register,     Address offset: 0x30 */
-	__vo uint32_t CCR1;        /*!< TIM capture/compare register 1,      Address offset: 0x34 */
-	__vo uint32_t CCR2;        /*!< TIM capture/compare register 2,      Address offset: 0x38 */
-	__vo uint32_t CCR3;        /*!< TIM capture/compare register 3,      Address offset: 0x3C */
-	__vo uint32_t CCR4;        /*!< TIM capture/compare register 4,      Address offset: 0x40 */
+	__vo uint32_t CCR[4];      /*!< TIM capture/compare register,        Address offset: 0x34 */
 	__vo uint32_t BDTR;        /*!< TIM break and dead-time register,    Address offset: 0x44 */
 	__vo uint32_t DCR;         /*!< TIM DMA control register,            Address offset: 0x48 */
 	__vo uint32_t DMAR;        /*!< TIM DMA address for full transfer,   Address offset: 0x4C */
