@@ -11,11 +11,41 @@
 #define CCER_CC4E        (1U << 12)
 
 
+typedef struct
+{
+	uint32_t prescaler; 
+    uint32_t auto_reload;
+    uint8_t channel; /*!< possible modes from @TIM_CHANNEL >*/
+}TIM_Config_t;
+
+
+
+/*
+ * This is a Handle structure for a Timer
+ */
+
+typedef struct
+{
+	TIM_RegDef_t *pTIMx; 
+	TIM_Config_t TIM_Config; 
+}TIM_Handle_t;
+
+/*
+ * @TIM_CHANNEL
+ * Timer possible channels
+ */
+
+
+#define TIM_CHANNEL1                1
+#define TIM_CHANNEL2                2
+#define TIM_CHANNEL3                3
+#define TIM_CHANNEL4                4
+
 
 void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi);
 
 void timer_setup(void);
-void timer_pwm_init(TIM_RegDef_t *pTIMx);
+void timer_pwm_init(TIM_Handle_t *pTIMHandle);
 void timer_pwm_set_duty_cycle(float duty_cycle);
 
 void tim2_1hz_init(void);
