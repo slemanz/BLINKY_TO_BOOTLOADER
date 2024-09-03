@@ -16,9 +16,9 @@ void timer_setup(void)
 {
     TIM_Handle_t PWM;
     PWM.pTIMx = TIM2;
-    PWM.TIM_Config.channel = TIM_CHANNEL1;
-    PWM.TIM_Config.prescaler = 10 - 1;
-    PWM.TIM_Config.auto_reload = 26667 - 1;
+    PWM.TIM_Config.channel = TIM_CHANNEL4;
+    PWM.TIM_Config.prescaler = 10 - 1; // divided by 10
+    PWM.TIM_Config.auto_reload = 26667 - 1; // divided by 26667 -> close to 60Hz
 
     timer_pwm_init(&PWM);
 }
@@ -27,14 +27,14 @@ void timer_pwm_init(TIM_Handle_t *pTIMHandle)
 {
     timer_PeriClockControl(pTIMHandle->pTIMx, ENABLE);
 
-    pTIMHandle->pTIMx->PSC = 10 - 1; // divided by 10
-    pTIMHandle->pTIMx->ARR = 26667 - 1; // divided by 26667 -> close to 60Hz
+    pTIMHandle->pTIMx->PSC = pTIMHandle->TIM_Config.prescaler; 
+    pTIMHandle->pTIMx->ARR = pTIMHandle->TIM_Config.auto_reload; 
 
     pTIMHandle->pTIMx->CNT = 0;  // clear counter
-    pTIMHandle->pTIMx->CCMR[1] = OC4_PWM;
+    pTIMHandle->pTIMx->CCMR[pTIMHandle->TIM_Config.channel/2] = (0x06 << (4 + 8*(pTIMHandle->TIM_Config.channel % 2)));
     pTIMHandle->pTIMx->CCER |= CCER_CC4E; // enable compare
 
-    pTIMHandle->pTIMx->CCR[3] = (26667/5) - 1; // 1/3 of period -> 33% duty cycle
+    pTIMHandle->pTIMx->CCR[pTIMHandle->TIM_Config.channel] = (26667/20) - 1; // 1/3 of period -> 33% duty cycle
     pTIMHandle->pTIMx->CR1 = CR1_CEN; // enable timer
 }
 

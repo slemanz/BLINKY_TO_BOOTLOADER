@@ -36,10 +36,10 @@ typedef struct
  */
 
 
-#define TIM_CHANNEL1                1
-#define TIM_CHANNEL2                2
-#define TIM_CHANNEL3                3
-#define TIM_CHANNEL4                4
+#define TIM_CHANNEL1                0
+#define TIM_CHANNEL2                1
+#define TIM_CHANNEL3                2
+#define TIM_CHANNEL4                3
 
 
 void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi);
