@@ -1,5 +1,9 @@
 #include "stm32f401xx.h"
 
+// freq = system_freq / ((prescaler + 1) * (arr + 1))
+#define PRESCALER           (10-1)
+#define ARR_VALUE           (26667 - 1)
+
 void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
 {
 
@@ -17,8 +21,10 @@ void timer_setup(void)
     TIM_Handle_t PWM;
     PWM.pTIMx = TIM2;
     PWM.TIM_Config.channel = TIM_CHANNEL1;
-    PWM.TIM_Config.prescaler = 10 - 1; // divided by 10
-    PWM.TIM_Config.auto_reload = 26667 - 1; // divided by 26667 -> close to 60Hz
+
+    // setup frequency and resolution
+    PWM.TIM_Config.prescaler = PRESCALER; // divided by 10
+    PWM.TIM_Config.auto_reload = ARR_VALUE; // divided by 26667 -> close to 60Hz
 
     timer_pwm_init(&PWM);
 }
@@ -34,7 +40,7 @@ void timer_pwm_init(TIM_Handle_t *pTIMHandle)
     pTIMHandle->pTIMx->CCMR[pTIMHandle->TIM_Config.channel/2] = (0x06 << (4 + 8*(pTIMHandle->TIM_Config.channel % 2))); // config mode (OCxM)
     pTIMHandle->pTIMx->CCER |= (0x1 << 4*(pTIMHandle->TIM_Config.channel)); // enable compare (CCxE)
 
-    pTIMHandle->pTIMx->CCR[pTIMHandle->TIM_Config.channel] = (26667/30) - 1; // 1/3 of period -> 33% duty cycle
+    pTIMHandle->pTIMx->CCR[pTIMHandle->TIM_Config.channel] = (26667/5) - 1; // 1/3 of period -> 33% duty cycle
     pTIMHandle->pTIMx->CR1 = CR1_CEN; // enable timer
 }
 
