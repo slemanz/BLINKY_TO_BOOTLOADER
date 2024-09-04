@@ -3,6 +3,8 @@ MACH=cortex-m4
 CFLAGS= -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0
 LDFLAGS= -nostdlib -T stm32_ls.ld -Wl,-Map=final.map
 OBJCOPY=arm-none-eabi-objcopy
+CFLAGS = -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+LDFLAGS = --specs=nano.specs -T stm32_ls.ld -Wl,-Map=final.map -lgcc
 
 ###########################################
 #				 INCLUDES
@@ -22,6 +24,7 @@ OBJS		+= Build/gpio.o
 OBJS		+= Build/systick.o
 OBJS		+= Build/system.o
 OBJS		+= Build/timer.o
+OBJS		+= Build/syscalls.o
 
 all: Build/final.elf
 
