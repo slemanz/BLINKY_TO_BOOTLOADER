@@ -16,6 +16,7 @@ typedef struct
 	uint32_t prescaler; 
     uint32_t auto_reload;
     uint8_t channel; /*!< possible modes from @TIM_CHANNEL >*/
+	float initialDuty;
 }TIM_Config_t;
 
 
@@ -46,7 +47,7 @@ void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi);
 
 void timer_setup(void);
 void timer_pwm_init(TIM_Handle_t *pTIMHandle);
-void timer_pwm_set_duty_cycle(float duty_cycle);
+void timer_pwm_set_duty_cycle(TIM_Handle_t *pTIMHandle, float duty_cycle);
 
 void tim2_1hz_init(void);
 void tim2_pa3_out_compare(void);

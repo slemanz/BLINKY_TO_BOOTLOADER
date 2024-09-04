@@ -21,6 +21,7 @@ void timer_setup(void)
     TIM_Handle_t PWM;
     PWM.pTIMx = TIM2;
     PWM.TIM_Config.channel = TIM_CHANNEL1;
+    PWM.TIM_Config.initialDuty = 0.01f;
 
     // setup frequency and resolution
     PWM.TIM_Config.prescaler = PRESCALER; // divided by 10
@@ -40,13 +41,17 @@ void timer_pwm_init(TIM_Handle_t *pTIMHandle)
     pTIMHandle->pTIMx->CCMR[pTIMHandle->TIM_Config.channel/2] = (0x06 << (4 + 8*(pTIMHandle->TIM_Config.channel % 2))); // config mode (OCxM)
     pTIMHandle->pTIMx->CCER |= (0x1 << 4*(pTIMHandle->TIM_Config.channel)); // enable compare (CCxE)
 
-    pTIMHandle->pTIMx->CCR[pTIMHandle->TIM_Config.channel] = (26667/5) - 1; // 1/3 of period -> 33% duty cycle
+    timer_pwm_set_duty_cycle(pTIMHandle, pTIMHandle->TIM_Config.initialDuty);
     pTIMHandle->pTIMx->CR1 = CR1_CEN; // enable timer
 }
 
-void timer_pwm_set_duty_cycle(float duty_cycle)
+void timer_pwm_set_duty_cycle(TIM_Handle_t *pTIMHandle, float duty_cycle)
 {
-    // todo
+    // duty cycle = (ccr / arr) * 100
+    // duty cycle / 100 = ccr / arr
+    // ccr = arr * (duty cycle / 100)
+    const float raw_value = (float)ARR_VALUE * (duty_cycle / 100.0f);
+    pTIMHandle->pTIMx->CCR[pTIMHandle->TIM_Config.channel] = raw_value; 
 }
 
 

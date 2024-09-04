@@ -3,6 +3,9 @@
 
 // this header file describes the microcontroller
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #define __vo volatile
 
 
