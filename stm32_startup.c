@@ -9,6 +9,7 @@
 extern uint32_t _etext;
 extern uint32_t _sdata;
 extern uint32_t _edata;
+extern uint32_t _la_data;
 
 extern uint32_t _sbss;
 extern uint32_t _ebss;
@@ -16,6 +17,8 @@ extern uint32_t _ebss;
 
 /* Prototype of main*/
 int main(void);
+
+void __libc_init_array(void);
 
 
 
@@ -202,7 +205,7 @@ void Reset_Handler(void)
     uint32_t size = &_edata - &_sdata;
 
     uint8_t *pDst = (uint8_t*)&_sdata; //sram
-    uint8_t *pSrc = (uint8_t*)&_etext; //flash
+    uint8_t *pSrc = (uint8_t*)&_la_data; //flash
 
     for(uint32_t i = 0; i < size; i++)
     {
@@ -220,6 +223,7 @@ void Reset_Handler(void)
 
 
     // call init function of std. library
+    __libc_init_array();
 
     // call main()
     main();

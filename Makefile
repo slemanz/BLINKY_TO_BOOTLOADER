@@ -1,7 +1,7 @@
 CC=arm-none-eabi-gcc
 MACH=cortex-m4
-CFLAGS= -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0 
-LDFLAGS = --specs=nano.specs -T stm32_ls.ld -Wl,-Map=final.map
+CFLAGS= -c -mcpu=$(MACH) -mthumb -mfloat-abi=soft -std=gnu11 -Wall -O0 
+LDFLAGS =  -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nano.specs -T stm32_ls.ld -Wl,-Map=final.map
 OBJCOPY=arm-none-eabi-objcopy
 #CFLAGS = -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
