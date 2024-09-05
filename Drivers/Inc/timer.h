@@ -3,6 +3,10 @@
 
 #include "stm32f401xx.h"
 
+// freq = system_freq / ((prescaler + 1) * (arr + 1))
+#define PRESCALER           (10-1)
+#define ARR_VALUE           (26667 - 1)
+
 #define CR1_CEN          (1U << 0)
 #define SR_UIF           (1U << 0)
 
@@ -45,7 +49,6 @@ typedef struct
 
 void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi);
 
-void timer_setup(void);
 void timer_pwm_init(TIM_Handle_t *pTIMHandle);
 void timer_pwm_set_duty_cycle(TIM_Handle_t *pTIMHandle, float duty_cycle);
 

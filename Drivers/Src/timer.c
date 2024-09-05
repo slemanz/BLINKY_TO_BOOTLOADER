@@ -1,9 +1,5 @@
 #include "stm32f401xx.h"
 
-// freq = system_freq / ((prescaler + 1) * (arr + 1))
-#define PRESCALER           (10-1)
-#define ARR_VALUE           (26667 - 1)
-
 void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
 {
 
@@ -16,19 +12,6 @@ void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
 	}
 }
 
-void timer_setup(void)
-{
-    TIM_Handle_t PWM;
-    PWM.pTIMx = TIM2;
-    PWM.TIM_Config.channel = TIM_CHANNEL1;
-    PWM.TIM_Config.initialDuty = 0.1f;
-
-    // setup frequency and resolution
-    PWM.TIM_Config.prescaler = PRESCALER; // divided by 10
-    PWM.TIM_Config.auto_reload = ARR_VALUE; // divided by 26667 -> close to 60Hz
-
-    timer_pwm_init(&PWM);
-}
 
 void timer_pwm_init(TIM_Handle_t *pTIMHandle)
 {
@@ -49,10 +32,11 @@ void timer_pwm_init(TIM_Handle_t *pTIMHandle)
 
 void timer_pwm_set_duty_cycle(TIM_Handle_t *pTIMHandle, float duty_cycle)
 {
-    // duty cycle = (ccr / arr) * 100
-    // duty cycle / 100 = ccr / arr
-    // ccr = arr * (duty cycle / 100)
-    const float raw_value = (float)ARR_VALUE * ( duty_cycle / 100.0f);
+    // formula:
+    //      duty cycle = (ccr / arr) * 100
+    //      duty cycle / 100 = ccr / arr
+    //      ccr = arr * (duty cycle / 100)
+    const float raw_value = (float)(pTIMHandle->TIM_Config.auto_reload) * ( duty_cycle / 100.0f);
     pTIMHandle->pTIMx->CCR[pTIMHandle->TIM_Config.channel] = raw_value; 
 }
 

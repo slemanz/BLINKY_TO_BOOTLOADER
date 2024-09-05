@@ -28,6 +28,21 @@ void gpio_setup(void)
     GPIO_Init(&GpioLed);
 }
 
+TIM_Handle_t PWM;
+
+void timer_setup(void)
+{
+    PWM.pTIMx = TIM2;
+    PWM.TIM_Config.channel = TIM_CHANNEL1;
+    PWM.TIM_Config.initialDuty = 10.0f;
+
+    // setup frequency and resolution
+    PWM.TIM_Config.prescaler = PRESCALER; // divided by 10
+    PWM.TIM_Config.auto_reload = ARR_VALUE; // divided by 26667 -> close to 60Hz
+
+    timer_pwm_init(&PWM);
+}
+
 
 
 int main(void)
@@ -38,13 +53,21 @@ int main(void)
 
 
     uint64_t start_time = system_get_ticks();
+    float duty_cycle = 0.0f;
 
     while (1)
     {
-        if((system_get_ticks() - start_time) >= 1000)
+        if((system_get_ticks() - start_time) >= 50)
         {
-            //GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
+            duty_cycle += 0.5f;            
+
+
+            timer_pwm_set_duty_cycle(&PWM, duty_cycle);
             start_time = system_get_ticks();
+            if(duty_cycle >= 50.0f)
+            {
+                duty_cycle = 0.0f;
+            }
         }
 
         // Do useful work
