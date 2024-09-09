@@ -19,7 +19,7 @@ typedef struct
 {
 	uint32_t prescaler; 
     uint32_t auto_reload;
-    uint8_t channel; /*!< possible modes from @TIM_CHANNEL >*/
+    uint8_t channel;  		/*!< possible modes from @TIM_CHANNEL >*/
 	float initialDuty;
 }TIM_Config_t;
 
