@@ -1,5 +1,21 @@
 #include "stm32f401xx.h"
 
+
+/**************************************************************************
+ * @fn              - timer_PeriClockControl
+ *
+ * @brief           - This function enables or disables the peripheral clock
+ *                    for the specified timer controller.
+ *
+ * @param[in]       - pTIMx: Base address of the TIM peripheral.
+ * @param[in]       - EnorDi: ENABLE or DISABLE macro for clock control.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ **************************************************************************/
+
 void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
 {
 
@@ -12,6 +28,23 @@ void timer_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t EnorDi)
 	}
 }
 
+
+
+/**************************************************************************
+ * @fn              - timer_pwm_init
+ *
+ * @brief           - This function initializes the PWM generation on the
+ *                    specified timer. It configures the prescaler, autoreload,
+ *                    and enables the timer.
+ *
+ * @param[in]       - pTIMHandle: Pointer to the structure that contains the
+ *                    timer configurations and the address of the peripheral.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ **************************************************************************/
 
 void timer_pwm_init(TIM_Handle_t *pTIMHandle)
 {
@@ -29,6 +62,25 @@ void timer_pwm_init(TIM_Handle_t *pTIMHandle)
 
     pTIMHandle->pTIMx->CR1 = CR1_CEN; // enable timer
 }
+
+
+
+/**************************************************************************
+ * @fn              - timer_pwm_set_duty_cycle
+ *
+ * @brief           - This function sets the duty cycle of the PWM for the
+ *                    specified timer.
+ *
+ * @param[in]       - pTIMHandle: Pointer to the structure that contains the
+ *                    timer configurations and the address of the peripheral.
+ * @param[in]       - duty_cycle: Desired duty cycle value (0 to 100).
+ *
+ * @return          - none
+ *
+ * @Note            - The duty cycle must be in the range of 0 to 100;
+ *                    values outside this range will result in unexpected behavior.
+ *
+ **************************************************************************/
 
 void timer_pwm_set_duty_cycle(TIM_Handle_t *pTIMHandle, float duty_cycle)
 {
@@ -50,13 +102,10 @@ void timer_pwm_set_duty_cycle(TIM_Handle_t *pTIMHandle, float duty_cycle)
 
 
 
-
-
-
-
-
-
-
+/*
+ *  FUNCTIONS CREATED TO TEST PERIPHERAL,
+ *  in the future i'll delete
+ */
 
 void tim2_1hz_init(void)
 {
