@@ -13,6 +13,6 @@ Inspired in [Low Byte Productions](https://www.youtube.com/@LowByteProductions) 
 ## Drivers
 
 All drivers in this repository have been crafted in a bare-metal environment, ensuring optimal performance and control. You can 
-view the complete set of drivers in the [Drivers folder](app/Drivers/drivers.md).
+view the complete set of drivers in the [Drivers folder](app/Drivers/).
 
 ---
