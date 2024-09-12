@@ -16,14 +16,13 @@ INCLUDES= -I Drivers/Inc/ \
 ############################################
 # Source files
 
-OBJS		+= Build/main.o
-#OBJS		+= Build/timer_test.o
-OBJS		+= Build/stm32_startup.o
-OBJS		+= Build/gpio.o
-OBJS		+= Build/systick.o
-OBJS		+= Build/system.o
-OBJS		+= Build/timer.o
+OBJS		+= Build/bootloader.o
 OBJS		+= Build/syscalls.o
+OBJS		+= Build/stm32_startup.o
+#OBJS		+= Build/gpio.o
+#OBJS		+= Build/systick.o
+#OBJS		+= Build/system.o
+#OBJS		+= Build/timer.o
 
 all: Build/final.elf
 
