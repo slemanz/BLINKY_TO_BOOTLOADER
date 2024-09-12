@@ -1,19 +1,20 @@
-#include "stm32f401xx.h"
+#include "common-defines.h"
 
-// Function delay
-void delay_cycles(uint32_t cycles)
+// bootloader size -> 32kB
+#define BOOTLOADER_SIZE             (0x8000UL)
+#define FLASH_BASE                  (0x08000000UL)
+#define MAIN_APP_START_ADDRESS      (FLASH_BASE + BOOTLOADER_SIZE)
+
+void jump_to_main(void)
 {
-    while (cycles-- > 0) {
-        __asm("NOP"); // No operation for delay
-    }
+    uint32_t* reset_vector = (uint32_t*)MAIN_APP_START_ADDRESS;
 }
 
 
 int main(void)
  {
+    jump_to_main();
 
-    while (1)
-    {
-
-    }
+    // never return
+    return 0;
 }
