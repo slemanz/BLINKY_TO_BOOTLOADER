@@ -45,8 +45,8 @@ Build/stm32_startup.o: stm32_startup.c
 
 Build/final.elf: $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
-	$(OBJCOPY) -O binary Build/final.elf Build/flash.bin
-	$(OBJCOPY) -O binary Build/final.elf ~/opt/SEGGER/flash.bin
+	$(OBJCOPY) -O binary Build/final.elf Build/bootloader.bin
+	$(OBJCOPY) -O binary Build/final.elf ~/opt/SEGGER/bootloader.bin
 
 
 clean:
