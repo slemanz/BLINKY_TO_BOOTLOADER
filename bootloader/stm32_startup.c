@@ -223,7 +223,7 @@ void Reset_Handler(void)
 
 
     // call init function of std. library
-    __libc_init_array();
+    // __libc_init_array();
 
     // call main()
     main();

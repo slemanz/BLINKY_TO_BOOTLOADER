@@ -19,17 +19,8 @@ INCLUDES= -I Drivers/Inc/ \
 OBJS		+= Build/bootloader.o
 OBJS		+= Build/syscalls.o
 OBJS		+= Build/stm32_startup.o
-#OBJS		+= Build/gpio.o
-#OBJS		+= Build/systick.o
-#OBJS		+= Build/system.o
-#OBJS		+= Build/timer.o
 
 all: Build/final.elf
-
-# target and recipe
-# to analyze the .o: 
-#	arm-none-eabi-objdump -h main.o
-#	arm-none-eabi-objdump -d main.o > main_log
 
 Build/%.o: Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).c
@@ -46,7 +37,7 @@ Build/stm32_startup.o: stm32_startup.c
 Build/final.elf: $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary Build/final.elf Build/bootloader.bin
-	$(OBJCOPY) -O binary Build/final.elf ~/opt/SEGGER/bootloader.bin
+	python3 pad_bootloader.py
 
 
 clean:
