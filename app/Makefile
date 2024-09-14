@@ -1,9 +1,9 @@
 CC=arm-none-eabi-gcc
 MACH=cortex-m4
 CFLAGS= -c -mcpu=$(MACH) -mthumb -mfloat-abi=soft -std=gnu11 -Wall -O0 
-LDFLAGS =  -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nano.specs -T stm32_ls.ld -Wl,-Map=final.map
+LDFLAGS =  -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nano.specs -T stm32_ls.ld -Wl,-Map=Build/final.map
 OBJCOPY=arm-none-eabi-objcopy
-#CFLAGS = -c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+LINKER_SCRIPT=stm32_ls.ld
 
 ###########################################
 #				 INCLUDES
@@ -17,7 +17,7 @@ INCLUDES= -I Drivers/Inc/ \
 # Source files
 
 OBJS		+= Build/main.o
-#OBJS		+= Build/timer_test.o
+OBJS		+= Build/bootloader.o
 OBJS		+= Build/stm32_startup.o
 OBJS		+= Build/gpio.o
 OBJS		+= Build/systick.o
@@ -34,6 +34,9 @@ all: Build/final.elf
 
 Build/%.o: Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).c
+
+Build/%.o: Src/%.S
+	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).S
 
 Build/%.o: Src/core/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/core/$(*).c

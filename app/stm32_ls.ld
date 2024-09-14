@@ -2,7 +2,7 @@ ENTRY(Reset_Handler)
 
 MEMORY
 {
-    FLASH(rx): ORIGIN =0x08008000, LENGTH =480K
+    FLASH(rx): ORIGIN =0x08000000, LENGTH =512K
     SRAM(rwx): ORIGIN =0x20000000, LENGTH =96K
 }
 
@@ -10,8 +10,9 @@ SECTIONS
 {
     .text :
     {
-        *(.isr_vector)
-        *(.text) 
+        KEEP (*(.bootloader_section)) /* bootloader section (dont optimized)*/
+        *(.isr_vector) /* vector table */
+        *(.text)        /* program code */
         *(.text.*)
         *(.init)
         *(.fini)
