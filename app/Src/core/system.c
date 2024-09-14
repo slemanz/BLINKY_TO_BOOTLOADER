@@ -24,6 +24,7 @@ void system_setup(void)
     systick_setup();
 }
 
+/*
 void gpio_setup(void)
 {
     // Set GPIOA pin 3 as output
@@ -38,4 +39,4 @@ void gpio_setup(void)
 
     GPIO_Init(&GpioLed);
 }
-
+*/
