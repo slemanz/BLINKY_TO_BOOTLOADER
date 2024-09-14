@@ -1,43 +1,56 @@
 #include "stm32f401xx.h"
-
-// Function prototype
-void delay_cycles(uint32_t cycles);
-
-// Define led
-#define LED_PORT        GPIOA
-#define LED_PIN         GPIO_PIN_NO_5
+#include "core/system.h"
 
 
-void gpio_setup(void)
-{
-    // Set GPIOA pin 3 as output
-    GPIO_Handle_t GpioLed;
-	GpioLed.pGPIOx = LED_PORT;
-	GpioLed.GPIO_PinConfig.GPIO_PinNumber = LED_PIN;
-	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
-	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
-	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
-	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
-
-    GPIO_Init(&GpioLed);
-    GPIO_WriteToOutputPin(LED_PORT, LED_PIN, GPIO_PIN_SET);
-}
-
-
-int main(void)
- {
-    gpio_setup();
-
-    while (1)
-    {
-        GPIO_ToggleOutputPin(LED_PORT, LED_PIN);
-        delay_cycles(4000000 / 4);
-    }
-}
-
+// Function delay
 void delay_cycles(uint32_t cycles)
 {
     while (cycles-- > 0) {
         __asm("NOP"); // No operation for delay
+    }
+}
+
+
+TIM_Handle_t PWM;
+
+void timer_setup(void)
+{
+    PWM.pTIMx = TIM2;
+    PWM.TIM_Config.channel = TIM_CHANNEL1;
+    PWM.TIM_Config.initialDuty = 100.0f;
+
+    // setup frequency and resolution
+    PWM.TIM_Config.prescaler = PRESCALER; // divided by 10
+    PWM.TIM_Config.auto_reload = ARR_VALUE; // divided by 26667 -> close to 60Hz
+
+    timer_pwm_init(&PWM);
+}
+
+int main(void)
+ {
+    gpio_setup();
+    system_setup();
+    timer_setup();
+
+    //uint64_t start_time = system_get_ticks();
+    //float duty_cycle = 0.0f;
+    //uint32_t delayMs = 100;
+
+    while (1)
+    {
+        /*
+        if((system_get_ticks() - start_time) >= delayMs)
+        {
+            duty_cycle += 10;
+            if(duty_cycle >= 100.0f)
+            {
+                duty_cycle = 0.0f;
+            }
+            
+            timer_pwm_set_duty_cycle(&PWM, duty_cycle);
+            start_time = system_get_ticks();
+        }*/
+
+        // Do other stuff
     }
 }

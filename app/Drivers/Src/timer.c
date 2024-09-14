@@ -58,7 +58,7 @@ void timer_pwm_init(TIM_Handle_t *pTIMHandle)
     pTIMHandle->pTIMx->CCER |= (0x1 << 4*(pTIMHandle->TIM_Config.channel)); // enable compare (CCxE)
 
     timer_pwm_set_duty_cycle(pTIMHandle, pTIMHandle->TIM_Config.initialDuty);
-    TIM2->CCR[0] = (26667/50) - 1; // 1/3 of period -> 33% duty cycle
+    //TIM2->CCR[0] = (26667/10) - 1; // 1/3 of period -> 33% duty cycle
 
     pTIMHandle->pTIMx->CR1 = CR1_CEN; // enable timer
 }

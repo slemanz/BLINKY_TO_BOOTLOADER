@@ -24,10 +24,9 @@ void system_setup(void)
     systick_setup();
 }
 
-/*
 void gpio_setup(void)
 {
-    // Set GPIOA pin 3 as output
+    // set pin for pwm
     GPIO_Handle_t GpioLed;
 	GpioLed.pGPIOx = LED_PORT;
 	GpioLed.GPIO_PinConfig.GPIO_PinNumber = LED_PIN;
@@ -39,4 +38,3 @@ void gpio_setup(void)
 
     GPIO_Init(&GpioLed);
 }
-*/
