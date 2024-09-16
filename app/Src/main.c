@@ -1,6 +1,9 @@
 #include "stm32f401xx.h"
 #include "core/system.h"
 
+#define VTOR_OFFSET_BASE (0xE000ED08UL)
+#define VTOR_OFFSET       (*(volatile uint32_t *)(VTOR_OFFSET_BASE))
+
 
 // Function delay
 void delay_cycles(uint32_t cycles)
@@ -28,6 +31,7 @@ void timer_setup(void)
 
 int main(void)
  {
+    VTOR_OFFSET = (0x8000U);
     gpio_setup();
     system_setup();
     timer_setup();
