@@ -397,6 +397,18 @@ typedef struct
 #define NVIC_IRQ_PRI0		0
 #define NVIC_IRQ_PRI15		15
 
+/*
+ *		SCB
+ */
+
+#define MMIO32(addr) (*(volatile uint32_t *)(addr))
+
+
+
+#define SCB_BASE (0xE000ED00UL)
+#define VTOR_OFFSET       MMIO32(SCB_BASE + 0x08U)
+
+
 
 /*
  * Drivers includes

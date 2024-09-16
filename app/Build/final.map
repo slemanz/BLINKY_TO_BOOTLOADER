@@ -60,7 +60,7 @@ END GROUP
 LOAD /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
 LOAD /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
 
-.text           0x0000000008000000     0x9ad0
+.text           0x0000000008000000     0x9ae0
  *(.bootloader_section)
  .bootloader_section
                 0x0000000008000000     0x8000 Build/bootloader.o
@@ -74,230 +74,230 @@ LOAD /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
                 0x000000000800821c                _stack_init
                 0x0000000008008224                _mainCRTStartup
                 0x0000000008008224                _start
- .text          0x000000000800828c       0xec Build/main.o
+ .text          0x000000000800828c       0xe0 Build/main.o
                 0x000000000800828c                delay_cycles
                 0x00000000080082ae                timer_setup
                 0x00000000080082e8                main
- .text          0x0000000008008378        0x0 Build/bootloader.o
- .text          0x0000000008008378       0x94 Build/stm32_startup.o
-                0x0000000008008378                EXTI2_IRQHandler
-                0x0000000008008378                DebugMon_Handler
-                0x0000000008008378                SPI4_IRQHandler
-                0x0000000008008378                TIM1_CC_IRQHandler
-                0x0000000008008378                DMA2_Stream5_IRQHandler
-                0x0000000008008378                HardFault_Handler
-                0x0000000008008378                DMA1_Stream5_IRQHandler
-                0x0000000008008378                SDIO_IRQHandler
-                0x0000000008008378                TAMP_STAMP_IRQHandler
-                0x0000000008008378                PendSV_Handler
-                0x0000000008008378                NMI_Handler
-                0x0000000008008378                EXTI3_IRQHandler
-                0x0000000008008378                TIM1_UP_TIM10_IRQHandler
-                0x0000000008008378                I2C3_ER_IRQHandler
-                0x0000000008008378                EXTI18_OTG_FS_WKUP_IRQHandler
-                0x0000000008008378                EXTI0_IRQHandler
-                0x0000000008008378                I2C2_EV_IRQHandler
-                0x0000000008008378                DMA1_Stream2_IRQHandler
-                0x0000000008008378                UsageFault_Handler
-                0x0000000008008378                DMA2_Stream2_IRQHandler
-                0x0000000008008378                SPI1_IRQHandler
-                0x0000000008008378                TIM1_BRK_TIM9_IRQHandler
-                0x0000000008008378                DMA2_Stream3_IRQHandler
-                0x0000000008008378                USART6_IRQHandler
-                0x0000000008008378                DMA2_Stream0_IRQHandler
-                0x0000000008008378                TIM4_IRQHandler
-                0x0000000008008378                I2C1_EV_IRQHandler
-                0x0000000008008378                DMA1_Stream6_IRQHandler
-                0x0000000008008378                DMA1_Stream1_IRQHandler
-                0x0000000008008378                TIM3_IRQHandler
-                0x0000000008008378                RCC_IRQHandler
-                0x0000000008008378                Default_Handler
-                0x0000000008008378                EXTI15_10_IRQHandler
-                0x0000000008008378                ADC_IRQHandler
-                0x0000000008008378                DMA1_Stream7_IRQHandler
-                0x0000000008008378                TIM5_IRQHandler
-                0x0000000008008378                DMA2_Stream7_IRQHandler
-                0x0000000008008378                I2C3_EV_IRQHandler
-                0x0000000008008378                EXTI9_5_IRQHandler
-                0x0000000008008378                SPI2_IRQHandler
-                0x0000000008008378                MemManage_Handler
-                0x0000000008008378                DMA1_Stream0_IRQHandler
-                0x0000000008008378                SVC_Handler
-                0x0000000008008378                EXTI4_IRQHandler
-                0x0000000008008378                EXTI22_RTC_WKUP_IRQHandler
-                0x0000000008008378                TIM2_IRQHandler
-                0x0000000008008378                EXTI16_PVD_IRQHandler
-                0x0000000008008378                TIM1_TRG_COM_TIM11_IRQHandler
-                0x0000000008008378                EXTI1_IRQHandler
-                0x0000000008008378                EXTI17_RTC_Alarm_IRQHandler
-                0x0000000008008378                USART2_IRQHandler
-                0x0000000008008378                I2C2_ER_IRQHandler
-                0x0000000008008378                DMA2_Stream1_IRQHandler
-                0x0000000008008378                FLASH_IRQHandler
-                0x0000000008008378                DMA2_Stream4_IRQHandler
-                0x0000000008008378                BusFault_Handler
-                0x0000000008008378                USART1_IRQHandler
-                0x0000000008008378                OTG_FS_IRQHandler
-                0x0000000008008378                SPI3_IRQHandler
-                0x0000000008008378                DMA1_Stream4_IRQHandler
-                0x0000000008008378                I2C1_ER_IRQHandler
-                0x0000000008008378                DMA2_Stream6_IRQHandler
-                0x0000000008008378                DMA1_Stream3_IRQHandler
-                0x000000000800837e                Reset_Handler
- .text          0x000000000800840c      0x5fc Build/gpio.o
-                0x000000000800840c                GPIO_PeriClockControl
-                0x000000000800854c                GPIO_Init
-                0x000000000800885c                GPIO_DeInit
-                0x0000000008008954                GPIO_ReadFromInputPin
-                0x000000000800897e                GPIO_ReadFromInputPort
-                0x0000000008008998                GPIO_WriteToOutputPin
-                0x00000000080089e0                GPIO_ToggleOutputPin
- .text          0x0000000008008a08       0xe8 Build/systick.o
-                0x0000000008008a08                systickDelayMs
-                0x0000000008008a5c                systick_1hz_interrupt
-                0x0000000008008a90                systick_set_frequency
-                0x0000000008008abc                systick_counter_enable
-                0x0000000008008ad4                systick_interrupt_enable
- .text          0x0000000008008af0       0xa0 Build/system.o
-                0x0000000008008af0                SysTick_Handler
-                0x0000000008008b14                system_get_ticks
-                0x0000000008008b2c                systick_setup
-                0x0000000008008b4c                system_setup
-                0x0000000008008b58                gpio_setup
- .text          0x0000000008008b90      0x26c Build/timer.o
-                0x0000000008008b90                timer_PeriClockControl
-                0x0000000008008bdc                timer_pwm_init
-                0x0000000008008c68                timer_pwm_set_duty_cycle
-                0x0000000008008cbc                tim2_1hz_init
-                0x0000000008008cfc                tim2_pa3_out_compare
-                0x0000000008008d98                tim2_pa3_pwm
- .text          0x0000000008008dfc      0x25c Build/syscalls.o
-                0x0000000008008dfc                initialise_monitor_handles
-                0x0000000008008e08                _getpid
-                0x0000000008008e16                _kill
-                0x0000000008008e36                _exit
-                0x0000000008008e4a                _read
-                0x0000000008008e84                _write
-                0x0000000008008ebc                _close
-                0x0000000008008ed2                _fstat
-                0x0000000008008ef0                _isatty
-                0x0000000008008f04                _lseek
-                0x0000000008008f1c                _open
-                0x0000000008008f36                _wait
-                0x0000000008008f54                _unlink
-                0x0000000008008f72                _times
-                0x0000000008008f88                _stat
-                0x0000000008008fa6                _link
-                0x0000000008008fc6                _fork
-                0x0000000008008fdc                _execve
-                0x0000000008008ffe                _sbrk
- .text          0x0000000008009058      0x168 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_mulsf3.o)
- .text          0x00000000080091c0      0x21c /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubsf3.o)
-                0x00000000080091c0                __aeabi_frsub
-                0x00000000080091c8                __subsf3
-                0x00000000080091c8                __aeabi_fsub
-                0x00000000080091cc                __aeabi_fadd
-                0x00000000080091cc                __addsf3
-                0x000000000800932c                __aeabi_ui2f
-                0x000000000800932c                __floatunsisf
-                0x0000000008009334                __aeabi_i2f
-                0x0000000008009334                __floatsisf
-                0x0000000008009350                __floatundisf
-                0x0000000008009350                __aeabi_ul2f
-                0x0000000008009360                __floatdisf
-                0x0000000008009360                __aeabi_l2f
- .text          0x00000000080093dc      0x2a0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivsf3.o)
-                0x00000000080093dc                __mulsf3
-                0x00000000080093dc                __aeabi_fmul
-                0x0000000008009544                __divsf3
-                0x0000000008009544                __aeabi_fdiv
- .text          0x000000000800967c       0xec /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpsf2.o)
-                0x000000000800967c                __gtsf2
-                0x000000000800967c                __gesf2
-                0x0000000008009684                __lesf2
-                0x0000000008009684                __ltsf2
-                0x000000000800968c                __nesf2
-                0x000000000800968c                __eqsf2
-                0x000000000800968c                __cmpsf2
-                0x00000000080096ec                __aeabi_cfrcmple
-                0x00000000080096f4                __aeabi_cfcmple
-                0x00000000080096f4                __aeabi_cfcmpeq
-                0x0000000008009704                __aeabi_fcmpeq
-                0x0000000008009718                __aeabi_fcmplt
-                0x000000000800972c                __aeabi_fcmple
-                0x0000000008009740                __aeabi_fcmpge
-                0x0000000008009754                __aeabi_fcmpgt
- .text          0x0000000008009768       0x40 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixunssfsi.o)
-                0x0000000008009768                __aeabi_f2uiz
-                0x0000000008009768                __fixunssfsi
- .text          0x00000000080097a8        0xc /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-atexit.o)
-                0x00000000080097a8                atexit
- .text          0x00000000080097b4        0xc /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-errno.o)
-                0x00000000080097b4                __errno
- .text          0x00000000080097c0       0x28 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-exit.o)
-                0x00000000080097c0                exit
- .text          0x00000000080097e8       0x2c /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-fini.o)
-                0x00000000080097e8                __libc_fini_array
- .text          0x0000000008009814        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-impure.o)
- .text          0x0000000008009814       0x48 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-init.o)
-                0x0000000008009814                __libc_init_array
- .text          0x000000000800985c       0xa4 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-memset.o)
-                0x000000000800985c                memset
- .text          0x0000000008009900       0xac /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-__atexit.o)
-                0x0000000008009900                __register_exitproc
- .text          0x00000000080099ac       0xc0 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
-                0x00000000080099ac                __call_exitprocs
- .text          0x0000000008009a6c        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
- .text          0x0000000008009a6c        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .text          0x000000000800836c        0x0 Build/bootloader.o
+ .text          0x000000000800836c       0x94 Build/stm32_startup.o
+                0x000000000800836c                EXTI2_IRQHandler
+                0x000000000800836c                DebugMon_Handler
+                0x000000000800836c                SPI4_IRQHandler
+                0x000000000800836c                TIM1_CC_IRQHandler
+                0x000000000800836c                DMA2_Stream5_IRQHandler
+                0x000000000800836c                HardFault_Handler
+                0x000000000800836c                DMA1_Stream5_IRQHandler
+                0x000000000800836c                SDIO_IRQHandler
+                0x000000000800836c                TAMP_STAMP_IRQHandler
+                0x000000000800836c                PendSV_Handler
+                0x000000000800836c                NMI_Handler
+                0x000000000800836c                EXTI3_IRQHandler
+                0x000000000800836c                TIM1_UP_TIM10_IRQHandler
+                0x000000000800836c                I2C3_ER_IRQHandler
+                0x000000000800836c                EXTI18_OTG_FS_WKUP_IRQHandler
+                0x000000000800836c                EXTI0_IRQHandler
+                0x000000000800836c                I2C2_EV_IRQHandler
+                0x000000000800836c                DMA1_Stream2_IRQHandler
+                0x000000000800836c                UsageFault_Handler
+                0x000000000800836c                DMA2_Stream2_IRQHandler
+                0x000000000800836c                SPI1_IRQHandler
+                0x000000000800836c                TIM1_BRK_TIM9_IRQHandler
+                0x000000000800836c                DMA2_Stream3_IRQHandler
+                0x000000000800836c                USART6_IRQHandler
+                0x000000000800836c                DMA2_Stream0_IRQHandler
+                0x000000000800836c                TIM4_IRQHandler
+                0x000000000800836c                I2C1_EV_IRQHandler
+                0x000000000800836c                DMA1_Stream6_IRQHandler
+                0x000000000800836c                DMA1_Stream1_IRQHandler
+                0x000000000800836c                TIM3_IRQHandler
+                0x000000000800836c                RCC_IRQHandler
+                0x000000000800836c                Default_Handler
+                0x000000000800836c                EXTI15_10_IRQHandler
+                0x000000000800836c                ADC_IRQHandler
+                0x000000000800836c                DMA1_Stream7_IRQHandler
+                0x000000000800836c                TIM5_IRQHandler
+                0x000000000800836c                DMA2_Stream7_IRQHandler
+                0x000000000800836c                I2C3_EV_IRQHandler
+                0x000000000800836c                EXTI9_5_IRQHandler
+                0x000000000800836c                SPI2_IRQHandler
+                0x000000000800836c                MemManage_Handler
+                0x000000000800836c                DMA1_Stream0_IRQHandler
+                0x000000000800836c                SVC_Handler
+                0x000000000800836c                EXTI4_IRQHandler
+                0x000000000800836c                EXTI22_RTC_WKUP_IRQHandler
+                0x000000000800836c                TIM2_IRQHandler
+                0x000000000800836c                EXTI16_PVD_IRQHandler
+                0x000000000800836c                TIM1_TRG_COM_TIM11_IRQHandler
+                0x000000000800836c                EXTI1_IRQHandler
+                0x000000000800836c                EXTI17_RTC_Alarm_IRQHandler
+                0x000000000800836c                USART2_IRQHandler
+                0x000000000800836c                I2C2_ER_IRQHandler
+                0x000000000800836c                DMA2_Stream1_IRQHandler
+                0x000000000800836c                FLASH_IRQHandler
+                0x000000000800836c                DMA2_Stream4_IRQHandler
+                0x000000000800836c                BusFault_Handler
+                0x000000000800836c                USART1_IRQHandler
+                0x000000000800836c                OTG_FS_IRQHandler
+                0x000000000800836c                SPI3_IRQHandler
+                0x000000000800836c                DMA1_Stream4_IRQHandler
+                0x000000000800836c                I2C1_ER_IRQHandler
+                0x000000000800836c                DMA2_Stream6_IRQHandler
+                0x000000000800836c                DMA1_Stream3_IRQHandler
+                0x0000000008008372                Reset_Handler
+ .text          0x0000000008008400      0x5fc Build/gpio.o
+                0x0000000008008400                GPIO_PeriClockControl
+                0x0000000008008540                GPIO_Init
+                0x0000000008008850                GPIO_DeInit
+                0x0000000008008948                GPIO_ReadFromInputPin
+                0x0000000008008972                GPIO_ReadFromInputPort
+                0x000000000800898c                GPIO_WriteToOutputPin
+                0x00000000080089d4                GPIO_ToggleOutputPin
+ .text          0x00000000080089fc       0xe8 Build/systick.o
+                0x00000000080089fc                systickDelayMs
+                0x0000000008008a50                systick_1hz_interrupt
+                0x0000000008008a84                systick_set_frequency
+                0x0000000008008ab0                systick_counter_enable
+                0x0000000008008ac8                systick_interrupt_enable
+ .text          0x0000000008008ae4       0xbc Build/system.o
+                0x0000000008008ae4                SysTick_Handler
+                0x0000000008008b08                system_get_ticks
+                0x0000000008008b38                systick_setup
+                0x0000000008008b58                system_setup
+                0x0000000008008b68                gpio_setup
+ .text          0x0000000008008ba0      0x26c Build/timer.o
+                0x0000000008008ba0                timer_PeriClockControl
+                0x0000000008008bec                timer_pwm_init
+                0x0000000008008c78                timer_pwm_set_duty_cycle
+                0x0000000008008ccc                tim2_1hz_init
+                0x0000000008008d0c                tim2_pa3_out_compare
+                0x0000000008008da8                tim2_pa3_pwm
+ .text          0x0000000008008e0c      0x25c Build/syscalls.o
+                0x0000000008008e0c                initialise_monitor_handles
+                0x0000000008008e18                _getpid
+                0x0000000008008e26                _kill
+                0x0000000008008e46                _exit
+                0x0000000008008e5a                _read
+                0x0000000008008e94                _write
+                0x0000000008008ecc                _close
+                0x0000000008008ee2                _fstat
+                0x0000000008008f00                _isatty
+                0x0000000008008f14                _lseek
+                0x0000000008008f2c                _open
+                0x0000000008008f46                _wait
+                0x0000000008008f64                _unlink
+                0x0000000008008f82                _times
+                0x0000000008008f98                _stat
+                0x0000000008008fb6                _link
+                0x0000000008008fd6                _fork
+                0x0000000008008fec                _execve
+                0x000000000800900e                _sbrk
+ .text          0x0000000008009068      0x168 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_mulsf3.o)
+ .text          0x00000000080091d0      0x21c /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubsf3.o)
+                0x00000000080091d0                __aeabi_frsub
+                0x00000000080091d8                __subsf3
+                0x00000000080091d8                __aeabi_fsub
+                0x00000000080091dc                __aeabi_fadd
+                0x00000000080091dc                __addsf3
+                0x000000000800933c                __aeabi_ui2f
+                0x000000000800933c                __floatunsisf
+                0x0000000008009344                __aeabi_i2f
+                0x0000000008009344                __floatsisf
+                0x0000000008009360                __floatundisf
+                0x0000000008009360                __aeabi_ul2f
+                0x0000000008009370                __floatdisf
+                0x0000000008009370                __aeabi_l2f
+ .text          0x00000000080093ec      0x2a0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivsf3.o)
+                0x00000000080093ec                __mulsf3
+                0x00000000080093ec                __aeabi_fmul
+                0x0000000008009554                __divsf3
+                0x0000000008009554                __aeabi_fdiv
+ .text          0x000000000800968c       0xec /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpsf2.o)
+                0x000000000800968c                __gtsf2
+                0x000000000800968c                __gesf2
+                0x0000000008009694                __lesf2
+                0x0000000008009694                __ltsf2
+                0x000000000800969c                __nesf2
+                0x000000000800969c                __eqsf2
+                0x000000000800969c                __cmpsf2
+                0x00000000080096fc                __aeabi_cfrcmple
+                0x0000000008009704                __aeabi_cfcmple
+                0x0000000008009704                __aeabi_cfcmpeq
+                0x0000000008009714                __aeabi_fcmpeq
+                0x0000000008009728                __aeabi_fcmplt
+                0x000000000800973c                __aeabi_fcmple
+                0x0000000008009750                __aeabi_fcmpge
+                0x0000000008009764                __aeabi_fcmpgt
+ .text          0x0000000008009778       0x40 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixunssfsi.o)
+                0x0000000008009778                __aeabi_f2uiz
+                0x0000000008009778                __fixunssfsi
+ .text          0x00000000080097b8        0xc /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-atexit.o)
+                0x00000000080097b8                atexit
+ .text          0x00000000080097c4        0xc /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-errno.o)
+                0x00000000080097c4                __errno
+ .text          0x00000000080097d0       0x28 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-exit.o)
+                0x00000000080097d0                exit
+ .text          0x00000000080097f8       0x2c /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-fini.o)
+                0x00000000080097f8                __libc_fini_array
+ .text          0x0000000008009824        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-impure.o)
+ .text          0x0000000008009824       0x48 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-init.o)
+                0x0000000008009824                __libc_init_array
+ .text          0x000000000800986c       0xa4 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-memset.o)
+                0x000000000800986c                memset
+ .text          0x0000000008009910       0xac /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-__atexit.o)
+                0x0000000008009910                __register_exitproc
+ .text          0x00000000080099bc       0xc0 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
+                0x00000000080099bc                __call_exitprocs
+ .text          0x0000000008009a7c        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .text          0x0000000008009a7c        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.text.*)
  *(.init)
- .init          0x0000000008009a6c        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x0000000008009a6c                _init
- .init          0x0000000008009a70        0x8 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .init          0x0000000008009a7c        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x0000000008009a7c                _init
+ .init          0x0000000008009a80        0x8 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.fini)
- .fini          0x0000000008009a78        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x0000000008009a78                _fini
- .fini          0x0000000008009a7c        0x8 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x0000000008009a88        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x0000000008009a88                _fini
+ .fini          0x0000000008009a8c        0x8 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.rodata)
- .rodata        0x0000000008009a84       0x24 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .rodata        0x0000000008009aa8        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-impure.o)
-                0x0000000008009aa8                _global_impure_ptr
- .rodata        0x0000000008009aac       0x24 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .rodata        0x0000000008009a94       0x24 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .rodata        0x0000000008009ab8        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000008009ab8                _global_impure_ptr
+ .rodata        0x0000000008009abc       0x24 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
  *(.rodata.*)
-                0x0000000008009ad0                . = ALIGN (0x4)
-                0x0000000008009ad0                _etext = .
-                0x0000000008009adc                _la_data = LOADADDR (.data)
+                0x0000000008009ae0                . = ALIGN (0x4)
+                0x0000000008009ae0                _etext = .
+                0x0000000008009aec                _la_data = LOADADDR (.data)
 
-.glue_7         0x0000000008009ad0        0x0
- .glue_7        0x0000000008009ad0        0x0 linker stubs
+.glue_7         0x0000000008009ae0        0x0
+ .glue_7        0x0000000008009ae0        0x0 linker stubs
 
-.glue_7t        0x0000000008009ad0        0x0
- .glue_7t       0x0000000008009ad0        0x0 linker stubs
+.glue_7t        0x0000000008009ae0        0x0
+ .glue_7t       0x0000000008009ae0        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008009ad0        0x0
- .vfp11_veneer  0x0000000008009ad0        0x0 linker stubs
+.vfp11_veneer   0x0000000008009ae0        0x0
+ .vfp11_veneer  0x0000000008009ae0        0x0 linker stubs
 
-.v4_bx          0x0000000008009ad0        0x0
- .v4_bx         0x0000000008009ad0        0x0 linker stubs
+.v4_bx          0x0000000008009ae0        0x0
+ .v4_bx         0x0000000008009ae0        0x0 linker stubs
 
-.iplt           0x0000000008009ad0        0x0
- .iplt          0x0000000008009ad0        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+.iplt           0x0000000008009ae0        0x0
+ .iplt          0x0000000008009ae0        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.eh_frame       0x0000000008009ad0        0x4
- .eh_frame      0x0000000008009ad0        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .eh_frame      0x0000000008009ad0        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+.eh_frame       0x0000000008009ae0        0x4
+ .eh_frame      0x0000000008009ae0        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x0000000008009ae0        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
 
-.ARM.extab      0x0000000008009ad4        0x0
- .ARM.extab     0x0000000008009ad4        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+.ARM.extab      0x0000000008009ae4        0x0
+ .ARM.extab     0x0000000008009ae4        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
 
-.ARM.exidx      0x0000000008009ad4        0x8
- .ARM.exidx     0x0000000008009ad4        0x8 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+.ARM.exidx      0x0000000008009ae4        0x8
+ .ARM.exidx     0x0000000008009ae4        0x8 /usr/lib/gcc/arm-none-eabi/10.3.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
                                          0x10 (size before relaxing)
 
-.rel.dyn        0x0000000008009adc        0x0
- .rel.iplt      0x0000000008009adc        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+.rel.dyn        0x0000000008009aec        0x0
+ .rel.iplt      0x0000000008009aec        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.data           0x0000000020000000       0x70 load address 0x0000000008009adc
+.data           0x0000000020000000       0x70 load address 0x0000000008009aec
                 0x0000000020000000                _sdata = .
  *(.data)
  .data          0x0000000020000000        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
@@ -334,23 +334,23 @@ LOAD /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.data.*)
                 0x0000000020000070                _edata = .
 
-.init_array     0x0000000020000070        0x4 load address 0x0000000008009b4c
+.init_array     0x0000000020000070        0x4 load address 0x0000000008009b5c
  .init_array    0x0000000020000070        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.fini_array     0x0000000020000074        0x4 load address 0x0000000008009b50
+.fini_array     0x0000000020000074        0x4 load address 0x0000000008009b60
  .fini_array    0x0000000020000074        0x4 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
 .tm_clone_table
-                0x0000000020000078        0x0 load address 0x0000000008009b54
+                0x0000000020000078        0x0 load address 0x0000000008009b64
  .tm_clone_table
                 0x0000000020000078        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
  .tm_clone_table
                 0x0000000020000078        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
 
-.igot.plt       0x0000000020000078        0x0 load address 0x0000000008009b54
+.igot.plt       0x0000000020000078        0x0 load address 0x0000000008009b64
  .igot.plt      0x0000000020000078        0x0 /usr/lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.bss            0x0000000020000078       0xd0 load address 0x0000000008009b54
+.bss            0x0000000020000078       0xd0 load address 0x0000000008009b64
                 0x0000000020000078                _sbss = .
                 0x0000000020000078                __bss_start__ = _sbss
  *(.bss)

@@ -12,6 +12,11 @@ uint64_t system_get_ticks(void)
     return ticks;
 }
 
+static void vector_setup(void)
+{
+    VTOR_OFFSET = BOOTLOADER_SIZE;
+}
+
 void systick_setup(void)
 {
     systick_set_frequency(SYSTICK_FREQ, CPU_FREQ);
@@ -21,6 +26,7 @@ void systick_setup(void)
 
 void system_setup(void)
 {
+    vector_setup();
     systick_setup();
 }
 
