@@ -9,7 +9,8 @@ LINKER_SCRIPT=stm32_ls.ld
 #				 INCLUDES
 
 INCLUDES= -I Drivers/Inc/ \
--I Inc/
+-I Inc/ \
+-I ../shared/Inc/
 
 
 
@@ -38,8 +39,11 @@ Build/%.o: Src/%.c
 Build/%.o: Src/%.S
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).S
 
-Build/%.o: Src/core/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/core/$(*).c
+Build/%.o: ../shared/Src/core/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/core/$(*).c
+
+Build/%.o: ../shared/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/$(*).c
 
 Build/%.o: Drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Drivers/Src/$(*).c
