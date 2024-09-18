@@ -8,8 +8,8 @@ LINKER_SCRIPT=stm32_ls.ld
 ###########################################
 #				 INCLUDES
 
-INCLUDES= -I Drivers/Inc/ \
--I Inc/ \
+INCLUDES+= -I Drivers/Inc/ \
+INCLUDES+= -I Inc/ \
 -I ../shared/Inc/
 
 
