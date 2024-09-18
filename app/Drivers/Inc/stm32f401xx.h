@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 #define __vo volatile
 
 
@@ -106,11 +107,16 @@
 #define SCS_BASE            				(0xE000E000UL)
 #define SYSTICK_BASEADDR					(SCS_BASE + 0x0010UL)
 
-#define TIM2_BASEADDR						(APB1PERIPH_BASE + 0x0000UL)
-#define TIM3_BASEADDR						(APB1PERIPH_BASE + 0x0400UL)
-#define TIM4_BASEADDR						(APB1PERIPH_BASE + 0x0800UL)
-#define TIM5_BASEADDR						(APB1PERIPH_BASE + 0x0C00UL)
+#define TIM2_BASEADDR						(APB1PERIPH_BASE + 0x0000U)
+#define TIM3_BASEADDR						(APB1PERIPH_BASE + 0x0400U)
+#define TIM4_BASEADDR						(APB1PERIPH_BASE + 0x0800U)
+#define TIM5_BASEADDR						(APB1PERIPH_BASE + 0x0C00U)
 
+/*
+ *  Base adress of UART
+ */
+
+#define UART2_BASEADDR						(APB1PERIPH_BASE + 0x4400U)
 
 /*******************peripheral register definition structures*******************/
 
@@ -205,6 +211,18 @@ typedef struct
 	__vo uint32_t OR;          /*!< TIM option register,                 Address offset: 0x50 */
 }TIM_RegDef_t;
 
+typedef struct
+{
+  __vo uint32_t SR;         /*!< USART Status register,                   Address offset: 0x00 */
+  __vo uint32_t DR;         /*!< USART Data register,                     Address offset: 0x04 */
+  __vo uint32_t BRR;        /*!< USART Baud rate register,                Address offset: 0x08 */
+  __vo uint32_t CR1;        /*!< USART Control register 1,                Address offset: 0x0C */
+  __vo uint32_t CR2;        /*!< USART Control register 2,                Address offset: 0x10 */
+  __vo uint32_t CR3;        /*!< USART Control register 3,                Address offset: 0x14 */
+  __vo uint32_t GTPR;       /*!< USART Guard time and prescaler register, Address offset: 0x18 */
+} UART_RegDef_t;
+
+
 
 /*
  * 	peripheral definitions (Peripheral base address typecasted to xxx_RegDef_t)
@@ -229,6 +247,8 @@ typedef struct
 #define TIM3			((TIM_RegDef_t*)TIM3_BASEADDR)
 #define TIM4			((TIM_RegDef_t*)TIM4_BASEADDR)
 #define TIM5			((TIM_RegDef_t*)TIM5_BASEADDR)
+
+#define UART2 			((UART_RegDef_t*)UART2_BASEADDR)
 
 
 /*
@@ -265,9 +285,9 @@ typedef struct
  * Clock enable macros for USARTx peripherals
  */
 
-#define USART1_PCLK_EN()		(RCC->APB2ENR |= (1 << 4))
-#define USART2_PCLK_EN()		(RCC->APB1ENR |= (1 << 17))
-#define USART6_PCLK_EN()		(RCC->APB2ENR |= (1 << 5))
+#define UART1_PCLK_EN()		(RCC->APB2ENR |= (1 << 4))
+#define UART2_PCLK_EN()		(RCC->APB1ENR |= (1 << 17))
+#define UART6_PCLK_EN()		(RCC->APB2ENR |= (1 << 5))
 
 
 /*
@@ -320,9 +340,9 @@ typedef struct
  * Clock disable macros for USARTx peripherals
  */
 
-#define USART1_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 4))
-#define USART2_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 17))
-#define USART6_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 5))
+#define UART1_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 4))
+#define UART2_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 17))
+#define UART6_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 5))
 
 
 /*
@@ -417,5 +437,6 @@ typedef struct
 #include "gpio.h"
 #include "systick.h"
 #include "timer.h"
+#include "core/uart.h"
 
 #endif
