@@ -12,13 +12,13 @@ void uart_setup(void)
     UART2_PCLK_EN();
 
     // no flow control (default reset)
-    UART2->CR1 &= ~(1 << 12); // 8 databits
+    UART2->CR1 &= ~(1 << UART_CR1_M); // 8 databits
     UART2->BRR = compute_uart_div(16000000, 115200); // baurate
-    UART2->CR1 &= ~(1 << 10); // parity disable
-    UART2->CR2 &= ~(0x3 << 12); // 1 stop bits
+    UART2->CR1 &= ~(1 << UART_CR1_PCE); // parity disable
+    UART2->CR2 &= ~(0x3 << UART_CR2_STOP); // 1 stop bits
 
-    // tx en
-    // rx en
+    UART2->CR1 |= (1 << UART_CR1_TE); // tx en
+    UART2->CR1 |= (1 << UART_CR1_RE); // rx en
 
 
     // do macros to bit shifts
