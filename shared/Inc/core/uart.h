@@ -7,21 +7,30 @@
  *  it position definions Uart
  */
 
-#define UART_CR1_UE             13
-#define UART_CR1_M              12
-#define UART_CR1_PCE            10
-#define UART_CR1_RXNEIE          5
-#define UART_CR1_TE              3
-#define UART_CR1_RE              2
+#define UART_CR1_UE                 13
+#define UART_CR1_M                  12
+#define UART_CR1_PCE                10
+#define UART_CR1_RXNEIE             5
+#define UART_CR1_TE                 3
+#define UART_CR1_RE                 2
 
-#define UART_CR2_STOP           12
+#define UART_CR2_STOP               12
 
-#define UART_SR_TXE              7
-
-
+#define UART_SR_TXE                 7
 
 
 
+
+#define UART_CR1_UE_SHIFT             (1 << UART_CR1_UE)
+#define UART_CR1_M_SHIFT              (1 << UART_CR1_M)
+#define UART_CR1_PCE_SHIFT            (1 << UART_CR1_PCE)
+#define UART_CR1_RXNEIE_SHIFT         (1 << UART_CR1_RXNEIE)
+#define UART_CR1_TE_SHIFT             (1 << UART_CR1_TE)
+#define UART_CR1_RE_SHIFT             (1 << UART_CR1_RE)
+
+#define UART_CR2_STOP_SHIFT           (1 << UART_CR2_STOP)
+
+#define UART_SR_TXE_SHIFT             (1 << UART_SR_TXE)
 
 
 /*

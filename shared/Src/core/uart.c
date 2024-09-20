@@ -12,19 +12,19 @@ void uart_setup(void)
     UART2_PCLK_EN();
 
     // no flow control (default reset)
-    UART2->CR1 &= ~(1 << UART_CR1_M); // 8 databits
-    UART2->BRR = compute_uart_div(16000000, 9600); // baurate
-    UART2->CR1 &= ~(1 << UART_CR1_PCE); // parity disable
-    UART2->CR2 &= ~(0x3 << UART_CR2_STOP); // 1 stop bits
+    UART2->CR1 &= ~UART_CR1_M_SHIFT; // 8 databits
+    UART2->BRR = compute_uart_div(16000000, 115200); // baurate
+    UART2->CR1 &= ~UART_CR1_PCE_SHIFT; // parity disable
+    UART2->CR2 &= ~UART_CR2_STOP_SHIFT; // 1 stop bits
 
-    UART2->CR1 |= (1 << UART_CR1_TE); // tx en
-    UART2->CR1 |= (1 << UART_CR1_RE); // rx en
+    UART2->CR1 |= UART_CR1_TE_SHIFT; // tx en
+    UART2->CR1 |= UART_CR1_RE_SHIFT; // rx en
 
 
     UART2->CR1 |= (1 << UART_CR1_RXNEIE); // enable interrupt to rx
     UART_IRQITConfig(38, ENABLE);
 
-    UART2->CR1 |= (1 << UART_CR1_UE);// enable uart periph
+    UART2->CR1 |= UART_CR1_UE_SHIFT;// enable uart periph
 }
 
 void uart_write(uint8_t* data, const uint32_t lenght)
@@ -38,7 +38,7 @@ void uart_write(uint8_t* data, const uint32_t lenght)
 
 void uart_write_byte(uint8_t data)
 {
-	while(!(UART2->SR & (1 << UART_SR_TXE)));
+	while(!(UART2->SR & UART_SR_TXE_SHIFT));
     UART2->DR = data;
 }
 
