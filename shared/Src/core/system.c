@@ -44,3 +44,17 @@ void gpio_setup(void)
 
     GPIO_Init(&GpioLed);
 }
+
+void uart_pin_setup(void)
+{
+    GPIO_Handle_t UartTx;
+    UartTx.pGPIOx = GPIOA;
+    UartTx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_2;
+    UartTx.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
+    UartTx.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+    UartTx.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+    UartTx.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
+    UartTx.GPIO_PinConfig.GPIO_PinAltFunMode = GPIO_PIN_ALTFN_7;
+
+    GPIO_Init(&UartTx);
+}

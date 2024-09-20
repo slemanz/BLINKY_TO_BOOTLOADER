@@ -17,6 +17,7 @@ void system_setup(void);
 void systick_setup(void);
 uint64_t system_get_ticks(void);
 void gpio_setup(void);
+void uart_pin_setup(void);
 
 
 

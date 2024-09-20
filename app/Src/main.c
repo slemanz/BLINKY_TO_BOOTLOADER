@@ -30,6 +30,8 @@ int main(void)
  {
     system_setup();
     gpio_setup();
+    uart_setup();
+    uart_pin_setup();
     timer_setup();
 
     uint64_t start_time = system_get_ticks();
@@ -37,7 +39,7 @@ int main(void)
     float duty_cycle = 0.0f;
     uint32_t delayMs = 1000;
 
-    char string_send[] = "Hello world\n";
+    uint8_t string_send[] = "Hello world\n";
 
     while (1)
     {
@@ -53,10 +55,10 @@ int main(void)
             start_time = system_get_ticks();
         }
 
-        if((system_get_ticks - start_time2) >= 3000)
+        if((system_get_ticks() - start_time2) >= 3000)
         {
-
-
+            uart_write(string_send, (sizeof(string_send) - 1));
+            start_time2 = system_get_ticks();
         }
 
         // Do other stuff

@@ -25,6 +25,7 @@ OBJS		+= Build/systick.o
 OBJS		+= Build/system.o
 OBJS		+= Build/timer.o
 OBJS		+= Build/syscalls.o
+OBJS		+= Build/uart.o
 
 all: Build/final.elf
 

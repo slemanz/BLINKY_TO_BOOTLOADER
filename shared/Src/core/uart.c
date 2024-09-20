@@ -29,6 +29,10 @@ void uart_setup(void)
 
 void uart_write(uint8_t* data, const uint32_t lenght)
 {
+	for(uint32_t i = 0; i < lenght; i++)
+	{
+		uart_write_byte(data[i]);
+	}
 
 }
 
@@ -40,17 +44,18 @@ void uart_write_byte(uint8_t data)
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
 {
-
+	return 0;
 }
 
 uint8_t uart_read_byte(void)
 {
-
+	return 0;
 }
 
 bool uart_data_available(void)
 {
 
+	return 0;
 }
 
 
