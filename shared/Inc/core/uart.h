@@ -16,6 +16,8 @@
 
 #define UART_CR2_STOP           12
 
+#define UART_SR_TXE              7
+
 
 
 

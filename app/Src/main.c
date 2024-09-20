@@ -33,8 +33,11 @@ int main(void)
     timer_setup();
 
     uint64_t start_time = system_get_ticks();
+    uint64_t start_time2 = system_get_ticks();
     float duty_cycle = 0.0f;
     uint32_t delayMs = 1000;
+
+    char string_send[] = "Hello world\n";
 
     while (1)
     {
@@ -48,6 +51,12 @@ int main(void)
             }
             
             start_time = system_get_ticks();
+        }
+
+        if((system_get_ticks - start_time2) >= 3000)
+        {
+
+
         }
 
         // Do other stuff

@@ -34,7 +34,8 @@ void uart_write(uint8_t* data, const uint32_t lenght)
 
 void uart_write_byte(uint8_t data)
 {
-
+	while(!(UART2->SR & (1 << UART_SR_TXE)));
+    UART2->DR = data;
 }
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
