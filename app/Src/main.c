@@ -30,8 +30,8 @@ int main(void)
  {
     system_setup();
     gpio_setup();
-    uart_setup();
     uart_pin_setup();
+    uart_setup();
     timer_setup();
 
     uint64_t start_time = system_get_ticks();

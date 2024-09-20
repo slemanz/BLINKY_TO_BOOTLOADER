@@ -13,7 +13,7 @@ void uart_setup(void)
 
     // no flow control (default reset)
     UART2->CR1 &= ~(1 << UART_CR1_M); // 8 databits
-    UART2->BRR = compute_uart_div(16000000, 115200); // baurate
+    UART2->BRR = compute_uart_div(16000000, 9600); // baurate
     UART2->CR1 &= ~(1 << UART_CR1_PCE); // parity disable
     UART2->CR2 &= ~(0x3 << UART_CR2_STOP); // 1 stop bits
 
