@@ -2,6 +2,10 @@
 
 #define BAUDRATE		(115200U)
 
+static uint8_t data_buffer = 0;
+static bool data_available = false;
+
+
 static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate);
 
 static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate)
@@ -11,6 +15,13 @@ static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate)
 
 void USART2_IRQHandler(void)
 {
+	const bool overrun_occurred = UART_GetFlagStatus(UART2, UART_FLAG_ORE);
+	const bool received_data = UART_GetFlagStatus(UART2, UART_FLAG_RXNE);
+
+	if(received_data || overrun_occurred)
+	{
+		data_buffer = uart_recv(UART2);
+	}
 
 }
 
@@ -44,6 +55,10 @@ void uart_write(uint8_t* data, const uint32_t lenght)
 	}
 
 }
+uint8_t uart_recv(UART_RegDef_t *pUARTx)
+{
+	return (uint8_t)(pUARTx->DR && 0xFF);
+}
 
 void uart_write_byte(uint8_t data)
 {
@@ -53,21 +68,27 @@ void uart_write_byte(uint8_t data)
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
 {
+	if(length > 0 && data_available)
+	{
+		*data = data_buffer;
+		data_available = false;
+		return 1;
+	}
 	return 0;
 }
 
 uint8_t uart_read_byte(void)
 {
-	return 0;
+	data_available = false;
+	return data_buffer;
 }
 
 bool uart_data_available(void)
 {
-
-	return 0;
+	return data_available;
 }
 
-uint8_t UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName)
+bool UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName)
 {
 	if(pUARTx->SR & FlagName)
 	{

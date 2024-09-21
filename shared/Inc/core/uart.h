@@ -58,11 +58,12 @@
 void uart_setup(void);
 void uart_write(uint8_t* data, const uint32_t lenght);
 void uart_write_byte(uint8_t data);
+uint8_t uart_recv(UART_RegDef_t *pUARTx);
 uint32_t uart_read(uint8_t *data, const uint32_t length);
 uint8_t uart_read_byte(void);
 bool uart_data_available(void);
 
-uint8_t UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName);
+bool UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName);
 
 
 

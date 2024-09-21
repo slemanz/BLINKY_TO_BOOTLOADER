@@ -39,7 +39,7 @@ int main(void)
     float duty_cycle = 0.0f;
     uint32_t delayMs = 1000;
 
-    uint8_t string_send[] = "Hello world SLEMAN!!!\n";
+    uint8_t string_send[] = "Hello world!!!\n";
 
     while (1)
     {

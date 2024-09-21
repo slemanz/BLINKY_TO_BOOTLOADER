@@ -12,6 +12,12 @@
 #define LED_PORT        GPIOA
 #define LED_PIN         GPIO_PIN_NO_5
 
+// define uart pins
+
+#define UART_PORT       (GPIOA)
+#define PIN_TX          (GPIO_PIN_NO_3)
+#define PIN_RX          (GPIO_PIN_NO_2)
+
 void system_setup(void);
 
 void systick_setup(void);

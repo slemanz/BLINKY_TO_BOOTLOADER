@@ -220,7 +220,7 @@ typedef struct
   __vo uint32_t CR2;        /*!< USART Control register 2,                Address offset: 0x10 */
   __vo uint32_t CR3;        /*!< USART Control register 3,                Address offset: 0x14 */
   __vo uint32_t GTPR;       /*!< USART Guard time and prescaler register, Address offset: 0x18 */
-} UART_RegDef_t;
+}UART_RegDef_t;
 
 
 
