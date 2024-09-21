@@ -39,7 +39,7 @@ int main(void)
     float duty_cycle = 0.0f;
     uint32_t delayMs = 1000;
 
-    uint8_t string_send[] = "Hello world Sleman!\n";
+    uint8_t string_send[] = "Hello world SLEMAN!!!\n";
 
     while (1)
     {
@@ -55,7 +55,7 @@ int main(void)
             start_time = system_get_ticks();
         }
 
-        if((system_get_ticks() - start_time2) >= 3000)
+        if((system_get_ticks() - start_time2) >= 10000)
         {
             uart_write(string_send, (sizeof(string_send) - 1));
             start_time2 = system_get_ticks();

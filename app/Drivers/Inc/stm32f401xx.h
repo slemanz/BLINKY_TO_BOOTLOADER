@@ -391,10 +391,12 @@ typedef struct
 
 #define ENABLE 						1
 #define	DISABLE 					0
-#define SET							ENABLE
-#define RESET						DISABLE
-#define GPIO_PIN_SET				SET
-#define GPIO_PIN_RESET				RESET
+#define _SET						ENABLE
+#define _RESET						DISABLE
+#define GPIO_PIN_SET				_SET
+#define GPIO_PIN_RESET				_RESET
+#define FLAG_SET					_SET
+#define FLAG_RESET					_RESET
 
 
 /*

@@ -1,5 +1,7 @@
 #include "stm32f401xx.h"
 
+#define BAUDRATE		(115200U)
+
 static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate);
 
 static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate)
@@ -7,13 +9,20 @@ static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate)
     return ((PeriphClk + (BaudRate/2U))/BaudRate);
 }
 
+void USART2_IRQHandler(void)
+{
+
+}
+
+
+
 void uart_setup(void)
 {
     UART2_PCLK_EN();
 
     // no flow control (default reset)
     UART2->CR1 &= ~UART_CR1_M_SHIFT; // 8 databits
-    UART2->BRR = compute_uart_div(16000000, 115200); // baurate
+    UART2->BRR = compute_uart_div(16000000, BAUDRATE); // baurate
     UART2->CR1 &= ~UART_CR1_PCE_SHIFT; // parity disable
     UART2->CR2 &= ~UART_CR2_STOP_SHIFT; // 1 stop bits
 
@@ -21,7 +30,7 @@ void uart_setup(void)
     UART2->CR1 |= UART_CR1_RE_SHIFT; // rx en
 
 
-    UART2->CR1 |= (1 << UART_CR1_RXNEIE); // enable interrupt to rx
+    UART2->CR1 |= UART_CR1_RXNEIE_SHIFT; // enable interrupt to rx
     UART_IRQITConfig(38, ENABLE);
 
     UART2->CR1 |= UART_CR1_UE_SHIFT;// enable uart periph
@@ -56,6 +65,15 @@ bool uart_data_available(void)
 {
 
 	return 0;
+}
+
+uint8_t UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName)
+{
+	if(pUARTx->SR & FlagName)
+	{
+		return FLAG_SET;
+	}
+	return FLAG_RESET;
 }
 
 
