@@ -61,6 +61,12 @@ int main(void)
             start_time2 = system_get_ticks();
         }
 
+        if(uart_data_available())
+        {
+            uint8_t data = uart_read_byte();
+            uart_write_byte(data);
+        }
+
         // Do other stuff
     }
 }

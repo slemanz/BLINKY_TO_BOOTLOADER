@@ -14,7 +14,7 @@
 
 // define uart pins
 
-#define UART_PORT       (GPIOA)
+#define PORT_UART       (GPIOA)
 #define PIN_TX          (GPIO_PIN_NO_3)
 #define PIN_RX          (GPIO_PIN_NO_2)
 

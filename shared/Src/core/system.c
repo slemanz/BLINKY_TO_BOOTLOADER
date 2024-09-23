@@ -47,14 +47,28 @@ void gpio_setup(void)
 
 void uart_pin_setup(void)
 {
+    // init tx pin
     GPIO_Handle_t UartTx;
-    UartTx.pGPIOx = GPIOA;
-    UartTx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_2;
+    UartTx.pGPIOx = PORT_UART;
+    UartTx.GPIO_PinConfig.GPIO_PinNumber = PIN_TX;
     UartTx.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
     UartTx.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
     UartTx.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
     UartTx.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
-    UartTx.GPIO_PinConfig.GPIO_PinAltFunMode = GPIO_PIN_ALTFN_7;
+    UartTx.GPIO_PinConfig.GPIO_PinAltFunMode = PA2_ALTFN_UART2_TX;
 
     GPIO_Init(&UartTx);
+
+
+    // init rx pin
+    GPIO_Handle_t UartRx;
+    UartRx.pGPIOx = PORT_UART;
+    UartRx.GPIO_PinConfig.GPIO_PinNumber = PIN_RX;
+    UartRx.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_LOW;
+    UartRx.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+    UartRx.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+    UartRx.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
+    UartRx.GPIO_PinConfig.GPIO_PinAltFunMode = PA3_ALTFN_UART2_RX;
+
+    GPIO_Init(&UartRx);
 }
