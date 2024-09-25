@@ -21,8 +21,8 @@ void USART2_IRQHandler(void)
 	if(received_data || overrun_occurred)
 	{
 		data_buffer = uart_recv(UART2);
+		data_available = true;
 	}
-
 }
 
 
@@ -57,7 +57,7 @@ void uart_write(uint8_t* data, const uint32_t lenght)
 }
 uint8_t uart_recv(UART_RegDef_t *pUARTx)
 {
-	return (uint8_t)(pUARTx->DR && 0xFF);
+	return (uint8_t)(pUARTx->DR);
 }
 
 void uart_write_byte(uint8_t data)
