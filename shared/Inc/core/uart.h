@@ -1,3 +1,17 @@
+/**************************************************************************************************
+ * @file    uart.h
+ * @brief   UART Driver Header for STM32F401xx
+ * @details This header file provides definitions, macros, and function prototypes for
+ *          configuring and using the UART peripheral in STM32F401xx microcontroller.
+ * 
+ *          - Bit position definitions for UART control and status registers.
+ *          - Status flag definitions for UART operations.
+ *          - Function prototypes for UART setup, data transmission, and reception.
+ * 
+ *          For more details, please check the equivalent .c file.
+ * 
+ * Author:  William Sleman (www.slemanz.com)
+ **************************************************************************************************/
 #ifndef INC_UART_H_
 #define INC_UART_H_
 

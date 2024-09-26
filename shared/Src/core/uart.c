@@ -1,3 +1,19 @@
+/**************************************************************************************************
+ * @file    uart.c
+ * @brief   UART Driver Implementation for STM32F401xx
+ * @details This source file contains the implementations for initializing, configuring, and 
+ *          handling UART communication in the STM32F401xx microcontroller. It includes:
+ * 
+ *          - Functions to setup UART peripheral.
+ *          - Transmission and reception of UART data.
+ *          - Handling UART interrupts.
+ *          - Helper functions to check status flags.
+ * 
+ *          The baud rate is configured to 115200. UART interrupts are enabled for data reception.
+ * 
+ * Author:  William Sleman (www.slemanz.com)
+ **************************************************************************************************/
+
 #include "stm32f401xx.h"
 
 #define BAUDRATE		(115200U)

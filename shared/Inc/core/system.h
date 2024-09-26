@@ -1,3 +1,13 @@
+/**************************************************************************************************
+ * @file    system.h
+ * @brief   System Driver Header for STM32F401xx
+ * @details This header file provides function prototypes, macro definitions, and configurations
+ *          for the bare metal system drivers, including GPIO setup for LEDs and others.
+ *          
+ *          For more details, please check the equivalent .c file.
+ * 
+ * @author  William Sleman (www.slemanz.com)
+ **************************************************************************************************/
 #ifndef INC_SYSTEM_H_
 #define INC_SYSTEM_H_
 

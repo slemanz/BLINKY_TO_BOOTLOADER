@@ -57,7 +57,7 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 10000)
         {
-            uart_write(string_send, (sizeof(string_send) - 1));
+            //uart_write(string_send, (sizeof(string_send) - 1));
             start_time2 = system_get_ticks();
         }
 
