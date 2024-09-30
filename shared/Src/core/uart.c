@@ -15,11 +15,14 @@
  **************************************************************************************************/
 
 #include "stm32f401xx.h"
+#include "core/ring-buffer.h"
 
 #define BAUDRATE		(115200U)
+#define RING_BUFFER_SIZE		(64)
 
-static uint8_t data_buffer = 0;
-static bool data_available = false;
+static ring_buffer_t rb = {0U};
+
+static uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
 
 
 static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate);
@@ -36,8 +39,10 @@ void USART2_IRQHandler(void)
 
 	if(received_data || overrun_occurred)
 	{
-		data_buffer = uart_recv(UART2);
-		data_available = true;
+		if(ring_buffer_write(&rb, (uint8_t)uart_recv(UART2)))
+		{
+			// handle some error/failure?
+		}
 	}
 }
 
@@ -45,6 +50,8 @@ void USART2_IRQHandler(void)
 
 void uart_setup(void)
 {
+	ring_buffer_setup(&rb, data_buffer, RING_BUFFER_SIZE);
+
     UART2_PCLK_EN();
 
     // no flow control (default reset)
@@ -84,13 +91,20 @@ void uart_write_byte(uint8_t data)
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
 {
-	if(length > 0 && data_available)
+	if(length <= 0)
 	{
-		*data = data_buffer;
-		data_available = false;
-		return 1;
+		return 0;
 	}
-	return 0;
+	
+	for(uint32_t bytes_read; bytes_read < length; bytes_read++)
+	{
+		if(!ring_buffer_read(&rb, &data[bytes_read]))
+		{
+			return bytes_read;
+		}
+	}
+
+	return length;
 }
 
 uint8_t uart_read_byte(void)
