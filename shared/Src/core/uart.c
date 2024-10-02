@@ -17,8 +17,8 @@
 #include "stm32f401xx.h"
 #include "core/ring-buffer.h"
 
-#define BAUDRATE		(115200U)
-#define RING_BUFFER_SIZE		(64)
+#define BAUDRATE			(115200U)
+#define RING_BUFFER_SIZE		(128)
 
 static ring_buffer_t rb = {0U};
 
@@ -109,13 +109,16 @@ uint32_t uart_read(uint8_t *data, const uint32_t length)
 
 uint8_t uart_read_byte(void)
 {
-	data_available = false;
-	return data_buffer;
+	uint8_t byte = 0;
+	
+	(void)uart_read(&byte, 1);
+
+	return byte;
 }
 
 bool uart_data_available(void)
 {
-	return data_available;
+	return !ring_buffer_empty(&rb);
 }
 
 bool UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName)
