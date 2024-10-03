@@ -8,8 +8,8 @@ OBJCOPY=arm-none-eabi-objcopy
 ###########################################
 #				 INCLUDES
 
-INCLUDES= -I Drivers/Inc/ \
--I Inc/
+INCLUDES+= -I ../drivers/Inc/ 
+INCLUDES+= -I Inc/
 
 
 

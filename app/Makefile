@@ -8,8 +8,8 @@ LINKER_SCRIPT=stm32_ls.ld
 ###########################################
 #				 INCLUDES
 
-INCLUDES+= -I Drivers/Inc/ 
 INCLUDES+= -I Inc/
+INCLUDES+= -I ../drivers/Inc/ 
 INCLUDES+= -I ../shared/Inc/
 
 
@@ -47,8 +47,8 @@ Build/%.o: ../shared/Src/core/%.c
 Build/%.o: ../shared/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/$(*).c
 
-Build/%.o: Drivers/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Drivers/Src/$(*).c
+Build/%.o: ../drivers/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../drivers/Src/$(*).c
 
 Build/stm32_startup.o: stm32_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
