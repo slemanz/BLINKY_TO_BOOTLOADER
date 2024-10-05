@@ -1,5 +1,6 @@
 #include "comms.h"
 #include "uart.h"
+#include "core/crc8.h"
 
 typedef enum comms_state_t
 {
@@ -41,6 +42,13 @@ void comms_update(void)
             }break;
             case CommsState_CRC:
             {
+                temporary_packet.crc = uart_read_byte();
+
+                uint8_t computed_crc = crc8();
+                if(temporary_packet.crc != computed_crc)
+                {
+                    
+                }
 
             }break;
         }
