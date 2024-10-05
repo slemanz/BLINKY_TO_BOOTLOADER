@@ -13,9 +13,11 @@ static comms_state_t state = CommsState_Length;
 static uint8_t data_byte_count = 0;
 
 static comms_packet_t temporary_packet = {.length = 0, .data = {0}, .crc = 0};
+static comms_packet_t retx_packet = {.length = 0, .data = {0}, .crc = 0};
 
 void comms_setup(void)
 {
+    
 
 }
 
@@ -44,8 +46,7 @@ void comms_update(void)
             {
                 temporary_packet.crc = uart_read_byte();
 
-                uint8_t computed_crc = crc8();
-                if(temporary_packet.crc != computed_crc)
+                if(temporary_packet.crc != comms_compute_crc(&temporary_packet))
                 {
                     
                 }
@@ -68,4 +69,9 @@ void comms_write(comms_packet_t *packet)
 void comms_read(comms_packet_t *packet)
 {
 
+}
+
+uint8_t comms_compute_crc(comms_packet_t *packet)
+{
+    return crc8((uint8_t*)packet, PACKET_LENGTH - PACKET_CRC_BYTES);
 }
