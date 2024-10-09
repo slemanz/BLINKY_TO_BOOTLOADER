@@ -2,6 +2,8 @@
 #include "uart.h"
 #include "core/crc8.h"
 
+#define PACKET_BUFFER_LENGTH (8)
+
 typedef enum comms_state_t
 {
     CommsState_Length,
@@ -15,15 +17,22 @@ static uint8_t data_byte_count = 0;
 static comms_packet_t temporary_packet = {.length = 0, .data = {0}, .crc = 0};
 static comms_packet_t retx_packet = {.length = 0, .data = {0}, .crc = 0};
 static comms_packet_t ack_packet = {.length = 0, .data = {0}, .crc = 0};
+static comms_packet_t last_transmitted_packet = {.length = 0, .data = {0}, .crc = 0};
 
-static bool comms_is_retx_packet(const comms_packet_t *packet)
+// like the ring buffer structure, but not for only one byte
+static comms_packet_t packet_buffer[PACKET_BUFFER_LENGTH];
+static uint32_t packet_read_index = 0;
+static uint32_t packet_write_index = 0;
+static uint32_t packet_buffer_mask = PACKET_BUFFER_LENGTH; 
+
+static bool comms_is_single_byte_packet(const comms_packet_t *packet, uint8_t byte)
 {
     if(packet->length != 1)
     {
         return false;
     }
 
-    if(packet->data[0] != PACKET_RETX_DATA0)
+    if(packet->data[0] != byte)
     {
         return false;
     }
@@ -35,6 +44,8 @@ static bool comms_is_retx_packet(const comms_packet_t *packet)
             return false;
         }
     }
+
+    return true;
 }
 
 void comms_setup(void)
@@ -86,9 +97,24 @@ void comms_update(void)
                 {
                     comms_write(&retx_packet);
                     state = CommsState_Length;
+                    break;
                 }
 
+                if(comms_is_single_byte_packet(&temporary_packet, PACKET_ACK_DATA0))
+                {
+                    comms_write(&last_transmitted_packet);
+                    state = CommsState_Length;
+                    break;
+                }
+
+
+
             }break;
+
+            default:
+            {
+                state = CommsState_Length;
+            }
         }
     }
 }
