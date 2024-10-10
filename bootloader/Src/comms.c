@@ -48,6 +48,16 @@ static bool comms_is_single_byte_packet(const comms_packet_t *packet, uint8_t by
     return true;
 }
 
+static void comms_packet_copy(const comms_packet_t *source, comms_packet_t *dest)
+{
+    dest->length = source->length;
+    for(uint8_t i = 0; i < PACKET_DATA_LENGTH; i++)
+    {
+        dest->data[i] = source->data[i];
+    }
+    dest->crc = source->crc;
+}
+
 void comms_setup(void)
 {
     retx_packet.length = 1;
