@@ -1,3 +1,4 @@
+#include "assert.h"
 #include "comms.h"
 #include "uart.h"
 #include "core/crc8.h"
@@ -117,8 +118,14 @@ void comms_update(void)
                     break;
                 }
 
+                uint32_t next_write_index = (packet_write_index + 1) & packet_buffer_mask;
+                assert(next_write_index != packet_read_index); // debug
 
 
+                comms_packet_copy(&temporary_packet, &packet_buffer[packet_write_index]);
+                packet_write_index = (packet_write_index + 1) & packet_buffer_mask;
+                comms_write(&ack_packet);
+                state = CommsState_Length;
             }break;
 
             default:
@@ -131,17 +138,17 @@ void comms_update(void)
 
 bool comms_packets_available(void)
 {
-
+    return packet_read_index != packet_write_index;
 }
 
 void comms_write(comms_packet_t *packet)
 {
-
+    uart_write((uint8_t*)packet, PACKET_LENGTH);
 }
 
 void comms_read(comms_packet_t *packet)
 {
-
+    comms_packet_copy(&packet_buffer[packet_read_index], packet);
 }
 
 uint8_t comms_compute_crc(comms_packet_t *packet)
