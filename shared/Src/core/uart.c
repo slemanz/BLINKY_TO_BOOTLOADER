@@ -17,7 +17,7 @@
 #include "stm32f401xx.h"
 #include "core/ring-buffer.h"
 
-#define BAUDRATE			(115200U)
+#define BAUDRATE			(9600U)
 #define RING_BUFFER_SIZE		(128)
 
 static ring_buffer_t rb = {0U};
@@ -91,12 +91,12 @@ void uart_write_byte(uint8_t data)
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
 {
-	if(length <= 0)
+	if(length == 0)
 	{
 		return 0;
 	}
 	
-	for(uint32_t bytes_read; bytes_read < length; bytes_read++)
+	for(uint32_t bytes_read = 0; bytes_read < length; bytes_read++)
 	{
 		if(!ring_buffer_read(&rb, &data[bytes_read]))
 		{
@@ -109,7 +109,7 @@ uint32_t uart_read(uint8_t *data, const uint32_t length)
 
 uint8_t uart_read_byte(void)
 {
-	uint8_t byte = 0;
+	uint8_t byte = 'z';
 	
 	(void)uart_read(&byte, 1);
 

@@ -11,7 +11,7 @@ SECTIONS
     .text :
     {
         KEEP (*(.bootloader_section)) /* bootloader section (dont optimized)*/
-        *(.isr_vector) /* vector table */
+        *(.isr_vector)  /* vector table */
         *(.text)        /* program code */
         *(.text.*)
         *(.init)
