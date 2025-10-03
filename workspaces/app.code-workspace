@@ -1,0 +1,16 @@
+{
+	"folders": [
+        {
+            "path": "../app"
+        },
+        {
+            "path": "../drivers"
+        },
+        {
+            "path": "../shared"
+        },
+        {
+            "path": "../linkers"
+        }
+    ]
+}

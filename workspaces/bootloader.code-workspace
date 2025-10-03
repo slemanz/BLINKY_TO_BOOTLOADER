@@ -1,0 +1,16 @@
+{
+	"folders": [
+        {
+            "path": "../bootloader"
+        },
+        {
+            "path": "../drivers"
+        },
+        {
+            "path": "../shared"
+        },
+        {
+            "path": "../linkers"
+        }
+    ]
+}
