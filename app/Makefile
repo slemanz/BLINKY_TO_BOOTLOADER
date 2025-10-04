@@ -1,63 +1,84 @@
 CC=arm-none-eabi-gcc
-MACH=cortex-m4
-CFLAGS= -c -mcpu=$(MACH) -mthumb -mfloat-abi=soft -std=gnu11 -Wall -O0 
-LDFLAGS =  -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nano.specs -T stm32_ls.ld -Wl,-Map=Build/final.map
+TARGET=flash
+
+MACH= -mcpu=cortex-m4
+FLOAT=-mfloat-abi=soft
+
+BUILD_DIR= Build
+ROOT_DIR = ..
+
+LINKER= -T $(ROOT_DIR)/linkers/STM32F411_APP.ld
+MAP_FILE= -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
+
+
+CFLAGS= -c $(MACH) -mthumb $(FLOAT) -std=gnu99 -Wall -O0 \
+		--specs=nano.specs -ffunction-sections -fdata-sections
+
+LDFLAGS =  $(MACH) -mthumb $(FLOAT) --specs=nosys.specs  $(LINKER) $(MAP_FILE) \
+			-Wl,--gc-sections -static --specs=nano.specs -Wl,--start-group -lc -lm -Wl,--end-group \
+ 			-Wl,--print-memory-usage
+
 OBJCOPY=arm-none-eabi-objcopy
-LINKER_SCRIPT=stm32_ls.ld
 
 ###########################################
 #				 INCLUDES
+###########################################
 
-INCLUDES+= -I Inc/
-INCLUDES+= -I ../drivers/Inc/ 
-INCLUDES+= -I ../shared/Inc/
-
+INCLUDES+= -I $(ROOT_DIR)/app/Inc/
+INCLUDES+= -I $(ROOT_DIR)/drivers/Inc/ 
+INCLUDES+= -I $(ROOT_DIR)/common/Inc/ 
 
 
 ############################################
-# Source files
+# 				SOURCE FILES
+############################################
 
-OBJS		+= Build/main.o
-OBJS		+= Build/bootloader.o
-OBJS		+= Build/stm32_startup.o
-OBJS		+= Build/gpio.o
-OBJS		+= Build/systick.o
-OBJS		+= Build/system.o
-OBJS		+= Build/timer.o
-OBJS		+= Build/syscalls.o
-OBJS		+= Build/uart.o
-OBJS		+= Build/ring-buffer.o
+OBJS		+= $(BUILD_DIR)/bootloader.o
+OBJS		+= $(BUILD_DIR)/main.o
+#OBJS		+= $(BUILD_DIR)/config_app.o
+OBJS		+= $(BUILD_DIR)/syscalls.o
+OBJS		+= $(BUILD_DIR)/startup.o
 
-all: Build/final.elf
+DRIVERS		+= Build/gpio.o
+DRIVERS		+= Build/systick.o
+DRIVERS		+= Build/uart.o
+DRIVERS		+= Build/timer.o
 
-# target and recipe
-# to analyze the .o: 
-#	arm-none-eabi-objdump -h main.o
-#	arm-none-eabi-objdump -d main.o > main_log
+CORE		+= Build/system.o
+CORE		+= Build/crc8.o
+CORE		+= Build/ring-buffer.o
 
-Build/%.o: Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).c
 
-Build/%.o: Src/%.S
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).S
+PREREQ = $(BUILD_DIR)/
 
-Build/%.o: ../shared/Src/core/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/core/$(*).c
+all: $(PREREQ) $(BUILD_DIR)/$(TARGET).elf
 
-Build/%.o: ../shared/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/$(*).c
+$(PREREQ):
+	mkdir $(PREREQ)
 
-Build/%.o: ../drivers/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../drivers/Src/$(*).c
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/app/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/app/Src/$(*).c
 
-Build/stm32_startup.o: stm32_startup.c
-	$(CC) $(CFLAGS) -o $@ $^ 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/app/Src/%.S
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/app/Src/$(*).S
 
-Build/final.elf: $(OBJS)
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/drivers/Src/$(*).c
+
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
+
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
+
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE)
 	$(CC) $(LDFLAGS) -o $@ $^
-	$(OBJCOPY) -O binary Build/final.elf Build/flash.bin
-	$(OBJCOPY) -O binary Build/final.elf ~/opt/SEGGER/flash.bin
+	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
+	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf
 
+load:
+	openocd -f interface/jlink.cfg -c "transport select swd" -f target/stm32f4x.cfg -c init -c "reset init" \
+	-c "flash write_image erase Build/$(TARGET).elf" -c "reset run" -c shutdown
 
 clean:
-	rm -rf *.o *.map Build/*.o
+	rm -rf $(BUILD_DIR)/*.map $(BUILD_DIR)/*.o

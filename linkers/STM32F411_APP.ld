@@ -35,7 +35,7 @@ SECTIONS
         _etext = .;       
     } > FLASH
     
-    .arrays :
+    .arrays (READONLY):
     {
         . = ALIGN(4);
         PROVIDE_HIDDEN (__preinit_array_start = .);
@@ -81,8 +81,8 @@ SECTIONS
         . = ALIGN(4);
         _ebss = .;
         __bss_end__ = _ebss;
-    } > SRAM AT> FLASH 
-
+    } > SRAM 
+    
     ._user_heap_stack :
     {
         . = ALIGN(8);

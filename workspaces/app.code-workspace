@@ -7,10 +7,20 @@
             "path": "../drivers"
         },
         {
-            "path": "../shared"
+            "path": "../common"
         },
         {
             "path": "../linkers"
         }
-    ]
+    ],
+    "settings": {
+        "C_Cpp.default.includePath": [
+            "${workspaceFolder}/../app/Inc",
+            "${workspaceFolder}/../common/Inc",
+            "${workspaceFolder}/../drivers/Inc"
+        ],
+        "files.associations": {
+            "system.h": "c"
+        },
+    }
 }

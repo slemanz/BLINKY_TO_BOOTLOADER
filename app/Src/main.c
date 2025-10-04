@@ -31,27 +31,22 @@ int main(void)
     system_setup();
     gpio_setup();
     uart_pin_setup();
-    uart_setup();
-    timer_setup();
+    uart_setup(); // 9600
+    //timer_setup();
 
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
-    float duty_cycle = 0.0f;
     uint32_t delayMs = 1000;
 
     uint8_t string_send[] = "Hello world!!!\r\n";
+
+    //float duty_cycle = 0.0f;
+    //timer_pwm_set_duty_cycle(&PWM, duty_cycle);
 
     while (1)
     {
         if((system_get_ticks() - start_time) >= delayMs)
         {
-            timer_pwm_set_duty_cycle(&PWM, duty_cycle);
-            duty_cycle += 10.0f;
-            if(duty_cycle >= 100.0f)
-            {
-                duty_cycle = 0.0f;
-            }
-            
             start_time = system_get_ticks();
         }
 
