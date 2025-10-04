@@ -1,4 +1,3 @@
-
 #ifndef INC_COMMON_DEFINES_H_
 #define INC_COMMON_DEFINES_H_
 
