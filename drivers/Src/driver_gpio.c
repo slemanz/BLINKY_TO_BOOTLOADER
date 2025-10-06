@@ -160,6 +160,20 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 }
 
 
+void GPIO_Init_table(const GPIO_PinConfig_t *pGPIOConfig, uint32_t Len)
+{
+    if(pGPIOConfig == NULL)
+    {
+        return;
+    }
+
+    for (uint32_t i = 0; i < Len; i++)
+    {
+        GPIO_Init((GPIO_PinConfig_t*)&pGPIOConfig[i]);
+    }
+}
+
+
 
 
 /**************************************************************************

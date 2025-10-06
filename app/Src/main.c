@@ -28,7 +28,7 @@ int main(void)
 
     while (1)
     {
-        if((system_get_ticks() - start_time) >= 1000)
+        if((system_get_ticks() - start_time) >= 200)
         {
             GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
             start_time = system_get_ticks();

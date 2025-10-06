@@ -20,7 +20,8 @@
             "${workspaceFolder}/../drivers/Inc"
         ],
         "files.associations": {
-            "system.h": "c"
+            "system.h": "c",
+            "driver_gpio.h": "c"
         },
     }
 }
