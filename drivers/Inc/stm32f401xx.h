@@ -436,7 +436,6 @@ typedef struct
  * Drivers includes
  */
 
-#include "gpio.h"
 #include "systick.h"
 #include "timer.h"
 #include "core/uart.h"
