@@ -1,6 +1,8 @@
 #include "stm32f401xx.h"
 #include "core/system.h"
 
+#include "config_app.h"
+
 
 // Function delay
 void delay_cycles(uint32_t cycles)
@@ -38,7 +40,7 @@ int main(void)
     uint64_t start_time2 = system_get_ticks();
     uint32_t delayMs = 1000;
 
-    uint8_t string_send[] = "Hello world!!!\r\n";
+    uint8_t string_send[] = "hello world!!!\r\n";
 
     //float duty_cycle = 0.0f;
     //timer_pwm_set_duty_cycle(&PWM, duty_cycle);

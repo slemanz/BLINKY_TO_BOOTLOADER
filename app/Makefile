@@ -35,7 +35,7 @@ INCLUDES+= -I $(ROOT_DIR)/common/Inc/
 
 OBJS		+= $(BUILD_DIR)/bootloader.o
 OBJS		+= $(BUILD_DIR)/main.o
-#OBJS		+= $(BUILD_DIR)/config_app.o
+OBJS		+= $(BUILD_DIR)/config_app.o
 OBJS		+= $(BUILD_DIR)/syscalls.o
 OBJS		+= $(BUILD_DIR)/startup.o
 
