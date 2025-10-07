@@ -39,9 +39,10 @@ OBJS		+= $(BUILD_DIR)/config_app.o
 OBJS		+= $(BUILD_DIR)/syscalls.o
 OBJS		+= $(BUILD_DIR)/startup.o
 
-DRIVERS		+= Build/driver_systick.o
-DRIVERS		+= Build/driver_gpio.o
-DRIVERS		+= Build/timer.o
+DRIVERS		+= $(BUILD_DIR)/driver_clock.o
+DRIVERS		+= $(BUILD_DIR)/driver_systick.o
+DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
+DRIVERS		+= $(BUILD_DIR)/timer.o
 
 CORE		+= Build/system.o
 CORE		+= Build/crc8.o

@@ -1,6 +1,5 @@
 #include "driver_systick.h"
-
-#include "driver_systick.h"
+#include "driver_clock.h"
 
 uint64_t g_ticks = 0;
 uint64_t g_ticks_p = 0;
@@ -12,7 +11,7 @@ static void ticks_increment(void)
 
 void systick_init(uint32_t tick_hz)
 {
-    uint32_t count_value = SYSTICK_TIM_CLK/tick_hz;
+    uint32_t count_value = clock_get()/tick_hz;
 
     // clear the value of SVR (value reload)
     SYSTICK->LOAD &= ~(0x00FFFFFFFF);
