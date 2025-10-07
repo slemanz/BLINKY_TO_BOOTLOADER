@@ -1,5 +1,4 @@
 #include "stm32f411xx.h"
-#include "core/system.h"
 
 #include "config_app.h"
 
@@ -18,7 +17,6 @@ void delay_cycles(uint32_t cycles)
 
 int main(void)
  {
-    system_setup();
     config_drivers();
     uart_setup(); // 9600
     //timer_setup();

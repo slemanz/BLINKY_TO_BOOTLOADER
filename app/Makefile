@@ -42,9 +42,9 @@ OBJS		+= $(BUILD_DIR)/startup.o
 DRIVERS		+= $(BUILD_DIR)/driver_clock.o
 DRIVERS		+= $(BUILD_DIR)/driver_systick.o
 DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
+DRIVERS		+= $(BUILD_DIR)/driver_uart.o
 DRIVERS		+= $(BUILD_DIR)/timer.o
 
-CORE		+= Build/system.o
 CORE		+= Build/crc8.o
 CORE		+= Build/ring-buffer.o
 CORE		+= Build/uart.o
