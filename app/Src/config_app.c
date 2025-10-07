@@ -2,6 +2,7 @@
 
 // drivers
 #include "driver_gpio.h"
+#include "driver_systick.h"
 
 // GPIO table - minimal one-liner style
 static const GPIO_PinConfig_t GPIO_ConfigTable[] = {
@@ -14,4 +15,5 @@ static const GPIO_PinConfig_t GPIO_ConfigTable[] = {
 void config_drivers(void)
 {
     GPIO_Init_table(GPIO_ConfigTable, (sizeof(GPIO_ConfigTable)/sizeof(GPIO_ConfigTable[0])));
+    systick_init(1000);
 }

@@ -39,14 +39,14 @@ OBJS		+= $(BUILD_DIR)/config_app.o
 OBJS		+= $(BUILD_DIR)/syscalls.o
 OBJS		+= $(BUILD_DIR)/startup.o
 
+DRIVERS		+= Build/driver_systick.o
 DRIVERS		+= Build/driver_gpio.o
-DRIVERS		+= Build/systick.o
-DRIVERS		+= Build/uart.o
 DRIVERS		+= Build/timer.o
 
 CORE		+= Build/system.o
 CORE		+= Build/crc8.o
 CORE		+= Build/ring-buffer.o
+CORE		+= Build/uart.o
 
 
 PREREQ = $(BUILD_DIR)/

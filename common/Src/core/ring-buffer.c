@@ -1,7 +1,4 @@
-#include "stm32f401xx.h"
 #include "core/ring-buffer.h"
-
-
 
 void ring_buffer_setup(ring_buffer_t *rb, uint8_t *buffer, uint32_t size)
 {

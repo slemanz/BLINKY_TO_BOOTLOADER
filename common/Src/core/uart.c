@@ -14,7 +14,7 @@
  * Author:  William Sleman (www.slemanz.com)
  **************************************************************************************************/
 
-#include "stm32f401xx.h"
+#include "core/uart.h"
 #include "core/ring-buffer.h"
 
 #define BAUDRATE			(9600U)

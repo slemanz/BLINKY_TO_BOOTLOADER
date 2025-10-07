@@ -11,7 +11,7 @@
 #ifndef INC_SYSTEM_H_
 #define INC_SYSTEM_H_
 
-#include "stm32f401xx.h"
+#include "stm32f411xx.h"
 
 #define BOOTLOADER_SIZE (0x8000U)
 

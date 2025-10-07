@@ -1,7 +1,9 @@
 #ifndef INC_RING_BUFFER_H_
 #define INC_RING_BUFFER_H_
 
-#include "common-defines.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
 typedef struct ring_buffer_t
 {
