@@ -21,7 +21,10 @@
         ],
         "files.associations": {
             "system.h": "c",
-            "driver_gpio.h": "c"
+            "driver_gpio.h": "c",
+            "config_app.h": "c",
+            "uart.h": "c",
+            "crc8.h": "c"
         },
     }
 }
