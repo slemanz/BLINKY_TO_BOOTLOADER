@@ -1,7 +1,7 @@
 #ifndef INC_TIMER_H_
 #define INC_TIMER_H_
 
-#include "stm32f401xx.h"
+#include "stm32f411xx.h"
 
 // freq = system_freq / ((prescaler + 1) * (arr + 1))
 #define PRESCALER           (10-1)

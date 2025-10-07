@@ -1,7 +1,7 @@
 #ifndef INC_GPIO_H_
 #define INC_GPIO_H_
 
-#include "stm32f401xx.h"
+#include "stm32f411xx.h"
 
 /*
  * This is a configuration structure for a GPIO pin
