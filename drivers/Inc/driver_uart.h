@@ -8,7 +8,7 @@
  */
 typedef struct
 {
-    UART_RegDef_t *pUSARTx;
+    UART_RegDef_t *pUARTx;
 	uint8_t UART_Mode;
 	uint32_t UART_Baud;
 	uint8_t UART_NoOfStopBits;
@@ -92,74 +92,74 @@ typedef struct
  ******************************************************************************************/
 
 /*
- *@USART_Mode
+ *@UART_Mode
  *Possible options for USART_Mode
  */
-#define USART_MODE_ONLY_TX		0
-#define USART_MODE_ONLY_RX		1
-#define USART_MODE_TXRX			2
+#define UART_MODE_ONLY_TX		0
+#define UART_MODE_ONLY_RX		1
+#define UART_MODE_TXRX			2
 
 
 /*
- *@USART_Baud
+ *@UART_Baud
  *Possible options for USART_Baud
  */
-#define USART_STD_BAUD_1200			1200
-#define USART_STD_BAUD_2400			2400
-#define USART_STD_BAUD_9600			9600
-#define USART_STD_BAUD_19200		19200
-#define USART_STD_BAUD_38400		38400
-#define USART_STD_BAUD_57600		57600
-#define USART_STD_BAUD_115200		115200
-#define USART_STD_BAUD_230400		230400
-#define USART_STD_BAUD_460800		460800
-#define USART_STD_BAUD_921600		921600
-#define USART_STD_BAUD_2M			2000000
-#define USART_STD_BAUD_3M			3000000
+#define UART_STD_BAUD_1200			1200
+#define UART_STD_BAUD_2400			2400
+#define UART_STD_BAUD_9600			9600
+#define UART_STD_BAUD_19200		    19200
+#define UART_STD_BAUD_38400		    38400
+#define UART_STD_BAUD_57600		    57600
+#define UART_STD_BAUD_115200		115200
+#define UART_STD_BAUD_230400		230400
+#define UART_STD_BAUD_460800		460800
+#define UART_STD_BAUD_921600		921600
+#define UART_STD_BAUD_2M			2000000
+#define UART_STD_BAUD_3M			3000000
 
 
 /*
- *@USART_ParityControl
+ *@UART_ParityControl
  *Possible options for USART_ParityControl
  */
-#define USART_PARITY_EN_ODD			2
-#define USART_PARITY_EN_EVEN		1
-#define USART_PARITY_DISABLE		0
+#define UART_PARITY_EN_ODD			2
+#define UART_PARITY_EN_EVEN		    1
+#define UART_PARITY_DISABLE		    0
 
 
 /*
- *@USART_WordLength
+ *@UART_WordLength
  *Possible options for USART_WordLength
  */
-#define USART_WORDLEN_8BITS			0
-#define USART_WORDLEN_9BITS			1
+#define UART_WORDLEN_8BITS			0
+#define UART_WORDLEN_9BITS			1
 
 
 /*
- *@USART_NoOfStopBits
+ *@UART_NoOfStopBits
  *Possible options for USART_NoOfStopBits
  */
-#define USART_STOPBITS_1			0
-#define USART_STOPBITS_0_5			1
-#define USART_STOPBITS_2			2
-#define USART_STOPBITS_1_5			3
+#define UART_STOPBITS_1			    0
+#define UART_STOPBITS_0_5			1
+#define UART_STOPBITS_2			    2
+#define UART_STOPBITS_1_5			3
 
 /*
  *@USART_HWFlowControl
  *Possible options for USART_HWFlowControl
  */
-#define USART_HW_FLOW_CTRL_NONE			0
-#define USART_HW_FLOW_CTRL_CTS			1
-#define USART_HW_FLOW_CTRL_RTS			2
-#define USART_HW_FLOW_CTRL_CTS_RTS		3
+#define UART_HW_FLOW_CTRL_NONE			0
+#define UART_HW_FLOW_CTRL_CTS			1
+#define UART_HW_FLOW_CTRL_RTS			2
+#define UART_HW_FLOW_CTRL_CTS_RTS		3
 
 /*
- * USART flags
+ * UART flags
  */
 
-#define USART_FLAG_TXE 			( 1 << UART_SR_TXE)
-#define USART_FLAG_RXNE 		( 1 << UART_SR_RXNE)
-#define USART_FLAG_TC 			( 1 << UART_SR_TC)
+#define UART_FLAG_TXE           (1 << UART_SR_TXE)
+#define UART_FLAG_RXNE          (1 << UART_SR_RXNE)
+#define UART_FLAG_TC            (1 << UART_SR_TC)
 
 /********************************************************************************************
  * 								APIs supported by this driver
