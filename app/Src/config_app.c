@@ -1,8 +1,9 @@
 #include "config_app.h"
 
 // drivers
-#include "driver_gpio.h"
 #include "driver_systick.h"
+#include "driver_gpio.h"
+#include "driver_uart.h"
 
 #define BOOTLOADER_SIZE (0x8000U)
 
@@ -14,6 +15,11 @@ static const GPIO_PinConfig_t GPIO_ConfigTable[] = {
     { GPIOA, GPIO_PIN_NO_2,  GPIO_MODE_ALTFN, GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  PA2_ALTFN_UART2_TX },    // UART2 RX
 };
 
+static const UART_Config_t UART_ConfigTable[ ]= {
+
+    {UART2, UART_MODE_TXRX, UART_STD_BAUD_115200, UART_STOPBITS_1, UART_WORDLEN_8BITS, UART_PARITY_DISABLE, UART_HW_FLOW_CTRL_NONE}
+};
+
 static void vector_setup(void)
 {
     VTOR_OFFSET = BOOTLOADER_SIZE;
@@ -23,5 +29,8 @@ void config_drivers(void)
 {
     vector_setup();
     GPIO_Init_table(GPIO_ConfigTable, (sizeof(GPIO_ConfigTable)/sizeof(GPIO_ConfigTable[0])));
+    UART_Init_table(UART_ConfigTable, (sizeof(UART_ConfigTable)/sizeof(UART_ConfigTable[0])));
     systick_init(1000);
+
+    
 }

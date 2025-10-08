@@ -25,13 +25,6 @@ static ring_buffer_t rb = {0U};
 static uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
 
 
-static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate);
-
-static uint16_t compute_uart_div(uint32_t PeriphClk, uint32_t BaudRate)
-{
-    return ((PeriphClk + (BaudRate/2U))/BaudRate);
-}
-
 void USART2_IRQHandler(void)
 {
 	const bool overrun_occurred = UART_GetFlagStatus(UART2, UART_FLAG_ORE);
@@ -51,18 +44,6 @@ void USART2_IRQHandler(void)
 void uart_setup(void)
 {
 	ring_buffer_setup(&rb, data_buffer, RING_BUFFER_SIZE);
-
-    UART2_PCLK_EN();
-
-    // no flow control (default reset)
-    UART2->CR1 &= ~UART_CR1_M_SHIFT; // 8 databits
-    UART2->BRR = compute_uart_div(16000000, BAUDRATE); // baurate
-    UART2->CR1 &= ~UART_CR1_PCE_SHIFT; // parity disable
-    UART2->CR2 &= ~UART_CR2_STOP_SHIFT; // 1 stop bits
-
-    UART2->CR1 |= UART_CR1_TE_SHIFT; // tx en
-    UART2->CR1 |= UART_CR1_RE_SHIFT; // rx en
-
 
     UART2->CR1 |= UART_CR1_RXNEIE_SHIFT; // enable interrupt to rx
     UART_IRQITConfig(38, ENABLE);

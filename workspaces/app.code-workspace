@@ -25,7 +25,8 @@
             "config_app.h": "c",
             "uart.h": "c",
             "crc8.h": "c",
-            "driver_uart.h": "c"
+            "driver_uart.h": "c",
+            "stm32f411xx.h": "c"
         },
     }
 }

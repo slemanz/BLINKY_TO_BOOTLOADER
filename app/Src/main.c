@@ -18,7 +18,7 @@ void delay_cycles(uint32_t cycles)
 int main(void)
  {
     config_drivers();
-    uart_setup(); // 9600
+    uart_setup(); 
     //timer_setup();
 
     uint64_t start_time = ticks_get();
