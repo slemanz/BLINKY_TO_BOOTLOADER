@@ -97,8 +97,8 @@
 #define SPI1_BASEADDR						(APB2PERIPH_BASE + 0x3000U)
 #define SPI4_BASEADDR						(APB2PERIPH_BASE + 0x3400U)
 
-#define USART1_BASEADDR						(APB2PERIPH_BASE + 0x1000U)
-#define USART6_BASEADDR						(APB2PERIPH_BASE + 0x1400U)
+#define UART1_BASEADDR						(APB2PERIPH_BASE + 0x1000U)
+#define UART6_BASEADDR						(APB2PERIPH_BASE + 0x1400U)
 
 /*
  *  Base adress of systick	and timers
@@ -356,7 +356,9 @@ typedef struct
 #define TIM5			((TIM_RegDef_t*)TIM5_BASEADDR)
 #define RTC             ((RTC_TypeDef *)RTC_BASEADDR)
 
+#define UART1 			((UART_RegDef_t*)UART1_BASEADDR)
 #define UART2 			((UART_RegDef_t*)UART2_BASEADDR)
+#define UART6 			((UART_RegDef_t*)UART6_BASEADDR)
 
 #define ADC1            ((ADC_RegDef_t *)ADC1_BASEADDR)
 

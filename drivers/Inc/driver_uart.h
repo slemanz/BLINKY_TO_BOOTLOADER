@@ -170,7 +170,7 @@ typedef struct
  * Peripheral Clock setup
  */
 
-void UART_PeriClockControl(UART_RegDef_t *pUSARTx, uint8_t EnorDi);
+void UART_PeriClockControl(UART_RegDef_t *pUARTx, uint8_t EnorDi);
 
 /*
  * Init and De-init
