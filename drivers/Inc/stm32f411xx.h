@@ -503,6 +503,13 @@ typedef struct
 #define GPIOE_REG_RESET()		do{RCC->AHB1RSTR |= (1 << 4); RCC->AHB1RSTR &= ~(1 << 4);}while(0)
 #define GPIOH_REG_RESET()		do{RCC->AHB1RSTR |= (1 << 7); RCC->AHB1RSTR &= ~(1 << 7);}while(0)
 
+/*
+ * 	Macros to reset UARTx peripherals
+ */
+#define UART1_REG_RESET()       do{RCC->APB2RSTR |= (1 <<  4); RCC->APB2RSTR &= ~(1 << 4);}while(0)
+#define UART2_REG_RESET()       do{RCC->APB1RSTR |= (1 << 17); RCC->APB1RSTR &= ~(1 << 17);}while(0)
+#define UART6_REG_RESET()       do{RCC->APB2RSTR |= (1 <<  5); RCC->APB2RSTR &= ~(1 << 5);}while(0)
+
 
 /*
  *  Macro to give the code of a port

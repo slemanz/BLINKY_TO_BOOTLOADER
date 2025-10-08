@@ -103,5 +103,7 @@ void UART_Init_table(const UART_Config_t *pUARTConfig, uint32_t Len)
 
 void UART_DeInit(UART_RegDef_t *pUARTx)
 {
-
+    if      (pUARTx == UART1) UART1_REG_RESET();
+    else if	(pUARTx == UART2) UART2_REG_RESET();
+    else if	(pUARTx == UART6) UART6_REG_RESET();
 }
