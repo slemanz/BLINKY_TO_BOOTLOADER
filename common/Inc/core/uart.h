@@ -77,10 +77,6 @@ uint32_t uart_read(uint8_t *data, const uint32_t length);
 uint8_t uart_read_byte(void);
 bool uart_data_available(void);
 
-bool UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName);
-
-
-
 void UART_IRQITConfig(uint8_t IRQNumber, uint8_t EnorDi);
 
 #endif /* INC_UART_H_ */

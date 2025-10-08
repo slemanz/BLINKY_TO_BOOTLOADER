@@ -183,7 +183,7 @@ void UART_DeInit(UART_RegDef_t *pUARTx);
 /*
  * Data write and read
  */
-void UART_write_byte(UART_RegDef_t *pUARTx, uint8_t buffer);
+void UART_write_byte(UART_RegDef_t *pUARTx, uint8_t data);
 void UART_write(UART_RegDef_t *pUARTx, uint8_t *pTxBuffer, uint32_t Len);
 uint8_t UART_read_byte(UART_RegDef_t *pUARTx);
 

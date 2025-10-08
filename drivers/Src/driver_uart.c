@@ -107,3 +107,33 @@ void UART_DeInit(UART_RegDef_t *pUARTx)
     else if	(pUARTx == UART2) UART2_REG_RESET();
     else if	(pUARTx == UART6) UART6_REG_RESET();
 }
+
+void UART_write_byte(UART_RegDef_t *pUARTx, uint8_t data)
+{
+    pUARTx->DR = data;
+}
+
+void UART_write(UART_RegDef_t *pUARTx, uint8_t *pTxBuffer, uint32_t Len)
+{
+    for(uint32_t i = 0; i < Len; i++)
+    {
+        while(!UART_GetFlagStatus(pUARTx, UART_FLAG_TXE));
+        UART_write_byte(pUARTx, pTxBuffer[i]);
+    }
+    while(!UART_GetFlagStatus(pUARTx, UART_FLAG_TC));
+}
+
+uint8_t UART_read_byte(UART_RegDef_t *pUARTx)
+{
+    uint8_t data = pUARTx->DR;
+    return data;
+}
+
+uint8_t UART_GetFlagStatus(UART_RegDef_t *pUARTx , uint8_t FlagName)
+{
+	if(pUARTx->SR & FlagName)
+	{
+		return FLAG_SET;
+	}
+	return FLAG_RESET;
+}

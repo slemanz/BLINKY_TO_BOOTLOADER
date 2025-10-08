@@ -1,4 +1,5 @@
 #include "stm32f411xx.h"
+#include <stdio.h>
 
 #include "config_app.h"
 
@@ -24,7 +25,8 @@ int main(void)
     uint64_t start_time = ticks_get();
     uint64_t start_time2 = ticks_get();
 
-    uint8_t string_send[] = "hello world!!!\r\n";
+    printf("\n");
+    printf("Init board\n");
 
     while (1)
     {
@@ -36,7 +38,7 @@ int main(void)
 
         if((ticks_get() - start_time2) >= 10000)
         {
-            uart_write(string_send, (sizeof(string_send) - 1));
+            printf("Hello\n");
             start_time2 = ticks_get();
         }
 

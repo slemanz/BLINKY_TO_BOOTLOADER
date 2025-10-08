@@ -27,16 +27,16 @@ static uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
 
 void USART2_IRQHandler(void)
 {
-	const bool overrun_occurred = UART_GetFlagStatus(UART2, UART_FLAG_ORE);
-	const bool received_data = UART_GetFlagStatus(UART2, UART_FLAG_RXNE);
+	//const bool overrun_occurred = UART_GetFlagStatus(UART2, UART_FLAG_ORE);
+	//const bool received_data = UART_GetFlagStatus(UART2, UART_FLAG_RXNE);
 
-	if(received_data || overrun_occurred)
-	{
+	//if(received_data || overrun_occurred)
+	//{
 		if(ring_buffer_write(&rb, (uint8_t)uart_recv(UART2)))
 		{
 			// handle some error/failure?
 		}
-	}
+	//}
 }
 
 
@@ -101,16 +101,6 @@ bool uart_data_available(void)
 {
 	return !ring_buffer_empty(&rb);
 }
-
-bool UART_GetFlagStatus(UART_RegDef_t *pUARTx, uint32_t FlagName)
-{
-	if(pUARTx->SR & FlagName)
-	{
-		return FLAG_SET;
-	}
-	return FLAG_RESET;
-}
-
 
 void UART_IRQITConfig(uint8_t IRQNumber, uint8_t EnorDi)
 {
