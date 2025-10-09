@@ -3,7 +3,9 @@
 
 #include "config_app.h"
 
-#include "driver_gpio.h"
+// interface
+#include "interface_io.h"
+
 #include "driver_systick.h"
 #include "core/uart.h"
 
@@ -32,7 +34,7 @@ int main(void)
     {
         if((ticks_get() - start_time) >= 1000)
         {
-            GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
+            IO_Interface_get(IO0)->toggle();
             start_time = ticks_get();
         }
 

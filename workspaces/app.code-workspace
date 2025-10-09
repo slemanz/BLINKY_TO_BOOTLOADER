@@ -11,13 +11,17 @@
         },
         {
             "path": "../linkers"
+        },
+        {
+            "path": "../interface"
         }
     ],
     "settings": {
         "C_Cpp.default.includePath": [
             "${workspaceFolder}/../app/Inc",
             "${workspaceFolder}/../common/Inc",
-            "${workspaceFolder}/../drivers/Inc"
+            "${workspaceFolder}/../drivers/Inc",
+            "${workspaceFolder}/../interface/Inc"
         ],
         "files.associations": {
             "system.h": "c",
@@ -26,7 +30,9 @@
             "uart.h": "c",
             "crc8.h": "c",
             "driver_uart.h": "c",
-            "stm32f411xx.h": "c"
+            "stm32f411xx.h": "c",
+            "interface_io.h": "c",
+            "interface_instances.h": "c"
         },
     }
 }

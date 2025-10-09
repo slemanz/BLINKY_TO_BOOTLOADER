@@ -27,6 +27,7 @@ OBJCOPY=arm-none-eabi-objcopy
 INCLUDES+= -I $(ROOT_DIR)/app/Inc/
 INCLUDES+= -I $(ROOT_DIR)/drivers/Inc/ 
 INCLUDES+= -I $(ROOT_DIR)/common/Inc/ 
+INCLUDES+= -I $(ROOT_DIR)/interface/Inc/ 
 
 
 ############################################
@@ -49,6 +50,10 @@ CORE		+= Build/crc8.o
 CORE		+= Build/ring-buffer.o
 CORE		+= Build/uart.o
 
+INTERFACE	+= Build/interface_io.o
+
+INTERFACE	+= Build/wrapper_io.o
+
 
 PREREQ = $(BUILD_DIR)/
 
@@ -69,10 +74,13 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
+
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE)
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE) $(INTERFACE)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf
