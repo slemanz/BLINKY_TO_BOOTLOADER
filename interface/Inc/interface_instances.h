@@ -9,5 +9,13 @@
 
 extern const IO_Interface_t io0;
 
+/************************************************************
+*                   COMM INSTANCES                          *
+*************************************************************/
+
+#include "interface_comm.h"
+
+extern const Comm_Interface_t uart2_protocol;
+
 
 #endif /* INC_INTERFACE_INSTANCES_H_ */

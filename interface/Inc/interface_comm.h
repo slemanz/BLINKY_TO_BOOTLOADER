@@ -18,6 +18,6 @@ typedef struct
     void    (*deinit)(void);
 }Comm_Interface_t;
 
-Comm_Interface_t *CommProtocol_get(Comm_ProtocolType_e type);
+Comm_Interface_t *Comm_ProtocolGet(Comm_ProtocolType_e type);
 
 #endif /* INC_INTERFACE_COMM_H_ */
