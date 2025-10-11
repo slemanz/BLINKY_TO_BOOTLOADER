@@ -32,7 +32,8 @@
             "driver_uart.h": "c",
             "stm32f411xx.h": "c",
             "interface_io.h": "c",
-            "interface_instances.h": "c"
+            "interface_instances.h": "c",
+            "interface_comm.h": "c"
         },
     }
 }

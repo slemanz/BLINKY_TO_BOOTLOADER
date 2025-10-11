@@ -7,7 +7,7 @@
 #include "interface_io.h"
 
 #include "driver_systick.h"
-#include "core/uart.h"
+#include "shared/uart.h"
 
 
 // Function delay
@@ -21,8 +21,7 @@ void delay_cycles(uint32_t cycles)
 int main(void)
  {
     config_drivers();
-    uart_setup(); 
-    //timer_setup();
+    config_interface();
 
     uint64_t start_time = ticks_get();
     uint64_t start_time2 = ticks_get();
@@ -43,13 +42,6 @@ int main(void)
             printf("Hello\n");
             start_time2 = ticks_get();
         }
-
-        while(uart_data_available())
-        {
-            uint8_t data = uart_read_byte();
-            uart_write_byte(data);
-        }
-
         // Do other stuff
     }
 }

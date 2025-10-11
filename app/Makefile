@@ -46,13 +46,15 @@ DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
 DRIVERS		+= $(BUILD_DIR)/driver_uart.o
 DRIVERS		+= $(BUILD_DIR)/timer.o
 
-CORE		+= Build/crc8.o
-CORE		+= Build/ring-buffer.o
-CORE		+= Build/uart.o
+SHARED		+= Build/crc8.o
+SHARED		+= Build/ring-buffer.o
+SHARED		+= Build/uart.o
 
 INTERFACE	+= Build/interface_io.o
+INTERFACE	+= Build/interface_comm.o
 
 INTERFACE	+= Build/wrapper_io.o
+INTERFACE	+= Build/protocol_uart.o
 
 
 PREREQ = $(BUILD_DIR)/
@@ -71,8 +73,8 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/app/Src/%.S
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/drivers/Src/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/shared/$(*).c
 
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
@@ -80,7 +82,7 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE) $(INTERFACE)
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf

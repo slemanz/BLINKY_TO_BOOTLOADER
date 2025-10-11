@@ -5,6 +5,9 @@
 #include "driver_gpio.h"
 #include "driver_uart.h"
 
+// interface
+#include "interface_comm.h"
+
 #define BOOTLOADER_SIZE (0x8000U)
 
 // GPIO table - minimal one-liner style
@@ -33,9 +36,14 @@ void config_drivers(void)
     systick_init(1000);
 }
 
+void config_interface(void)
+{
+    Comm_ProtocolGet(PROTOCOL_UART2)->init();
+}
+
 // printf retarget
 extern int __io_putchar(int ch)
 {
-    UART_write(UART2, (uint8_t*)&ch, 1);
+    Comm_ProtocolGet(PROTOCOL_UART2)->send((uint8_t*)&ch, 1);
     return ch;
 }
