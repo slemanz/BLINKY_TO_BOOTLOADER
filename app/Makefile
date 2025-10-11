@@ -41,6 +41,7 @@ OBJS		+= $(BUILD_DIR)/syscalls.o
 OBJS		+= $(BUILD_DIR)/startup.o
 
 DRIVERS		+= $(BUILD_DIR)/driver_clock.o
+DRIVERS		+= $(BUILD_DIR)/driver_interrupt.o
 DRIVERS		+= $(BUILD_DIR)/driver_systick.o
 DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
 DRIVERS		+= $(BUILD_DIR)/driver_uart.o
@@ -48,7 +49,6 @@ DRIVERS		+= $(BUILD_DIR)/timer.o
 
 SHARED		+= Build/crc8.o
 SHARED		+= Build/ring-buffer.o
-SHARED		+= Build/uart.o
 
 INTERFACE	+= Build/interface_io.o
 INTERFACE	+= Build/interface_comm.o
