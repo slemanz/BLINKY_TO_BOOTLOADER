@@ -14,8 +14,8 @@
  * Author:  William Sleman (www.slemanz.com)
  **************************************************************************************************/
 
-#include "core/uart.h"
-#include "core/ring-buffer.h"
+#include "shared/uart.h"
+#include "shared/ring-buffer.h"
 
 #define BAUDRATE			(9600U)
 #define RING_BUFFER_SIZE		(128)

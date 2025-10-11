@@ -1,4 +1,4 @@
-#include "core/crc8.h"
+#include "shared/crc8.h"
 
 uint8_t crc8(uint8_t *data, uint32_t length)
 {
