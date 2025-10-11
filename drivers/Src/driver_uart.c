@@ -148,3 +148,15 @@ void UART_PeripheralControl(UART_RegDef_t *pUARTx, uint8_t EnorDi)
         pUARTx->CR1 &= ~(1 << UART_CR1_UE);
     }
 }
+
+void UART_InterruptConfig(UART_RegDef_t *pUARTx, uint32_t registers, uint8_t EnorDi)
+{
+    pUARTx->CR1 &= ~(1 << 0);
+	if(EnorDi == ENABLE)
+	{
+		pUARTx->CR1 |= (registers);
+	}else
+	{
+		pUARTx->CR1 &= ~(registers);
+	}
+}

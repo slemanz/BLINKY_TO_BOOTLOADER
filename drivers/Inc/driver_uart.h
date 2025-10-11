@@ -161,6 +161,12 @@ typedef struct
 #define UART_FLAG_RXNE          (1 << UART_SR_RXNE)
 #define UART_FLAG_TC            (1 << UART_SR_TC)
 
+/**
+ * @UART_Interrupt
+ */
+
+ #define UART_INTERRUPT_RXNEIE          (1 << UART_CR1_RXNEIE)
+
 /********************************************************************************************
  * 								APIs supported by this driver
  * 					for more information check the function definitions
@@ -195,5 +201,7 @@ void UART_PeripheralControl(UART_RegDef_t *pUARTx, uint8_t EnorDi);
 uint8_t UART_GetFlagStatus(UART_RegDef_t *pUARTx , uint8_t FlagName);
 void UART_ClearFlag(UART_RegDef_t *pUARTx, uint16_t StatusFlagName);
 void UART_SetBaudRate(UART_RegDef_t *pUARTx, uint32_t BaudRate);
+
+void UART_InterruptConfig(UART_RegDef_t *pUARTx, uint32_t registers, uint8_t EnorDi);
 
 #endif /* INC_DRIVER_UART_H_ */
