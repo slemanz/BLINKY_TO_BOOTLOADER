@@ -137,3 +137,14 @@ uint8_t UART_GetFlagStatus(UART_RegDef_t *pUARTx , uint8_t FlagName)
 	}
 	return FLAG_RESET;
 }
+
+void UART_PeripheralControl(UART_RegDef_t *pUARTx, uint8_t EnorDi)
+{
+    if(EnorDi == ENABLE)
+    {
+        pUARTx->CR1 |= (1 << UART_CR1_UE);
+    }else
+    {
+        pUARTx->CR1 &= ~(1 << UART_CR1_UE);
+    }
+}
