@@ -12,7 +12,7 @@ typedef enum
 typedef struct
 {
     void    (*init)(void);
-    void    (*send)(uint8_t *data, uint32_t len);
+    void    (*send)(uint8_t *buffer, uint32_t len);
     uint8_t (*receive)(uint8_t *buffer, uint32_t len);
     uint8_t (*data_available)(void);
     void    (*deinit)(void);
