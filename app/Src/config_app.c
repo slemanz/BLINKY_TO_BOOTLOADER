@@ -41,6 +41,22 @@ void config_interface(void)
     Comm_ProtocolGet(PROTOCOL_UART2)->init();
 }
 
+
+/************************************************************
+*                       DEINIT APP                          *
+*************************************************************/
+
+void deinit_app(void)
+{
+    // interface 
+    Comm_ProtocolGet(PROTOCOL_UART2)->deinit();
+
+    // drivers
+    UART_DeInit(UART2);
+    GPIO_DeInit(GPIOA);
+    GPIO_DeInit(GPIOC);
+}
+
 // printf retarget
 extern int __io_putchar(int ch)
 {

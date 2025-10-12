@@ -6,4 +6,6 @@
 void config_drivers(void);
 void config_interface(void);
 
+void deinit_app(void);
+
 #endif /* INC_CONFIG_APP_H_ */
