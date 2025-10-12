@@ -26,6 +26,13 @@ void uart2_protocol_init(void)
     UART_PeripheralControl(UART2, ENABLE);
 }
 
+void uart2_protocol_deinit(void)
+{
+    UART_PeripheralControl(UART2, DISABLE);
+    interrupt_Config(IRQ_NO_UART2, DISABLE);
+    UART_InterruptConfig(UART2, UART_INTERRUPT_RXNEIE, DISABLE);
+}
+
 void uart2_protocol_send(uint8_t *data, uint32_t Len)
 {
     UART_write(UART2, data, Len);
@@ -71,5 +78,5 @@ const Comm_Interface_t uart2_protocol = {
     .send = uart2_protocol_send,
     .receive = uart2_protocol_receive,
     .data_available = uart2_protocol_data_available,
-    .deinit = NULL
+    .deinit = uart2_protocol_deinit
 };
