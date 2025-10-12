@@ -50,11 +50,12 @@ DRIVERS		+= $(BUILD_DIR)/timer.o
 SHARED		+= Build/crc8.o
 SHARED		+= Build/ring-buffer.o
 
-INTERFACE	+= Build/interface_io.o
-INTERFACE	+= Build/interface_comm.o
+INTERFACE	+= $(BUILD_DIR)/interface_io.o
+INTERFACE	+= $(BUILD_DIR)/interface_comm.o
+INTERFACE	+= $(BUILD_DIR)/interface_timebase.o
 
-INTERFACE	+= Build/wrapper_io.o
-INTERFACE	+= Build/protocol_uart.o
+INTERFACE	+= $(BUILD_DIR)/wrapper_io.o
+INTERFACE	+= $(BUILD_DIR)/protocol_uart.o
 
 
 PREREQ = $(BUILD_DIR)/
