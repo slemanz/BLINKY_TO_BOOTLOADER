@@ -25,8 +25,8 @@ OBJCOPY=arm-none-eabi-objcopy
 
 INCLUDES+= -I $(ROOT_DIR)/bootloader/Inc/
 INCLUDES+= -I $(ROOT_DIR)/drivers/Inc/ 
-
-
+INCLUDES+= -I $(ROOT_DIR)/common/Inc/ 
+INCLUDES+= -I $(ROOT_DIR)/interface/Inc/
 
 ############################################
 # 				SOURCE FILES
@@ -35,6 +35,25 @@ INCLUDES+= -I $(ROOT_DIR)/drivers/Inc/
 OBJS		+= $(BUILD_DIR)/bootloader.o
 OBJS		+= $(BUILD_DIR)/syscalls.o
 OBJS		+= $(BUILD_DIR)/startup.o
+OBJS		+= $(BUILD_DIR)/config_boot.o
+
+DRIVERS		+= $(BUILD_DIR)/driver_clock.o
+DRIVERS		+= $(BUILD_DIR)/driver_interrupt.o
+DRIVERS		+= $(BUILD_DIR)/driver_systick.o
+DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
+DRIVERS		+= $(BUILD_DIR)/driver_uart.o
+
+SHARED		+= Build/crc8.o
+SHARED		+= Build/ring-buffer.o
+
+INTERFACE	+= $(BUILD_DIR)/interface_io.o
+INTERFACE	+= $(BUILD_DIR)/interface_comm.o
+INTERFACE	+= $(BUILD_DIR)/interface_timebase.o
+
+INTERFACE	+= $(BUILD_DIR)/wrapper_io.o
+INTERFACE	+= $(BUILD_DIR)/protocol_uart.o
+
+
 
 PREREQ = $(BUILD_DIR)/
 
@@ -49,11 +68,17 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/bootloader/Src/%.c
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/drivers/Src/$(*).c
 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/shared/$(*).c
+
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
+
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
 
 # TARGET ELF
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) 
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf

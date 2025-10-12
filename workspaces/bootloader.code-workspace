@@ -11,6 +11,20 @@
         },
         {
             "path": "../linkers"
+        },
+        {
+            "path": "../interface"
         }
-    ]
+    ],
+    "settings": {
+        "C_Cpp.default.includePath": [
+            "${workspaceFolder}/../bootloader/Inc",
+            "${workspaceFolder}/../common/Inc",
+            "${workspaceFolder}/../drivers/Inc",
+            "${workspaceFolder}/../interface/Inc"
+        ],
+        "files.associations": {
+            "common-defines.h": "c"
+        }
+    }
 }

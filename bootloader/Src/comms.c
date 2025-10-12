@@ -1,7 +1,6 @@
 #include "assert.h"
 #include "comms.h"
-#include "uart.h"
-#include "core/crc8.h"
+#include "shared/crc8.h"
 
 #define PACKET_BUFFER_LENGTH (8)
 

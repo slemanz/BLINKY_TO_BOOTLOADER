@@ -1,4 +1,8 @@
-#include "common-defines.h"
+#include "config_boot.h"
+#include <stdio.h>
+
+// interface
+#include "interface_timebase.h"
 
 // bootloader size -> 32kB
 #define BOOTLOADER_SIZE             (0x8000UL)
@@ -18,8 +22,21 @@ static void jump_to_main(void)
 
 int main(void)
  {
-    jump_to_main();
+    config_drivers();
+    config_interface();
 
-    // never return
-    return 0;
+    Timebase_Interface_t *ticks = timebase_get();
+    ticks->delay(100);
+    uint64_t start_time = ticks->get();
+
+    printf("\nBootloader Init\n");
+
+    while(1)
+    {
+        if((ticks->get() - start_time) >= 3000)
+        {
+            deinit_boot();
+            jump_to_main();
+        }
+    }
 }
