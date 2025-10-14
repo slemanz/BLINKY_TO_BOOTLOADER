@@ -1,16 +1,14 @@
 #include "config_app.h"
 
-// drivers
+#define BOOTLOADER_SIZE (0x8000U)
+
+/************************************************************
+*                       DRIVERS                             *
+*************************************************************/
 #include "driver_systick.h"
 #include "driver_gpio.h"
 #include "driver_uart.h"
 
-// interface
-#include "interface_comm.h"
-
-#define BOOTLOADER_SIZE (0x8000U)
-
-// GPIO table - minimal one-liner style
 static const GPIO_PinConfig_t GPIO_ConfigTable[] = {
 
     { GPIOC, GPIO_PIN_NO_13, GPIO_MODE_OUT,   GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  GPIO_PIN_ALTFN_0   },    // PIN0 - (LED)
@@ -36,9 +34,31 @@ void config_drivers(void)
     systick_init(1000);
 }
 
+
+/************************************************************
+*                      INTERFACE                            *
+*************************************************************/
+
+#include "interface_comm.h"
+
 void config_interface(void)
 {
     Comm_ProtocolGet(PROTOCOL_UART2)->init();
+}
+
+/************************************************************
+*                         CORE                              *
+*************************************************************/
+#include "core/cli.h"
+
+const command_t commands_table[] = {
+    {"help", cli_help, "List all commands."},
+};
+
+void config_core(void)
+{
+    cli_setup(Comm_ProtocolGet(PROTOCOL_UART2), (command_t*)commands_table, 1);
+
 }
 
 

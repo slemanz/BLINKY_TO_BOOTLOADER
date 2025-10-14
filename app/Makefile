@@ -47,8 +47,10 @@ DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
 DRIVERS		+= $(BUILD_DIR)/driver_uart.o
 DRIVERS		+= $(BUILD_DIR)/timer.o
 
-SHARED		+= Build/crc8.o
-SHARED		+= Build/ring-buffer.o
+SHARED		+= $(BUILD_DIR)/crc8.o
+SHARED		+= $(BUILD_DIR)/ring-buffer.o
+
+CORE		+= $(BUILD_DIR)/cli.o
 
 INTERFACE	+= $(BUILD_DIR)/interface_io.o
 INTERFACE	+= $(BUILD_DIR)/interface_comm.o
@@ -77,13 +79,16 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/shared/$(*).c
 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
+
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
 
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE)
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE) $(CORE)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf
