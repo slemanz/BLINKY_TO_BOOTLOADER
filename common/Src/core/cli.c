@@ -39,6 +39,7 @@ void cli_update(void)
         {
              // command end
              cli_buffer[cli_idx] = '\0';
+             cli_idx = 0;
              // dispatch
              cli_dispatch(cli_buffer);
         }else if(cli_idx < CLI_BUFFER_SIZE)
@@ -62,5 +63,12 @@ void cli_dispatch(char *buffer)
 
 void cli_help(void)
 {
+    if(_table == NULL) return;
 
+    printf("===================================\n");
+    for (int i = 0; i < _table_len; i++)
+    {
+    	printf("%s: %s\n", _table[i].name, _table[i].help);
+    }
+    printf("===================================\n");
 }
