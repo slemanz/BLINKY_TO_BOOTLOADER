@@ -52,6 +52,8 @@ SHARED		+= $(BUILD_DIR)/ring-buffer.o
 
 CORE		+= $(BUILD_DIR)/cli.o
 
+BSP			+= $(BUILD_DIR)/led.o
+
 INTERFACE	+= $(BUILD_DIR)/interface_io.o
 INTERFACE	+= $(BUILD_DIR)/interface_comm.o
 INTERFACE	+= $(BUILD_DIR)/interface_timebase.o
@@ -82,13 +84,16 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/bsp/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/bsp/$(*).c
+
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
 
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE) $(CORE)
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE) $(CORE) $(BSP)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf

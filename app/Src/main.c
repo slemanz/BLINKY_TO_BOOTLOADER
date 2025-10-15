@@ -10,11 +10,15 @@
 // core
 #include "core/cli.h"
 
+// bsp
+#include "bsp/led.h"
+
 int main(void)
  {
     config_drivers();
     config_interface();
     config_core();
+    config_bsp();
 
     Timebase_Interface_t *ticks = timebase_get();
     uint64_t start_time = ticks->get();
@@ -23,14 +27,12 @@ int main(void)
     printf("\n");
     printf("Init app\n");
 
-    //Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
-    //uint8_t data_rcv = 0;
-
     while (1)
     {
-        if((ticks->get() - start_time) >= 1000)
+        if((ticks->get() - start_time) >= 200)
         {
-            IO_Interface_get(IO0)->toggle();
+            //IO_Interface_get(IO0)->toggle();
+            led_get(LED_NUM_1)->toggle();
             start_time = ticks->get();
         }
 
@@ -39,13 +41,6 @@ int main(void)
             cli_update();
             start_time2 = ticks->get();
         }
-        /*
-        while(serial->data_available())
-        {
-            serial->receive(&data_rcv, 1);
-            serial->send(&data_rcv, 1); // echo
-        }
-        */
         // Do other stuff
     }
 }
