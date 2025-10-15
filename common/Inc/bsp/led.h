@@ -9,7 +9,7 @@ typedef enum
     LED_NUM_1 = 0,
     LED_NUM_2,
     LED_NUM_3,
-    LED_MAX
+    LED_NUM_MAX
 }led_num_e;
 
 typedef struct
