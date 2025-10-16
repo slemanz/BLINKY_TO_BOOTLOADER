@@ -8,6 +8,7 @@
 #include "driver_systick.h"
 #include "driver_gpio.h"
 #include "driver_uart.h"
+#include "driver_systick.h"
 
 static const GPIO_PinConfig_t GPIO_ConfigTable[] = {
 
@@ -52,12 +53,13 @@ void config_interface(void)
 #include "core/cli.h"
 
 const command_t commands_table[] = {
+    {"boot", jump_bootloader, "Jump to bootloader"},
     {"help", cli_help, "List all commands."},
 };
 
 void config_core(void)
 {
-    cli_setup(Comm_ProtocolGet(PROTOCOL_UART2), (command_t*)commands_table, 1);
+    cli_setup(Comm_ProtocolGet(PROTOCOL_UART2), (command_t*)commands_table, 2);
 
 }
 
@@ -83,9 +85,28 @@ void deinit_app(void)
     Comm_ProtocolGet(PROTOCOL_UART2)->deinit();
 
     // drivers
+    systick_deinit();
     UART_DeInit(UART2);
     GPIO_DeInit(GPIOA);
     GPIO_DeInit(GPIOC);
+}
+
+void jump_bootloader(void)
+{
+    deinit_app();
+    
+    VTOR_OFFSET = 0x08000000;
+    
+    void (*sys_mem_bootloader)(void);
+    uint32_t reset_handler_address = *(volatile uint32_t *)0x08000004U; // read the reset handler address (inside this)
+    sys_mem_bootloader = (void (*)(void))reset_handler_address;
+    sys_mem_bootloader();
+
+    //typedef void (*void_fn)(void);
+    //uint32_t* reset_vector_entry = (uint32_t*)(0x08000000 + 4U);
+    //uint32_t* reset_vector = (uint32_t*)(*reset_vector_entry);
+    //void_fn jump_fn = (void_fn)reset_vector;
+    //jump_fn();
 }
 
 // printf retarget

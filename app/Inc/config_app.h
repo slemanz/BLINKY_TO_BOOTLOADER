@@ -9,5 +9,6 @@ void config_core(void);
 void config_bsp(void);
 
 void deinit_app(void);
+void jump_bootloader(void);
 
 #endif /* INC_CONFIG_APP_H_ */
