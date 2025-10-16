@@ -51,6 +51,34 @@ void ticks_delay(uint64_t delay)
     }
 }
 
+void systick_counter(uint8_t EnorDi)
+{
+    if(EnorDi == ENABLE)
+    {
+        SYSTICK->CTRL = (SYSTICK_CTRL_ENABLE | SYSTICK_CTRL_CLKSRC);
+    }else
+    {
+        SYSTICK->CTRL &= ~(SYSTICK_CTRL_ENABLE | SYSTICK_CTRL_CLKSRC);
+    }
+}
+
+void systick_interrupt(uint8_t EnorDi)
+{
+    if(EnorDi == ENABLE)
+    {
+        SYSTICK->CTRL |= SYSTICK_CTRL_TICKINT;
+    }else
+    {
+        SYSTICK->CTRL &= ~SYSTICK_CTRL_TICKINT;
+    }
+}
+
+void systick_deinit(void)
+{
+    systick_counter(DISABLE);
+    systick_interrupt(DISABLE);
+}
+
 void SysTick_Handler(void)
 {
     ticks_increment();
