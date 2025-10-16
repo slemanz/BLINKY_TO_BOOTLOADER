@@ -53,6 +53,7 @@ SHARED		+= $(BUILD_DIR)/ring-buffer.o
 CORE		+= $(BUILD_DIR)/cli.o
 
 BSP			+= $(BUILD_DIR)/led.o
+BSP			+= $(BUILD_DIR)/button.o
 
 INTERFACE	+= $(BUILD_DIR)/interface_io.o
 INTERFACE	+= $(BUILD_DIR)/interface_comm.o

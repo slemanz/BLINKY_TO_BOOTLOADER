@@ -3,8 +3,6 @@
 #include "config_app.h"
 
 // interface
-#include "interface_io.h"
-#include "interface_comm.h"
 #include "interface_timebase.h"
 
 // core
@@ -12,6 +10,7 @@
 
 // bsp
 #include "bsp/led.h"
+#include "bsp/button.h"
 
 int main(void)
  {
@@ -29,11 +28,18 @@ int main(void)
 
     while (1)
     {
-        if((ticks->get() - start_time) >= 100)
+        if((ticks->get() - start_time) >= 500)
         {
-            //IO_Interface_get(IO0)->toggle();
             led_get(LED_NUM_1)->toggle();
             start_time = ticks->get();
+        }
+
+        if(button_get(BUTTON_NUM_1)->read() == BUTTON_LOW)
+        {
+            led_get(LED_NUM_2)->set(LED_ON);
+        }else
+        {
+            led_get(LED_NUM_2)->set(LED_OFF);
         }
 
         if((ticks->get() - start_time2) >= 100)

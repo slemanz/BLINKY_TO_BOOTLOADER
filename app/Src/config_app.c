@@ -12,9 +12,11 @@
 
 static const GPIO_PinConfig_t GPIO_ConfigTable[] = {
 
-    { GPIOC, GPIO_PIN_NO_13, GPIO_MODE_OUT,   GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  GPIO_PIN_ALTFN_0   },    // PIN0 - (LED)
+    { GPIOC, GPIO_PIN_NO_13, GPIO_MODE_OUT,   GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  GPIO_PIN_ALTFN_0   },    // IO0 - (LED)
     { GPIOA, GPIO_PIN_NO_3,  GPIO_MODE_ALTFN, GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  PA3_ALTFN_UART2_RX },    // UART2 TX
     { GPIOA, GPIO_PIN_NO_2,  GPIO_MODE_ALTFN, GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  PA2_ALTFN_UART2_TX },    // UART2 RX
+    { GPIOA, GPIO_PIN_NO_5,  GPIO_MODE_OUT,   GPIO_SPEED_LOW, GPIO_OP_TYPE_PP, GPIO_NO_PUPD,  GPIO_PIN_ALTFN_0   },    // IO1 - (LED)
+    { GPIOA, GPIO_PIN_NO_0,  GPIO_MODE_IN,    GPIO_SPEED_FAST, GPIO_OP_TYPE_PP, GPIO_PIN_PU,   GPIO_PIN_ALTFN_0   },   // IO2 - (BUTTON)
 };
 
 static const UART_Config_t UART_ConfigTable[ ]= {
@@ -67,11 +69,14 @@ void config_core(void)
 *                         BSP                               *
 *************************************************************/
 #include "bsp/led.h"
+#include "bsp/button.h"
 
 void config_bsp(void)
 {
     led_setup(LED_NUM_1, IO_Interface_get(IO0));
+    led_setup(LED_NUM_2, IO_Interface_get(IO1));
 
+    button_setup(BUTTON_NUM_1, IO_Interface_get(IO2));
 }
 
 
