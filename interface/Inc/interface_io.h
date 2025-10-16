@@ -7,6 +7,8 @@
 typedef enum
 {
     IO0,
+    IO1,
+    IO2,
     // ...
 }IO_Pin_e;
 
