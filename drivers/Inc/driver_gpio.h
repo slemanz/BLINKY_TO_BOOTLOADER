@@ -13,8 +13,8 @@ typedef struct
 	uint8_t GPIO_PinNumber; 	/*!< possible modes from @GPIO_PIN_NUMBER >*/
 	uint8_t GPIO_PinMode;		/*!< possible modes from @GPIO_PIN_MODES >*/
 	uint8_t	GPIO_PinSpeed; 		/*!< possible modes from @GPIO_PIN_SPEED >*/
-	uint8_t GPIO_PinPuPdControl;/*!< possible modes from @GPIO_PIN_PUPD >*/
 	uint8_t GPIO_PinOPType;		/*!< possible modes from @GPIO_PIN_OP_TYPE >*/
+	uint8_t GPIO_PinPuPdControl;/*!< possible modes from @GPIO_PIN_PUPD >*/
 	uint8_t GPIO_PinAltFunMode;	/*!< possible modes from @GPIO_PIN_ >*/
 }GPIO_PinConfig_t;
 
