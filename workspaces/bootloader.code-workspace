@@ -24,7 +24,9 @@
             "${workspaceFolder}/../interface/Inc"
         ],
         "files.associations": {
-            "common-defines.h": "c"
+            "common-defines.h": "c",
+            "string.h": "c",
+            "comms.h": "c"
         }
     }
 }
