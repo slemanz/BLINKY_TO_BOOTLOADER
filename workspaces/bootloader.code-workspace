@@ -7,7 +7,7 @@
             "path": "../drivers"
         },
         {
-            "path": "../shared"
+            "path": "../common"
         },
         {
             "path": "../linkers"
