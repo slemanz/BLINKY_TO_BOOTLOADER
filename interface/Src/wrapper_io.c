@@ -51,17 +51,17 @@ static void io1_toggle(void)
 
 static void io2_write(uint8_t value)
 {
-    GPIO_WriteToOutputPin(GPIOA, GPIO_PIN_NO_0, value);
+    GPIO_WriteToOutputPin(GPIOA, GPIO_PIN_NO_6, value);
 }
 
 static uint8_t io2_read(void)
 {
-    return GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0);
+    return GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_6);
 }
 
 static void io2_toggle(void)
 {
-    GPIO_ToggleOutputPin(GPIOA, GPIO_PIN_NO_0);
+    GPIO_ToggleOutputPin(GPIOA, GPIO_PIN_NO_6);
 }
 
 /************************************************************
