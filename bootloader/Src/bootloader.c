@@ -3,6 +3,7 @@
 
 // interface
 #include "interface_timebase.h"
+#include "interface_comm.h"
 
 // bootloader size -> 32kB
 #define BOOTLOADER_SIZE             (0x8000UL)
@@ -29,7 +30,10 @@ int main(void)
     ticks->delay(100);
     uint64_t start_time = ticks->get();
 
-    printf("\nBootloader Init\n");
+    //printf("\nBootloader Init\n");
+    const char *string_send = {"BOOT\n"};
+    Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
+    serial->send((uint8_t*)string_send, 5);
 
     while(1)
     {
