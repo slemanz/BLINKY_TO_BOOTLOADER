@@ -32,7 +32,7 @@ bool comms_is_single_byte_packet(const comms_packet_t *packet, uint8_t byte)
         return false;
     }
 
-    if(packet->data != byte)
+    if(packet->data[0] != byte)
     {
         return false;
     }
@@ -117,7 +117,7 @@ void comms_update(void)
                 uint32_t next_write_index = (packet_write_index + 1) & packet_buffer_mask;
                 if(next_write_index == packet_read_index)
                 {
-                    // handle error
+                    // handle buffer full
                 }
 
                 memcpy(&packet_buffer[packet_write_index], &temporary_packet, sizeof(comms_packet_t));
@@ -131,4 +131,26 @@ void comms_update(void)
                 break;
         }
     }
+}
+
+bool comms_packets_available(void)
+{
+    return packet_read_index != packet_write_index;
+}
+
+void comms_write(comms_packet_t *packet)
+{
+    _comm->send((uint8_t*)packet, PACKET_LENGTH);
+    memcpy(&last_transmitted_packet, packet, sizeof(comms_packet_t));
+}
+
+void comms_read(comms_packet_t *packet)
+{
+    memcpy(packet, &packet_buffer[packet_read_index], sizeof(comms_packet_t));
+    packet_read_index = (packet_read_index + 1) & packet_buffer_mask;
+}
+
+uint8_t comms_compute_crc(comms_packet_t *packet)
+{
+    return crc8((uint8_t*)packet, PACKET_LENGTH - PACKET_CRC_BYTES);
 }
