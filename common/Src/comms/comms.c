@@ -67,11 +67,64 @@ void comms_update(void)
 {
     while(_comm->data_available())
     {
+        uint8_t buffer;
+        _comm->receive(&buffer, 1);
+
         switch (state)
         {
             case CommsState_Length:
-            
+                if(buffer <= PACKET_DATA_BYTES)
+                {
+                    temporary_packet.length = buffer;
+                    state = CommsState_Data;
+                }
                 break;
+            
+            case CommsState_Data: 
+            {
+                temporary_packet.data[data_byte_count++] = buffer;
+                if(data_byte_count >= PACKET_DATA_BYTES)
+                {
+                    data_byte_count = 0;
+                    state = CommsState_CRC;
+                }
+            }break;
+
+            case CommsState_CRC:
+            {
+                temporary_packet.crc = buffer;
+
+                if(temporary_packet.crc != comms_compute_crc(&temporary_packet))
+                {
+                    comms_write(&retx_packet);
+                    state = CommsState_Length;
+                    break;
+                }
+
+                if(comms_is_single_byte_packet(&temporary_packet, PACKET_RETX_DATA0))
+                {
+                    comms_write(&last_transmitted_packet);
+                    state = CommsState_Length;
+                    break;
+                }
+
+                if(comms_is_single_byte_packet(&temporary_packet, PACKET_ACK_DATA0))
+                {
+                    state = CommsState_Length;
+                    break;
+                }
+
+                uint32_t next_write_index = (packet_write_index + 1) & packet_buffer_mask;
+                if(next_write_index == packet_read_index)
+                {
+                    // handle error
+                }
+
+                memcpy(&packet_buffer[packet_write_index], &temporary_packet, sizeof(comms_packet_t));
+                packet_write_index = next_write_index;
+                comms_write(&ack_packet);
+                state =CommsState_Length;
+            }break;
             
             default:
                 state = CommsState_CRC;
