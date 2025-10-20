@@ -560,6 +560,7 @@ typedef struct
 
 
 #define MMIO32(addr) (*(volatile uint32_t *)(addr))
+#define MMIO64(addr) (*(volatile uint64_t *)(addr))
 
 #define SET_BIT(REG, BIT)     ((REG) |= (BIT))
 #define CLEAR_BIT(REG, BIT)   ((REG) &= ~(BIT))
