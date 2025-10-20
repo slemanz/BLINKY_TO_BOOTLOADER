@@ -5,6 +5,9 @@
 #include "interface_timebase.h"
 #include "interface_comm.h"
 
+// comms
+#include "comms/comms.h"
+
 // bootloader size -> 32kB
 #define BOOTLOADER_SIZE             (0x8000UL)
 #define FLASH_BASE                  (0x08000000UL)
@@ -29,11 +32,14 @@ int main(void)
     Timebase_Interface_t *ticks = timebase_get();
     ticks->delay(100);
     uint64_t start_time = ticks->get();
+    uint64_t start_time2 = ticks->get();
 
     //printf("\nBootloader Init\n");
     const char *string_send = {"BOOT\n"};
     Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
     serial->send((uint8_t*)string_send, 5);
+
+    comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
 
     while(1)
     {
@@ -41,6 +47,14 @@ int main(void)
         {
             deinit_boot();
             jump_to_main();
+        }
+
+        if((ticks->get() - start_time2) >= 100)
+        {
+            comms_update();
+
+
+            start_time2 = ticks->get();
         }
     }
 }
