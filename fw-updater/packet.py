@@ -9,3 +9,9 @@ def packet_command(command):
         packet.append(0xFF)
     packet.append(crc8(packet))
     return packet
+
+def packet_is_ack(response):
+    if(list(response) == packet_command(0x15)):
+        return True
+    return False
+

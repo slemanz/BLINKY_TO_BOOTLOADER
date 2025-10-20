@@ -1,5 +1,5 @@
 import serial
-from packet import packet_command
+from packet import packet_command, packet_is_ack
 
 
 print("INIT FW-UPDATER")
@@ -8,10 +8,6 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
     print("Conectado")
     ser.flushInput()
     ser.flushOutput()
-
-    test = packet_command(0x2)
-    print(test)
-
 
 
     ser.write("boot\n".encode('utf-8'))
@@ -25,8 +21,12 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
         print("Error trying to enter boot mode")
         exit()
 
-    ser.write(test)
+    print("SEND COMMAND")
+    ser.write(packet_command(0x02))
     response = ser.read(18)
-    print(response)
+
+
+    if(packet_is_ack(response)):
+        print("ACK")
 
     
