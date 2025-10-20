@@ -1,0 +1,11 @@
+from crc import crc8
+
+def packet_command(command):
+    packet = []
+
+    packet.append(0x01)
+    packet.append(command)
+    for _ in range(15):
+        packet.append(0xFF)
+    packet.append(crc8(packet))
+    return packet
