@@ -2,3 +2,5 @@
 *.vscode*
 *.elf
 *.map
+
+*__pycache__**
