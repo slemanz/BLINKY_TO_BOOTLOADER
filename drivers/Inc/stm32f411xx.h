@@ -69,6 +69,7 @@
 #define GPIOH_BASEADDR						(AHB1PERIPH_BASE + 0x1C00U)
 
 #define RCC_BASEADDR						(AHB1PERIPH_BASE + 0x3800U)
+#define FLASH_R_BASEADDR                    (AHB1PERIPH_BASE + 0x3C00UL)
 
 
 /*
@@ -330,6 +331,17 @@ typedef struct
     __vo uint32_t BKP19R;     /*!< RTC backup register 19,                                   Address offset: 0x9C */
 } RTC_TypeDef;
 
+typedef struct
+{
+    __vo uint32_t ACR;      /*!< FLASH access control register,   Address offset: 0x00 */
+    __vo uint32_t KEYR;     /*!< FLASH key register,              Address offset: 0x04 */
+    __vo uint32_t OPTKEYR;  /*!< FLASH option key register,       Address offset: 0x08 */
+    __vo uint32_t SR;       /*!< FLASH status register,           Address offset: 0x0C */
+    __vo uint32_t CR;       /*!< FLASH control register,          Address offset: 0x10 */
+    __vo uint32_t OPTCR;    /*!< FLASH option control register ,  Address offset: 0x14 */
+    __vo uint32_t OPTCR1;   /*!< FLASH option control register 1, Address offset: 0x18 */
+} FLASH_RegDef_t;
+
 /*
  * 	peripheral definitions (Peripheral base address typecasted to xxx_RegDef_t)
  */
@@ -345,6 +357,7 @@ typedef struct
 
 #define SYSCFG			((SYSCFG_RegDef_t*)SYSCFG_BASEADDR	)
 #define PWR             ((PWR_TypeDef *)PWR_BASEADDR)
+#define FLASH           ((FLASH_RegDef_t *)FLASH_R_BASEADDR)
 
 #define EXTI			((EXTI_RegDef_t*)EXTI_BASEADDR)
 
