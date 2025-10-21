@@ -11,10 +11,27 @@
 #define FLASH_OPTKEY2           0x4C5D6E7FUL
 
 
+#define FLASH_PSIZE_X8                 (0U)                                    
+#define FLASH_PSIZE_X16                (1U)                                    
+#define FLASH_PSIZE_X32                (2U)                                    
+#define FLASH_PSIZE_X64                (3U)                                    
+
+
+
+#define FLASH_CR_PSIZE_POS             (8U)                                    
+#define FLASH_SR_BSY_POS               (16U)                                   
+
+#define FLASH_CR_PSIZE_MSK             (0x3UL << FLASH_CR_PSIZE_POS)
+#define FLASH_SR_BSY_MSK               (0x1UL << FLASH_SR_BSY_POS)
+
+
 /********************************************************************************************
  *                              APIs supported by this driver                               *
  *                  for more information check the function definitions                     *
  ********************************************************************************************/
+
+void flash_set_program_size(uint32_t psize);
+void flash_wait_for_last_operation(void);
 
 void flash_unlock_cr(void);
 void flash_unlock_write(void);
