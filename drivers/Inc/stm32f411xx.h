@@ -339,7 +339,6 @@ typedef struct
     __vo uint32_t SR;       /*!< FLASH status register,           Address offset: 0x0C */
     __vo uint32_t CR;       /*!< FLASH control register,          Address offset: 0x10 */
     __vo uint32_t OPTCR;    /*!< FLASH option control register ,  Address offset: 0x14 */
-    __vo uint32_t OPTCR1;   /*!< FLASH option control register 1, Address offset: 0x18 */
 } FLASH_RegDef_t;
 
 /*
