@@ -42,6 +42,7 @@ DRIVERS		+= $(BUILD_DIR)/driver_interrupt.o
 DRIVERS		+= $(BUILD_DIR)/driver_systick.o
 DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
 DRIVERS		+= $(BUILD_DIR)/driver_uart.o
+DRIVERS		+= $(BUILD_DIR)/driver_flash.o
 
 SHARED		+= $(BUILD_DIR)/crc8.o
 SHARED		+= $(BUILD_DIR)/ring-buffer.o

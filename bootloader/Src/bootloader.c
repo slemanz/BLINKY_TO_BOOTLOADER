@@ -8,6 +8,9 @@
 // comms
 #include "comms/comms.h"
 
+// drivers
+#include "driver_flash.h"
+
 // bootloader size -> 32kB
 #define BOOTLOADER_SIZE             (0x8000UL)
 #define FLASH_BASE                  (0x08000000UL)
@@ -41,12 +44,29 @@ int main(void)
 
     comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
 
+
+    // unlock
+    flash_unlock_cr();
+    flash_unlock_write();
+
+    uint8_t *mem = (uint8_t*)(0x08060000UL);
+    printf("Teste Flash\n");
+    flash_erase_sectors(7, 1);
+    printf("ERASE: 0x%X\n", *mem);
+
+    uint8_t mem_write[1] = {0x02};
+    flash_program(0x08060000, mem_write, 1);
+    printf("PROGRAM: 0x%X\n", *mem);
+
+
+
     while(1)
     {
         if((ticks->get() - start_time) >= 3000)
         {
             deinit_boot();
-            jump_to_main();
+            //jump_to_main();
+            while(1);
         }
 
         if((ticks->get() - start_time2) >= 100)
