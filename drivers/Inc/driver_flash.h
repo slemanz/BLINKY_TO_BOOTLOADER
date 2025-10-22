@@ -38,19 +38,18 @@ void flash_unlock_write(void);
 void flash_lock_cr(void);
 void flash_lock_write(void);
 
-void flash_wait_busy(void);
-
-
 void flash_enable_write(void);
 void flash_disable_write(void);
 
 
-void flash_write_double_word(uint32_t address, uint64_t data);
-void flash_write(uint32_t address, uint8_t *data, uint32_t Len);
+void flash_program_double_word(uint32_t address, uint64_t data);
+void flash_program_word(uint32_t address, uint32_t data);
+void flash_program_half_word(uint32_t address, uint16_t data);
+void flash_program_byte(uint32_t address, uint8_t data);
+void flash_program(uint32_t address, const uint8_t *data, uint32_t len);
 
 
-void flash_erase_page(uint32_t page);
-void flash_erase_pages(uint32_t page, uint32_t Len);
-void flash_erase(uint32_t address);
+void flash_erase_sector(uint8_t sector);
+void flash_erase_sectors(uint32_t sector, uint32_t Len);
 
 #endif /* INC_DRIVER_FLASH_H_ */
