@@ -49,7 +49,7 @@ void flash_program_byte(uint32_t address, uint8_t data);
 void flash_program(uint32_t address, const uint8_t *data, uint32_t len);
 
 
-void flash_erase_sector(uint8_t sector);
+void flash_erase_sector(uint32_t sector);
 void flash_erase_sectors(uint32_t sector, uint32_t Len);
 
 #endif /* INC_DRIVER_FLASH_H_ */

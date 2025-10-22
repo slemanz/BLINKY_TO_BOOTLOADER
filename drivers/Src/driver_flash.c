@@ -1,4 +1,5 @@
 #include "driver_flash.h"
+#include <stdio.h>
 
 void flash_set_program_size(uint32_t psize)
 {
@@ -19,8 +20,8 @@ void flash_unlock_cr(void)
 
 void flash_unlock_write(void)
 {
-    FLASH->OPTKEYR - FLASH_OPTKEY1;
-    FLASH->OPTKEYR - FLASH_OPTKEY2;
+    FLASH->OPTKEYR = FLASH_OPTKEY1;
+    FLASH->OPTKEYR = FLASH_OPTKEY2;
 }
 
 void flash_lock_cr(void)
@@ -33,8 +34,66 @@ void flash_lock_write(void)
     FLASH->OPTCR |= (1U << 0);
 }
 
-void flash_erase_sector(uint8_t sector)
+void flash_program_double_word(uint32_t address, uint64_t data)
 {
+    flash_wait_for_last_operation();
+    flash_set_program_size(FLASH_PSIZE_X64);
+
+    FLASH->CR |= (1U << 0);
+    MMIO64(address) = data;
+
+    flash_wait_for_last_operation();
+    FLASH->CR &= ~(1U << 0);
+}
+
+void flash_program_word(uint32_t address, uint32_t data)
+{
+    flash_wait_for_last_operation();
+    flash_set_program_size(FLASH_PSIZE_X32);
+
+    FLASH->CR |= (1U << 0);
+    MMIO32(address) = data;
+
+    flash_wait_for_last_operation();
+    FLASH->CR &= ~(1U << 0);
+}
+
+void flash_program_half_word(uint32_t address, uint16_t data)
+{
+    flash_wait_for_last_operation();
+    flash_set_program_size(FLASH_PSIZE_X16);
+
+    FLASH->CR |= (1U << 0);
+    MMIO16(address) = data;
+
+    flash_wait_for_last_operation();
+    FLASH->CR &= ~(1U << 0);
+}
+
+void flash_program_byte(uint32_t address, uint8_t data)
+{
+    flash_wait_for_last_operation();
+    flash_set_program_size(FLASH_PSIZE_X8);
+
+    FLASH->CR |= (1U << 0);
+    MMIO8(address) = data;
+
+    flash_wait_for_last_operation();
+    FLASH->CR &= ~(1U << 0);
+}
+
+void flash_program(uint32_t address, const uint8_t *data, uint32_t len)
+{
+    uint32_t i;
+    for (i = 0; i < len; i++)
+    {
+    	flash_program_byte(address+i, data[i]);
+    }
+}
+
+void flash_erase_sector(uint32_t sector)
+{
+
     flash_wait_for_last_operation();
     flash_set_program_size(FLASH_PSIZE_X8);
 
@@ -49,13 +108,17 @@ void flash_erase_sector(uint8_t sector)
     FLASH->CR |= (1U << 16);
 
     flash_wait_for_last_operation();
-
+    FLASH->CR &= ~(1U << 1);
+	FLASH->CR &= ~(0xF << 3);
+    printf("OPA\n");
 }
 
 void flash_erase_sectors(uint32_t sector, uint32_t Len)
 {
+    printf("OPA\n");
     uint32_t length = Len;
     uint32_t sector_erase = sector;
+
 
     do
     {
