@@ -1,4 +1,5 @@
 #include "config_boot.h"
+#include "boot_info.h"
 #include <stdio.h>
 
 // interface
@@ -37,42 +38,29 @@ int main(void)
     uint64_t start_time = ticks->get();
     uint64_t start_time2 = ticks->get();
 
-    //printf("\nBootloader Init\n");
     const char *string_send = {"BOOT\n"};
     Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
     serial->send((uint8_t*)string_send, 5);
 
     comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
 
-
-    // unlock
-    flash_unlock_cr();
-    flash_unlock_write();
-
-    uint8_t *mem = (uint8_t*)(0x08060000UL);
-    printf("Teste Flash\n");
-    flash_erase_sectors(7, 1);
-    printf("ERASE: 0x%X\n", *mem);
-
-    uint8_t mem_write[1] = {0x02};
-    flash_program(0x08060000, mem_write, 1);
-    printf("PROGRAM: 0x%X\n", *mem);
-
-
-
     while(1)
     {
         if((ticks->get() - start_time) >= 3000)
         {
-            deinit_boot();
-            //jump_to_main();
+            if(info_verify_boot() == INFO_BOOT_OK)
+            {
+                deinit_boot();
+                jump_to_main();
+            }
+
             while(1);
         }
 
         if((ticks->get() - start_time2) >= 100)
         {
             comms_update();
-
+            // receive erase app command
 
             start_time2 = ticks->get();
         }
