@@ -1,5 +1,4 @@
 #include "driver_flash.h"
-#include <stdio.h>
 
 void flash_set_program_size(uint32_t psize)
 {
@@ -103,22 +102,19 @@ void flash_erase_sector(uint32_t sector)
     }
 
     FLASH->CR &= ~(0xF << 3);
-    FLASH->CR &= ~(sector << 3);
+    FLASH->CR |= (sector << 3);
     FLASH->CR |= (1U << 1);
     FLASH->CR |= (1U << 16);
 
     flash_wait_for_last_operation();
     FLASH->CR &= ~(1U << 1);
 	FLASH->CR &= ~(0xF << 3);
-    printf("OPA\n");
 }
 
 void flash_erase_sectors(uint32_t sector, uint32_t Len)
 {
-    printf("OPA\n");
     uint32_t length = Len;
     uint32_t sector_erase = sector;
-
 
     do
     {
