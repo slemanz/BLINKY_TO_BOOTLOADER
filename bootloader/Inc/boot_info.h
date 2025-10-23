@@ -12,6 +12,7 @@
 
 uint8_t info_verify_boot(void);
 void info_set_boot_ok(void);
+void info_set_boot_update(void);
 uint8_t info_get(void);
 
 
