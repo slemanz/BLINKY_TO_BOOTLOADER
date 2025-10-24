@@ -47,6 +47,7 @@ DRIVERS		+= $(BUILD_DIR)/driver_flash.o
 
 SHARED		+= $(BUILD_DIR)/crc8.o
 SHARED		+= $(BUILD_DIR)/ring-buffer.o
+SHARED		+= $(BUILD_DIR)/simple-timer.o
 
 COMMS		+= $(BUILD_DIR)/comms.o
 
@@ -77,6 +78,9 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
 
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/comms/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/comms/$(*).c
+
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
 
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c

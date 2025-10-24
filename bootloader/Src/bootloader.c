@@ -5,9 +5,13 @@
 // interface
 #include "interface_timebase.h"
 #include "interface_comm.h"
+#include "interface_io.h"
 
 // comms
 #include "comms/comms.h"
+
+// core
+#include "core/simple-timer.h"
 
 // drivers
 #include "driver_flash.h"
@@ -34,19 +38,19 @@ int main(void)
     config_interface();
 
     Timebase_Interface_t *ticks = timebase_get();
+    IO_Interface_t *led = IO_Interface_get(IO0);
     ticks->delay(100);
-    uint64_t start_time = ticks->get();
-    uint64_t start_time2 = ticks->get();
 
-    const char *string_send = {"BOOT\n"};
-    Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
-    serial->send((uint8_t*)string_send, 5);
+    simple_timer_t timer;
+    simple_timer_setup(&timer, 5000, false);
+
+    //Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
 
     comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
 
     while(1)
     {
-        if((ticks->get() - start_time) >= 3000)
+        if(simple_timer_has_elapsed(&timer))
         {
             if(info_verify_boot() == INFO_BOOT_OK)
             {
@@ -54,15 +58,18 @@ int main(void)
                 jump_to_main();
             }
 
-            while(1);
+            simple_timer_setup(&timer, 1000, true);
+
+            while(1)
+            {
+                if(simple_timer_has_elapsed(&timer))
+                {
+                    led->toggle();
+                }
+            }
         }
 
-        if((ticks->get() - start_time2) >= 100)
-        {
-            comms_update();
-            // receive erase app command
+        comms_update();
 
-            start_time2 = ticks->get();
-        }
     }
 }
