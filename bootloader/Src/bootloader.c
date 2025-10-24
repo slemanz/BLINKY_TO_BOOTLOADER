@@ -1,5 +1,5 @@
 #include "config_boot.h"
-#include "boot_info.h"
+#include "bl_info.h"
 #include <stdio.h>
 
 // interface

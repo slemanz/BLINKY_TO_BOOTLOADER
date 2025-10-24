@@ -1,5 +1,5 @@
-#ifndef INC_BOOT_INFO_H_
-#define INC_BOOT_INFO_H_
+#ifndef INC_BL_INFO_H_
+#define INC_BL_INFO_H_
 
 #include <stdint.h>
 

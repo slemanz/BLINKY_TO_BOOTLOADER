@@ -1,4 +1,4 @@
-#include "boot_info.h"
+#include "bl_info.h"
 #include "driver_flash.h"
 
 static void info_set(uint8_t id)
