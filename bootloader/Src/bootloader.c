@@ -1,5 +1,5 @@
 #include "config_boot.h"
-#include "bl_info.h"
+#include "bl-info.h"
 #include "bl-flash.h"
 
 // interface
@@ -28,13 +28,13 @@ int main(void)
     //Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
 
     comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
-    bl_flash_erase_main_application();
+    //bl_flash_erase_main_application();
 
     while(1)
     {
         if(simple_timer_has_elapsed(&timer))
         {
-            if(info_verify_boot() == INFO_BOOT_OK)
+            if(bl_info_verify_boot() == INFO_BOOT_OK)
             {
                 deinit_boot();
                 jump_to_main();

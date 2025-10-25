@@ -1,4 +1,5 @@
 #include "bl-flash.h"
+#include "bl-info.h"
 #include "driver_flash.h"
 
 #define MAIN_APP_SECTOR_START (2)
@@ -6,8 +7,9 @@
 
 void bl_flash_erase_main_application(void)
 {
-    flash_unlock_cr();
+    bl_info_set_boot_update();
 
+    flash_unlock_cr();
     flash_erase_sectors(MAIN_APP_SECTOR_START, (MAIN_APP_SECTOR_END - MAIN_APP_SECTOR_START));
     flash_lock_cr();
 }

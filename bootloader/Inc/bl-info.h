@@ -10,10 +10,10 @@
 #define INFO_ADDRESS            0x08060000UL
 
 
-uint8_t info_verify_boot(void);
-void info_set_boot_ok(void);
-void info_set_boot_update(void);
-uint8_t info_get(void);
+uint8_t bl_info_verify_boot(void);
+void bl_info_set_boot_ok(void);
+void bl_info_set_boot_update(void);
+uint8_t bl_info_get(void);
 
 
 #endif /* INC_BOOT_INFO_H_ */

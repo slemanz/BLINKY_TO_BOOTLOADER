@@ -36,7 +36,7 @@ OBJS		+= $(BUILD_DIR)/bootloader.o
 OBJS		+= $(BUILD_DIR)/syscalls.o
 OBJS		+= $(BUILD_DIR)/startup.o
 OBJS		+= $(BUILD_DIR)/config_boot.o
-OBJS		+= $(BUILD_DIR)/bl_info.o
+OBJS		+= $(BUILD_DIR)/bl-info.o
 OBJS		+= $(BUILD_DIR)/bl-flash.o
 
 DRIVERS		+= $(BUILD_DIR)/driver_clock.o
