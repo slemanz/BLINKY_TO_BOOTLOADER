@@ -94,7 +94,7 @@ void flash_erase_sector(uint32_t sector)
 {
 
     flash_wait_for_last_operation();
-    flash_set_program_size(FLASH_PSIZE_X8);
+    flash_set_program_size(FLASH_PSIZE_X32);
 
     if(sector > 7)
     {
