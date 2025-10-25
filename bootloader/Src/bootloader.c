@@ -1,6 +1,6 @@
 #include "config_boot.h"
 #include "bl_info.h"
-#include <stdio.h>
+#include "bl-flash.h"
 
 // interface
 #include "interface_timebase.h"
@@ -12,9 +12,6 @@
 
 // core
 #include "core/simple-timer.h"
-
-// drivers
-#include "driver_flash.h"
 
 int main(void)
  {
@@ -31,6 +28,7 @@ int main(void)
     //Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
 
     comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
+    bl_flash_erase_main_application();
 
     while(1)
     {
