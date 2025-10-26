@@ -15,3 +15,8 @@ def packet_is_ack(response):
         return True
     return False
 
+def packet_is_sync(response):
+    if(list(response) == packet_command(0x20)):
+        return True
+    return False
+
