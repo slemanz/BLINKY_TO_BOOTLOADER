@@ -52,6 +52,29 @@ static void check_for_timeout(void)
     }
 }
 
+static bool is_device_id_packet(const comms_packet_t *packet)
+{
+    if(packet->length != 2)
+    {
+        return false;
+    }
+
+    if(packet->data[0] != BL_PACKET_DEVICE_ID_RES_DATA0)
+    {
+        return false;
+    }
+
+    for(uint8_t i = 2; i < PACKET_DATA_BYTES; i++)
+    {
+        if(packet->data[i] != 0xff)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 int main(void)
  {
     config_drivers();
@@ -131,6 +154,34 @@ int main(void)
                     check_for_timeout();
                 }
                 break;
+
+            case BL_State_DeviceIDReq:
+            {
+                simple_timer_reset(&timer);
+                comms_create_single_byte_packet(&temp_packet, BL_PACKET_DEVICE_ID_REQ_DATA0);
+                comms_write(&temp_packet);
+                state = BL_State_DeviceIDRes;
+            }break;
+
+            case BL_State_DeviceIDRes:
+            {
+                if(comms_packets_available())
+                {
+                    comms_read(&temp_packet);
+                    if(is_device_id_packet(&temp_packet) && (temp_packet.data[1] == DEVICE_ID))
+                    {
+                        simple_timer_reset(&timer);
+                        state = BL_State_FWLengthReq;
+                    }else
+                    {
+                        bootloading_fail();
+                    }
+
+                }else
+                {
+                    check_for_timeout();
+                }
+            }break;
         
             default:
                 break;
