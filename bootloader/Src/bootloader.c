@@ -66,7 +66,6 @@ int main(void)
 
     Comm_Interface_t *serial = Comm_ProtocolGet(PROTOCOL_UART2);
     comms_setup(Comm_ProtocolGet(PROTOCOL_UART2));
-    //bl_flash_erase_main_application();
 
     //const char *test = "test\n";
     //serial->send((uint8_t*)test, 5);
@@ -104,13 +103,42 @@ int main(void)
             {
                 check_for_timeout();
             }
+
+            continue;
         }
 
-        continue;
+        comms_update();
+
+        switch (state)
+        {
+            case BL_State_WaitForUpdateReq:
+                if(comms_packets_available())
+                {
+                    comms_read(&temp_packet);
+                    
+                    if(comms_is_single_byte_packet(&temp_packet, BL_PACKET_FW_UPDATE_REQ_DATA0))
+                    {
+                        simple_timer_reset(&timer);
+                        comms_create_single_byte_packet(&temp_packet, BL_PACKET_FW_UPDATE_RES_DATA0);
+                        comms_write(&temp_packet);
+                        state = BL_State_DeviceIDReq;
+                    }else
+                    {
+                        bootloading_fail();
+                    }
+                }else
+                {
+                    check_for_timeout();
+                }
+                break;
+        
+            default:
+                break;
+        }
+
     }
 
 
-    comms_update();
 
     if(bl_info_verify_boot() == INFO_BOOT_OK)
     {
