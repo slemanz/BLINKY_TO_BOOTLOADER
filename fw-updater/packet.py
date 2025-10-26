@@ -20,3 +20,13 @@ def packet_is_sync(response):
         return True
     return False
 
+def packet_is_fail(response):
+    if(list(response) == packet_command(0x59)):
+        return True
+    return False
+
+def packet_is_update_res(response):
+    if(list(response) == packet_command(0x37)):
+        return True
+    return False
+
