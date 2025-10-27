@@ -21,6 +21,20 @@ def packet_create_id(id):
     packet.append(crc8(packet))
     return packet
 
+def packet_create_fw_length(length):
+    packet = []
+
+    packet.append(0x05)
+    packet.append(0x45)
+    packet.append((length) & 0xFF)
+    packet.append((length >> 8) & 0xFF)
+    packet.append((length >> 16) & 0xFF)
+    packet.append((length >> 24) & 0xFF)
+    for _ in range(11):
+        packet.append(0xFF)
+    packet.append(crc8(packet))
+    return packet
+
 def packet_is_ack(response):
     if(list(response) == packet_command(0x15)):
         return True

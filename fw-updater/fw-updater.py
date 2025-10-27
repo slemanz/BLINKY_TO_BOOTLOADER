@@ -1,10 +1,19 @@
 import serial
 from packet import packet_command, packet_is_ack, packet_is_sync, \
     packet_is_fail, packet_is_update_res, packet_create_id, packet_is_id_req, \
-    packet_is_fw_length_req
-
+    packet_is_fw_length_req, packet_create_fw_length
 
 print("INIT FW-UPDATER")
+
+try:
+    BOOTLOADER_SIZE = 0x8000
+    with open("Build/flash.bin", "rb") as f:
+        f.read(BOOTLOADER_SIZE)
+        raw_file = f.read()
+except:
+    print("Error trying to open flash.bin file")
+    exit()
+
 
 with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
     print("Conectado")
@@ -44,7 +53,7 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
     response = ser.read(18)
     if not packet_is_ack(response): exit()
 
-    # FW LENGTH
+    # FW LENGTH REQ
     response = ser.read(18)
     if(packet_is_fw_length_req(response)):
         print("FW LENGTH REQ")
@@ -54,14 +63,14 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
     else:
         exit()
 
-    exit()
-
-    print("SEND COMMAND")
-    ser.write(packet_command(0x02))
+    # FW LENGTH RES
+    print("FW LENGTH RES")
+    ser.write(packet_create_fw_length(len(raw_file)))
     response = ser.read(18)
+    if not packet_is_ack(response): exit()
 
+    # READY FOR DATA
+    ser.timeout = 20
 
-    if(packet_is_ack(response)):
-        print("ACK")
+    ser.timeout = 2
 
-    
