@@ -1,5 +1,6 @@
 import serial
-from packet import packet_command, packet_is_ack, packet_is_sync, packet_is_fail, packet_is_update_res
+from packet import packet_command, packet_is_ack, packet_is_sync, \
+    packet_is_fail, packet_is_update_res, packet_create_id, packet_is_id_req 
 
 
 print("INIT FW-UPDATER")
@@ -28,6 +29,18 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
         print("UPDATE RES FAIL")
     else:
         exit()
+
+
+    # ID
+    response = ser.read(18)
+    if(packet_is_id_req(response)):
+        print("ID REQ")
+    else:
+        exit()
+    
+    ser.write(packet_create_id(0x42))
+    response = ser.read(18)
+    if not packet_is_ack(response): exit()
 
     exit()
 
