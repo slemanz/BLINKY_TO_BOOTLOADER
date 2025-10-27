@@ -46,3 +46,7 @@ def packet_is_id_req(response):
         return True
     return False
 
+def packet_is_fw_length_req(response):
+    if(list(response) == packet_command(0x42)):
+        return True
+    return False
