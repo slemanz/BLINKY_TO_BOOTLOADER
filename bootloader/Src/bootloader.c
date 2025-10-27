@@ -33,6 +33,7 @@ typedef enum{
 }bl_state_t;
 
 static bl_state_t state = BL_State_Sync;
+static uint32_t fw_length = 0;
 static uint8_t sync_seq[4] = {0};
 static comms_packet_t temp_packet;
 simple_timer_t timer;
@@ -70,6 +71,26 @@ static bool is_device_id_packet(const comms_packet_t *packet)
         {
             return false;
         }
+    }
+
+    return true;
+}
+
+static bool is_fw_length_packet(const comms_packet_t *packet)
+{
+    if(packet->length != 5)
+    {
+        return false;
+    }
+
+    if(packet->data[0] != BL_PACKET_FW_LENGTH_RES_DATA0)
+    {
+        return false;
+    }
+
+    for(uint8_t i = 5; i < PACKET_DATA_BYTES; i++)
+    {
+        if(packet->data[i] != 0xFF) return false;
     }
 
     return true;
@@ -191,6 +212,33 @@ int main(void)
                 state = BL_State_FWLengthRes;
             }break;
 
+            case BL_State_FWLengthRes:
+            {
+                if(comms_packets_available())
+                {
+                    comms_read(&temp_packet);
+
+                    fw_length = (
+                        (temp_packet.data[1])       |
+                        (temp_packet.data[2] << 8)  |
+                        (temp_packet.data[3] << 16) |
+                        (temp_packet.data[4] << 24)   
+                    );
+
+                    if(is_fw_length_packet(&temp_packet) && (fw_length <= MAX_FW_LENGTH))
+                    {
+                        state = BL_State_EraseApplication;
+                    }else
+                    {
+                        bootloading_fail();
+                    }
+
+                    
+                }else
+                {
+                    check_for_timeout();
+                }
+            }break;
         
             default:
                 break;
