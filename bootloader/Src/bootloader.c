@@ -182,6 +182,15 @@ int main(void)
                     check_for_timeout();
                 }
             }break;
+
+            case BL_State_FWLengthReq:
+            {
+                simple_timer_reset(&timer);
+                comms_create_single_byte_packet(&temp_packet, BL_PACKET_FW_LENGTH_REQ_DATA0);
+                comms_write(&temp_packet);
+                state = BL_State_FWLengthRes;
+            }break;
+
         
             default:
                 break;
