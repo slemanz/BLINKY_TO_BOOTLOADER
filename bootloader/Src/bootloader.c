@@ -34,6 +34,7 @@ typedef enum{
 
 static bl_state_t state = BL_State_Sync;
 static uint32_t fw_length = 0;
+static uint32_t bytes_written = 0;
 static uint8_t sync_seq[4] = {0};
 static comms_packet_t temp_packet;
 simple_timer_t timer;
@@ -240,19 +241,47 @@ int main(void)
 
             case BL_State_EraseApplication:
             {
+                bl_info_set_boot_update();
                 bl_flash_erase_main_application();
                 comms_create_single_byte_packet(&temp_packet, BL_PACKET_READY_FOR_DATA_DATA0);
                 comms_write(&temp_packet);
                 simple_timer_reset(&timer);
                 state = BL_State_ReceiveFirmware;
             }break;
+
+            case BL_State_ReceiveFirmware:
+            {
+                if(comms_packets_available())
+                {
+                    comms_read(&temp_packet);
+
+                    const uint8_t packet_len = (temp_packet.length & 0x0f) + 1;
+                    bl_flash_write(MAIN_APP_START_ADDRESS + bytes_written, temp_packet.data, packet_len);
+                    bytes_written += packet_len;
+                    simple_timer_reset(&timer);
+
+                    if(bytes_written >= fw_length)
+                    {
+                        comms_create_single_byte_packet(&temp_packet, BL_PACKET_UPDATE_SUCCESSFUL_DATA0);
+                        comms_write(&temp_packet);
+                        state = BL_State_Done;
+                    }else
+                    {
+                        comms_create_single_byte_packet(&temp_packet, BL_PACKET_READY_FOR_DATA_DATA0);
+                        comms_write(&temp_packet);
+                    }
+                }else
+                {
+                    check_for_timeout();
+                }
+            }break;
         
             default:
+                state = BL_State_Sync;
                 break;
         }
 
     }
-
 
 
     if(bl_info_verify_boot() == INFO_BOOT_OK)
