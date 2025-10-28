@@ -255,7 +255,7 @@ int main(void)
                 {
                     comms_read(&temp_packet);
 
-                    const uint8_t packet_len = (temp_packet.length & 0x0f) + 1;
+                    uint8_t packet_len = (temp_packet.length & 0x0f) + 1;
                     bl_flash_write(MAIN_APP_START_ADDRESS + bytes_written, temp_packet.data, packet_len);
                     bytes_written += packet_len;
                     simple_timer_reset(&timer);
