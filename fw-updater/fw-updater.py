@@ -1,7 +1,9 @@
 import serial
+from crc import crc8
 from packet import packet_command, packet_is_ack, packet_is_sync, \
     packet_is_fail, packet_is_update_res, packet_create_id, packet_is_id_req, \
-    packet_is_fw_length_req, packet_create_fw_length, packet_is_ready_for_data
+    packet_is_fw_length_req, packet_create_fw_length, packet_is_ready_for_data, \
+    packet_is_succesful
 
 print("INIT FW-UPDATER")
 
@@ -65,13 +67,13 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
 
     # FW LENGTH RES
     print("FW LENGTH RES")
+    print(len(raw_file))
     ser.write(packet_create_fw_length(len(raw_file)))
     response = ser.read(18)
     if not packet_is_ack(response): exit()
 
     # READY FOR DATA
     ser.timeout = 20
-
     response = ser.read(18)
     if(packet_is_ready_for_data(response)):
         print("READY FOR DATA")
@@ -80,7 +82,54 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
         exit()
     else:
         exit()
-    
-
     ser.timeout = 2
+
+    # SEND FIRMWARE
+    written_bytes = 0
+    packet_len = 0
+    len_to_send = len(raw_file)
+
+    while(not packet_is_succesful(response)):
+        packet = []
+        if(len_to_send <= 0):
+            print("ERROR LEN")
+            print(list(response))
+            response = ser.read(18)
+            print(list(response))
+            exit()
+
+        if(len_to_send > 16):
+            packet_len = 16
+        else: 
+            packet_len = len_to_send
+
+        packet.append(packet_len)
+        for x in range(16):
+            if(x < packet_len):
+                packet.append(raw_file[written_bytes + x])
+            else:
+                packet.append(0xFF)
+        packet.append(crc8(packet))
+
+        ser.write(packet)
+        written_bytes += packet_len
+        len_to_send -= packet_len
+
+        response = ser.read(18)
+        if not packet_is_ack(response): 
+            print("ERROR ACK")
+            exit()
+        
+        response = ser.read(18)
+        if(packet_is_ready_for_data(response)):
+            print(str(written_bytes) + "/" + str(len(raw_file)))
+            #print(packet)
+            continue
+        elif(packet_is_succesful(response)):
+            print("SUCCESFUL")
+            exit()
+        else:
+            print(response)
+            print("ERROR RECEIVE NOT READY")
+            exit()
 
