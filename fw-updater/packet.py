@@ -64,3 +64,8 @@ def packet_is_fw_length_req(response):
     if(list(response) == packet_command(0x42)):
         return True
     return False
+
+def packet_is_ready_for_data(response):
+    if(list(response) == packet_command(0x48)):
+        return True
+    return False

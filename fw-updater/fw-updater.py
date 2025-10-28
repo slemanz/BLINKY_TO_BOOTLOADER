@@ -1,7 +1,7 @@
 import serial
 from packet import packet_command, packet_is_ack, packet_is_sync, \
     packet_is_fail, packet_is_update_res, packet_create_id, packet_is_id_req, \
-    packet_is_fw_length_req, packet_create_fw_length
+    packet_is_fw_length_req, packet_create_fw_length, packet_is_ready_for_data
 
 print("INIT FW-UPDATER")
 
@@ -71,6 +71,16 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
 
     # READY FOR DATA
     ser.timeout = 20
+
+    response = ser.read(18)
+    if(packet_is_ready_for_data(response)):
+        print("READY FOR DATA")
+    elif (packet_is_fail(response)):
+        print("FW UPDATE FAIL")
+        exit()
+    else:
+        exit()
+    
 
     ser.timeout = 2
 
