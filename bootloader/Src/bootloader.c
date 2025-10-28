@@ -232,12 +232,19 @@ int main(void)
                     {
                         bootloading_fail();
                     }
-
-                    
                 }else
                 {
                     check_for_timeout();
                 }
+            }break;
+
+            case BL_State_EraseApplication:
+            {
+                bl_flash_erase_main_application();
+                comms_create_single_byte_packet(&temp_packet, BL_PACKET_READY_FOR_DATA_DATA0);
+                comms_write(&temp_packet);
+                simple_timer_reset(&timer);
+                state = BL_State_ReceiveFirmware;
             }break;
         
             default:
