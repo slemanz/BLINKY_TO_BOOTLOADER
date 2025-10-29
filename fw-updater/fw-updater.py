@@ -1,4 +1,5 @@
 import serial
+from time import sleep
 from crc import crc8
 from packet import packet_command, packet_is_ack, packet_is_sync, \
     packet_is_fail, packet_is_update_res, packet_create_id, packet_is_id_req, \
@@ -19,6 +20,8 @@ except:
 
 with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
     print("Conectado")
+    ser.write("boot\n".encode())
+    sleep(0.3)
     ser.flushInput()
     ser.flushOutput()
 
@@ -67,7 +70,6 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
 
     # FW LENGTH RES
     print("FW LENGTH RES")
-    print(len(raw_file))
     ser.write(packet_create_fw_length(len(raw_file)))
     response = ser.read(18)
     if not packet_is_ack(response): exit()
@@ -93,9 +95,6 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
         packet = []
         if(len_to_send <= 0):
             print("ERROR LEN")
-            print(list(response))
-            response = ser.read(18)
-            print(list(response))
             exit()
 
         if(len_to_send > 16):
@@ -122,12 +121,15 @@ with serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=2) as ser:
         
         response = ser.read(18)
         if(packet_is_ready_for_data(response)):
-            print(str(written_bytes) + "/" + str(len(raw_file)))
-            #print(packet)
+            if((written_bytes % 512) == 0):
+                print(str(written_bytes) + "/" + str(len(raw_file)))
             continue
+
         elif(packet_is_succesful(response)):
+            print(str(written_bytes) + "/" + str(len(raw_file)))
             print("SUCCESFUL")
             exit()
+
         else:
             print(response)
             print("ERROR RECEIVE NOT READY")
