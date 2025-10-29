@@ -94,7 +94,7 @@ $(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(SHARED) $(INTERFACE) $(COMMS)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf
-	python3 pad_bootloader.py
+	python pad_bootloader.py
 
 load:
 	openocd -f interface/jlink.cfg -c "transport select swd" -f target/stm32f4x.cfg -c init -c "reset init" \

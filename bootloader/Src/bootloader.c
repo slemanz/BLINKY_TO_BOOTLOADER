@@ -255,7 +255,7 @@ int main(void)
                 {
                     comms_read(&temp_packet);
 
-                    uint8_t packet_len = (temp_packet.length & 0x0f) + 1;
+                    uint8_t packet_len = temp_packet.length >= 16 ? 16 : temp_packet.length;
                     bl_flash_write(MAIN_APP_START_ADDRESS + bytes_written, temp_packet.data, packet_len);
                     bytes_written += packet_len;
                     simple_timer_reset(&timer);
@@ -263,6 +263,7 @@ int main(void)
                     if(bytes_written >= fw_length)
                     {
                         comms_create_single_byte_packet(&temp_packet, BL_PACKET_UPDATE_SUCCESSFUL_DATA0);
+                        bl_info_set_boot_ok();
                         comms_write(&temp_packet);
                         state = BL_State_Done;
                     }else
