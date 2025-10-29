@@ -28,7 +28,7 @@ int main(void)
 
     while (1)
     {
-        if((ticks->get() - start_time) >= 500)
+        if((ticks->get() - start_time) >= 200)
         {
             led_get(LED_NUM_1)->toggle();
             start_time = ticks->get();

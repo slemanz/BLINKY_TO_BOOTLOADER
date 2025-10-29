@@ -103,5 +103,8 @@ load:
 	openocd -f interface/jlink.cfg -c "transport select swd" -f target/stm32f4x.cfg -c init -c "reset init" \
 	-c "flash write_image erase Build/$(TARGET).elf" -c "reset run" -c shutdown
 
+ldserial:
+	python ../fw-updater/fw-updater.py
+
 clean:
 	rm -rf $(BUILD_DIR)/*.map $(BUILD_DIR)/*.o
