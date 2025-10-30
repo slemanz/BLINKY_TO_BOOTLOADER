@@ -1,18 +1,32 @@
 # Blinky to Bootloader
 
-Welcome to the **Blinky to Bootloader** repository! This project is dedicated to exploring the STM32F401 microcontroller from the basics all the way to a fully functional bootloader that includes an update mechanism. We focus on bare metal programming without the use of any IDE, allowing you to gain a deeper understanding of embedded systems.
+This project began as a simple LED blinky example and has evolved into a robust
+STM32F411 application with a complete layered architecture. It now features a
+UART-based bootloader with full Device Firmware Update (DFU) capabilities. The
+entire codebase is developed for a bare-metal environment, providing deep
+control over the hardware without relying on any IDE.
 
-In this repository, you will find simple examples starting with the classic "Blinky" program. As you progress, you'll learn how to implement UART communication, and eventually, develop a bootloader capable of firmware updates. Each code example is well-documented to ensure you can follow along easily and grasp the low-level interaction with the hardware.
+Every module is accompanied by clear documentation to demonstrate essential
+embedded systems concepts and direct microcontroller interaction. This
+repository serves as a practical reference for implementing a well-structured,
+maintainable, and scalable embedded system on an STM32.
 
-Clone the repository, set up your toolchain, and start coding! This project is designed for anyone looking to enhance their skills in embedded programming, whether you're a beginner or an experienced engineer.
-
-Inspired in [Low Byte Productions](https://www.youtube.com/@LowByteProductions) series.
-
----
-
-## Drivers
-
-All drivers in this repository have been crafted in a bare-metal environment, ensuring optimal performance and control. You can 
-view the complete set of drivers in the [Drivers folder](drivers/).
+Inspired by [Low Byte Productions](https://www.youtube.com/@LowByteProductions) Youtube series.
 
 ---
+
+## Achitecture
+
+This embedded project follows a layered architecture divided into 5 distinct layers:
+
+┌────────────────┐
+│      APP       │  
+├────────────────┤
+│     COMMON     │  
+├────────────────┤
+│   INTERFACE    │  
+├────────────────┤
+│    DRIVERS     │  
+├────────────────┤
+│    HARDWARE    │  
+└────────────────┘
