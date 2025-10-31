@@ -2,11 +2,9 @@
 
 #include "config_app.h"
 
-// interface
-#include "interface_timebase.h"
-
 // core
 #include "core/cli.h"
+#include "core/simple-timer.h"
 
 // bsp
 #include "bsp/led.h"
@@ -19,19 +17,20 @@ int main(void)
     config_core();
     config_bsp();
 
-    Timebase_Interface_t *ticks = timebase_get();
-    uint64_t start_time = ticks->get();
-    uint64_t start_time2 = ticks->get();
+    simple_timer_t timer_blink;
+    simple_timer_setup(&timer_blink, 300, true);
+
+    simple_timer_t timer_cli;
+    simple_timer_setup(&timer_cli, 100, true);
 
     printf("\n");
     printf("Init app\n");
 
     while (1)
     {
-        if((ticks->get() - start_time) >= 200)
+        if(simple_timer_has_elapsed(&timer_blink))
         {
             led_get(LED_NUM_1)->toggle();
-            start_time = ticks->get();
         }
 
         if(button_get(BUTTON_NUM_1)->read() == BUTTON_LOW)
@@ -42,11 +41,11 @@ int main(void)
             led_get(LED_NUM_2)->set(LED_OFF);
         }
 
-        if((ticks->get() - start_time2) >= 100)
+        if(simple_timer_has_elapsed(&timer_cli))
         {
             cli_update();
-            start_time2 = ticks->get();
         }
+
         // Do other stuff
     }
 }

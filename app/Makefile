@@ -51,6 +51,7 @@ SHARED		+= $(BUILD_DIR)/crc8.o
 SHARED		+= $(BUILD_DIR)/ring-buffer.o
 
 CORE		+= $(BUILD_DIR)/cli.o
+CORE		+= $(BUILD_DIR)/simple-timer.o
 
 BSP			+= $(BUILD_DIR)/led.o
 BSP			+= $(BUILD_DIR)/button.o

@@ -43,6 +43,7 @@ void config_drivers(void)
 *************************************************************/
 
 #include "interface_comm.h"
+#include "interface_timebase.h"
 
 void config_interface(void)
 {
@@ -53,6 +54,7 @@ void config_interface(void)
 *                         CORE                              *
 *************************************************************/
 #include "core/cli.h"
+#include "core/simple-timer.h"
 
 const command_t commands_table[] = {
     {"boot", jump_bootloader, "Jump to bootloader"},
@@ -62,7 +64,7 @@ const command_t commands_table[] = {
 void config_core(void)
 {
     cli_setup(Comm_ProtocolGet(PROTOCOL_UART2), (command_t*)commands_table, 2);
-
+    simple_timer_init(timebase_get());
 }
 
 /************************************************************
